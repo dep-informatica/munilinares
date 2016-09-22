@@ -244,6 +244,11 @@ class Welcome extends CI_Controller {
             echo json_encode(array("valor" => $valor));
         }
     }
+    
+    //echos municipales
+    function vistaechosmunicipales(){
+        $this->load->view('hechos-municipales');
+    }
 
 }
 

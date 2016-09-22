@@ -25,6 +25,9 @@
         <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>../css/alertify.core.css"/>
         <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>../css/alertify.default.css"/>
         <script type="text/javascript" src="<?php echo base_url(); ?>../js/funciones.js"></script>
+        <!--hechos municipales-->
+        <script src="<?php echo base_url(); ?>../js/hechos-municipales.js" type="text/javascript"></script>
+        
     </head>
     <body>
         <div id="fb-root"></div>
@@ -407,7 +410,7 @@
                         </div>
 
                         <div class="banner banner-corto">
-                            <a href="#"><img src="http://placehold.it/320x100" alt="Banner 320x120"></a>
+                            <a href="#" onclick="vistahechosmunicipal();"><img src="<?php echo base_url(); ?>../img/hechos-municipal.PNG" alt="Banner 320x120"></a>
                         </div>
 
                         <div class="banner banner-corto">
