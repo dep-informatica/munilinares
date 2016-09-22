@@ -43,6 +43,19 @@ template {
 a {
     background: transparent;
 }
+
+
+.mensage{
+			border:dashed 1px red;
+			background-color:#FFC6C7;
+			color: #000000;
+			padding: 10px;
+			text-align: left;
+			margin: 10px auto; 
+			display: none; 
+                      
+		}
+
 a:active,
 a:hover {
     outline: 0;

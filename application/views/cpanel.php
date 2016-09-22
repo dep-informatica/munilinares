@@ -17,10 +17,10 @@
     });
 
     $(function () {
-        $("#file").on("change", function () {
+        $("#archivos").on("change", function () {
 //            $("#vistaa").html("");
 
-            var archivos = document.getElementById('file').files;
+            var archivos = document.getElementById('archivos').files;
             var navegator = window.URL || window.webkitURL;
             var error = 1;
             if (archivos.length <= 5) {
@@ -121,7 +121,8 @@
                         <tr>
                             <td>Selecciones 5 imagenes</td>
                             <td> 
-                                <input type="file" id="file" name="file[]" multiple="multiple"/>
+                                <input type="file"  multiple="multiple" id="archivos">
+                                <!--<input type="file" id="file" name="file[]" multiple="multiple"/>-->
                             </td>
 
                         </tr>
@@ -130,7 +131,7 @@
                             <td><div id="vistaa">:</div></td>
                         </tr>
                         <tr>
-                            <td></td>
+                            <td><div class="mensage"> Archivos Subidos Correctamente </div>   </td>
                             <td><div  id="ingresarnoticia">INGRESAR NOTICIA</div></td>
                         </tr>
                     </table>

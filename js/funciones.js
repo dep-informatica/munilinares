@@ -12,9 +12,13 @@ $(document).ready(function () {
 //    $("#nuevacategoria").button().click(function() {
 //        ingresarcategoria();
 //    });
-//    $("#modificarcategoria").button().click(function() {
-//        modificarcategoria();
-//    });
+
+    $("#ingresarnoticia").button().click(function() {
+        ingresarnoticia();
+    });
+    $(function(){
+	$('#enviar').click(SubirFotos); //Capturamos el evento click sobre el boton con el id=enviar	y ejecutamos la función seleccionado.
+});
 //    
 //    
 //    $("#areacliente").tabs();
@@ -162,7 +166,7 @@ function ingresarnoticia() {
     var autor = $("#txtautor").val();
     var ivideo = $("#ivideo").val();
     var chek = document.getElementById('rvideo');
-    var archivos = document.getElementById('file').files;
+    var archivos = document.getElementById('archivos').files;
    
 
 
