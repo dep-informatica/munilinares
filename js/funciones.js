@@ -16,9 +16,9 @@ $(document).ready(function () {
     $("#ingresarnoticia").button().click(function() {
         ingresarnoticia();
     });
-    $(function(){
-	$('#enviar').click(SubirFotos); //Capturamos el evento click sobre el boton con el id=enviar	y ejecutamos la función seleccionado.
-});
+//    $(function(){
+//	$('#enviar').click(SubirFotos); //Capturamos el evento click sobre el boton con el id=enviar	y ejecutamos la función seleccionado.
+//});
 //    
 //    
 //    $("#areacliente").tabs();

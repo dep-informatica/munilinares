@@ -50,9 +50,6 @@ class modelo extends CI_Model {
     
     
     
-    
-    
-    
     function ingresarusuario($nombre, $correo, $departamento, $clave, $peril) {
         if ($peril == "usuario") {
             $data = array(
