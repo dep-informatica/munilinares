@@ -13,5 +13,6 @@
     </div>
     <div class="clearfix"></div>
     <div accesskey="aa"></div>
+    <div accesskey="bbb"></div>
 </div>
 
