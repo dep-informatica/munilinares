@@ -12,5 +12,6 @@
         <h4 class="title"><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer quis pretium seme, turpis mi mollis leo</a></h4>
     </div>
     <div class="clearfix"></div>
+    <div accesskey="aa"></div>
 </div>
 
