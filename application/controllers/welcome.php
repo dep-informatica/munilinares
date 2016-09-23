@@ -39,40 +39,28 @@ class Welcome extends CI_Controller {
         echo json_encode(array("comentario" => $comentario, "fecha" => $fecha));
     }
 
-    function ingresarnoticia() {
+    function ingresarnoti() {
 
-        $titulo = $this->input->post('titulo');
-        $encabezado = $this->input->post('encabezado');
-        $texo = $this->input->post('texto');
-        $bibliografia = $this->input->post('bibliografia ');
-        $autor = $this->input->post('autor');
-        $ivideo = $this->input->post('ivideo');
-//        $archivos = $this->input->post('archivos');
-        if ($_FILES["file"]["name"][0]) {
-            echo "ok";
-        }
-
-        $valorfoto = 0;
-        for ($x = 0; $x < count($_FILES["file"]["name"]); $x++) {
-            $origen = $_FILES["file"]["tmp_name"][$x];
-            $destino = "../fotografias/" . $_FILES["file"]["name"][$x];
-            if (@move_uploaded_file($origen, $destino)) {
-                $valorfoto = 1;
-            } else {
-                $valorfoto = 2;
+        $ruta = './Files/'; //Decalaramos una variable con la ruta en donde almacenaremos los archivos
+        $mensage = ''; //Declaramos una variable mensaje quue almacenara el resultado de las operaciones.
+        $valor = "0";
+        foreach ($_FILES as $key) { //Iteramos el arreglo de archivos
+            if ($key['error'] == UPLOAD_ERR_OK) {//Si el archivo se paso correctamente Ccontinuamos 
+                $NombreOriginal = $key['name']; //Obtenemos el nombre original del archivo
+                $temporal = $key['tmp_name']; //Obtenemos la ruta Original del archivo
+                $Destino = $ruta . date("c") . $NombreOriginal; //Creamos una ruta de destino con la variable ruta y el nombre original del archivo	
+                move_uploaded_file($temporal, $Destino); //Movemos el archivo temporal a la ruta especificada	
+            }
+            if ($key['error'] == '') { //Si no existio ningun error, retornamos un mensaje por cada archivo subido
+                $mensage .= '-> Archivo <b>' . $NombreOriginal . '</b> Subido correctamente. <br>';
+                $valor = "1";
+            }
+            if ($key['error'] != '') {//Si existio algún error retornamos un el error por cada archivo.
+                $mensage .= '-> No se pudo subir el archivo <b>' . $NombreOriginal . '</b> debido al siguiente Error: \n' . $key['error'];
+                $valor = "0";
             }
         }
-
-
-
-        if ($this->modelo->ingresarnoticia($titulo, $encabezado, $texo, $bibliografia, $autor, $ivideo) == 1) {
-            $valor = 1;
-        } else {
-            $valor = 2;
-        }
-
-
-        echo json_encode(array("valor" => $valor));
+        echo ($valor); // Regresamos los mensajes generados al cliente
     }
 
     function conectar() {
@@ -244,9 +232,9 @@ class Welcome extends CI_Controller {
             echo json_encode(array("valor" => $valor));
         }
     }
-    
+
     //echos municipales
-    function vistaechosmunicipales(){
+    function vistaechosmunicipales() {
         $this->load->view('hechos-municipales');
     }
 

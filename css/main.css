@@ -8,7 +8,7 @@ body {
     margin: 0;
 }
 #ingresarnoticia:hover{
-/*    background-color:#00a65a;*/
+    /*    background-color:#00a65a;*/
     border-bottom: 2px solid #0f69b4;
 }
 article,
@@ -46,15 +46,17 @@ a {
 
 
 .mensage{
-			border:dashed 1px red;
-			background-color:#FFC6C7;
-			color: #000000;
-			padding: 10px;
-			text-align: left;
-			margin: 10px auto; 
-			display: none; 
-                      
-		}
+    width: 300px;
+    height: 300px;
+    border:dashed 1px red;
+    background-color:#FFC6C7;
+    color: #000000;
+    padding: 10px;
+    text-align: left;
+    margin: 10px auto; 
+    display: none; 
+
+}
 
 a:active,
 a:hover {
@@ -898,7 +900,7 @@ header nav#menu-principal ul li:hover ul.sub-menu {
     max-width: 100%;
 }
 #content #main .stream {
-   
+
     margin: 0 auto 15px;
 }
 #content #main .stream .tarjeta {

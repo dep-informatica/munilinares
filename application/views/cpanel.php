@@ -130,8 +130,12 @@
                             <td> VISTA PREVIA </td>
                             <td><div id="vistaa">:</div></td>
                         </tr>
+                         <tr>
+                            <td><div class="mensage"> </div></td>
+                            <td></td>
+                        </tr>
                         <tr>
-                            <td><div class="mensage"> Archivos Subidos Correctamente </div>   </td>
+                            <td> </td>
                             <td><div  id="ingresarnoticia">INGRESAR NOTICIA</div></td>
                         </tr>
                     </table>
