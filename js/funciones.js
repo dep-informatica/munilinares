@@ -147,6 +147,7 @@ function ingresarHM() {
 
     for (i = 0; i < archivo.length; i++) {
         archivos.append('archivo' + i, archivo[i],fecha);
+        archivos.append('fecha',fecha);
     }
     //var arrayy = [archivos,fecha];
     $.ajax({

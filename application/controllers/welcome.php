@@ -64,7 +64,7 @@ class Welcome extends CI_Controller {
     }
 
     function ingresarHM() {
-        $archivos = $this->input->post('archivos');
+        $archivos = $this->input->post('archivo');
          $fecha = $this->input->post('fecha');
         $ruta = './hechosmunicipales/'; //Decalaramos una variable con la ruta en donde almacenaremos los archivos
         $mensage = ''; //Declaramos una variable mensaje quue almacenara el resultado de las operaciones.
