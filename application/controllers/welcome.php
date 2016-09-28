@@ -64,8 +64,7 @@ class Welcome extends CI_Controller {
     }
 
     function ingresarHM() {
-        $archivos = $this->input->post('archivo');
-         $fecha = $this->input->post('fecha');
+        
         $ruta = './hechosmunicipales/'; //Decalaramos una variable con la ruta en donde almacenaremos los archivos
         $mensage = ''; //Declaramos una variable mensaje quue almacenara el resultado de las operaciones.
         $valor = "0";
@@ -83,8 +82,6 @@ class Welcome extends CI_Controller {
             if ($key['error'] != '') {//Si existio algún error retornamos un el error por cada archivo.
                 $mensage .= '-> No se pudo subir el archivo <b>' . $NombreOriginal . '</b> debido al siguiente Error: \n' . $key['error'];
                 $valor = "1";
-            } else {
-                $valor = "0";
             }
         }
         echo ($valor); // Regresamos los mensajes generados al cliente

@@ -139,37 +139,8 @@ function verifaLogin2() {
             }, 'json'
             );
 }
-function ingresarHM() {
-    var archivos = document.getElementById("archivopdf");//Creamos un objeto con el elemento que contiene los archivos: el campo input file, que tiene el id = 'archivos'
-    var fecha = $("#datepicker").val();
-    var archivo = archivos.files;
-    var archivos = new FormData();
-
-    for (i = 0; i < archivo.length; i++) {
-        archivos.append('archivo' + i, archivo[i],fecha);
-        archivos.append('fecha',fecha);
-    }
-    //var arrayy = [archivos,fecha];
-    $.ajax({
-        url: base_url + "welcome/ingresarHM", //Url a donde la enviaremos
-        type: 'POST', //Metodo que usaremos
-        contentType: false, //Debe estar en false para que pase el objeto sin procesar
-        data:archivos, //Le pasamos el objeto que creamos con los archivos
-        processData: false, //Debe estar en false para que JQuery no procese los datos a enviar
-        cache: false //Para que el formulario no guarde cache
-    }).done(function (valor) {//Escuchamos la respuesta y capturamos el mensaje msg
-        if (valor == "1") {
-            alertify.success("archivos subidos correctamente");
-        } else {
-            alertify.error("Error en la subida delarchivo PDF VERIFIQUE");
-        }
-    });
-
-
-}
 
 function ingresarnoticia() {
-
     var titulo = $("#txttituloo").val();
     var encabezado = $("#txtencabezado").val();
     var texto = $("#txttexto").val();

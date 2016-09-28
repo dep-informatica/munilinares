@@ -414,7 +414,7 @@
                         </div>
 
                         <div class="banner banner-corto">
-                            <a href="#"><img src="http://placehold.it/320x100" alt="Banner 320x120"></a>
+                            <a href="#"><img src="<?php echo base_url(); ?>../img/decretos.png" alt="Banner 320x120"></a>
                         </div>
 
                     </div>
