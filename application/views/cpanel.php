@@ -9,11 +9,15 @@
             }
         });
     });
+
     $("#cerrarSesion").button({icons: {primary: "ui-icon-power"}}).click(function () {
         cerrarSesion();
     });
     $("#ingresarnoticia").button({icons: {primary: "ui-icon-disk"}}).click(function () {
         ingresarnoticia();
+    });
+    $("#ingresarHM").button({icons: {primary: "ui-icon-disk"}}).click(function () {
+        ingresarHM();
     });
 
     $(function () {
@@ -50,17 +54,40 @@
                 $('input[type=file]').val('');
             }
             if (error === 0) {
-                alertify.error("entra");
+
                 $('input[type=file]').val('');
-               
+
             }
 
         });
 
     });
 
+    $(function () {
+        $("#archivopdf").on("change", function () {
 
+            var archivopdf = document.getElementById('archivopdf').files;
+            if (archivopdf.length < 2) {
+                for (var i = 0; i < archivopdf; i++) {
+                    var type = archivopdf[i].type;
+                    var nameee = archivopdf[i].name;
+                    if (type !== 'application/pdf') {
+                        alertify.error("El formato de las Archivo  no es permitido");
+                        $('input[type=file]').val('');
+                        error = 1;
+                    }
+                    var a= nameee.search("pdf");
+                    if(a < 2){
+                         alertify.error("El formato de las Archivo  no es permitido");
+                        $('input[type=file]').val('');
+                        error = 1;
+                    }
+                }
+            }
 
+        });
+    });
+        
 </script>
 
 <div class="widget">
@@ -72,8 +99,8 @@
         <div class="controlgroup">
             <div id="tabs">
                 <ul>
-                    <li><a href="#tabs-1">Ingresar Noticias </a></li>
-                    <li><a href="#tabs-2">Mantenedor Noticiero </a></li>
+                    <li><a href="#tabs-1">Ingresar Noticia </a></li>
+                    <li><a href="#tabs-2">Ingesar Boletin HM </a></li>
                     <li><a href="#tabs-3">Mantenedor de Albunes</a></li>
                     <li><a href="#tabs-4">Cerrar Sesion </a></li>
                 </ul>
@@ -130,7 +157,7 @@
                             <td> VISTA PREVIA </td>
                             <td><div id="vistaa">:</div></td>
                         </tr>
-                         <tr>
+                        <tr>
                             <td><div class="mensage"> </div></td>
                             <td></td>
                         </tr>
@@ -142,6 +169,38 @@
 
                 </div>
                 <div id="tabs-2">
+                    <h3 style="align-content: center">HECHOS MUNICIPALES</h3>
+                    <table border="0">
+                        <tr>
+                            <td> Mes:</td>
+                            <td><input id="datepicker">
+                                <script>
+                                    $('#datepicker').datepicker({
+                                        dateFormat: 'dd-mm-yy',
+                                        duration: "fast",
+                                        showAnim: "drop",
+                                        showOptions: {direction: "up"}
+                                    });
+                                </script> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Selecciones Archivo PDF:</td>
+                            <td><input type="file" name="archivopdf" id="archivopdf"/></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><div id="ingresarHM">Ingresar Boletin</div></td>
+                        </tr>
+                    </table>
 
                 </div>
                 <div id="tabs-3">

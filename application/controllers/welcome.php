@@ -63,6 +63,33 @@ class Welcome extends CI_Controller {
         echo ($valor); // Regresamos los mensajes generados al cliente
     }
 
+    function ingresarHM() {
+        $archivos = $this->input->post('archivos');
+         $fecha = $this->input->post('fecha');
+        $ruta = './hechosmunicipales/'; //Decalaramos una variable con la ruta en donde almacenaremos los archivos
+        $mensage = ''; //Declaramos una variable mensaje quue almacenara el resultado de las operaciones.
+        $valor = "0";
+        foreach ($_FILES as $key) { //Iteramos el arreglo de archivos
+            if ($key['error'] == UPLOAD_ERR_OK) {//Si el archivo se paso correctamente Ccontinuamos 
+                $NombreOriginal = $key['name']; //Obtenemos el nombre original del archivo
+                $temporal = $key['tmp_name']; //Obtenemos la ruta Original del archivo
+                $Destino = $ruta . date("c") . $NombreOriginal; //Creamos una ruta de destino con la variable ruta y el nombre original del archivo	
+                move_uploaded_file($temporal, $Destino); //Movemos el archivo temporal a la ruta especificada	
+            }
+            if ($key['error'] == '') { //Si no existio ningun error, retornamos un mensaje por cada archivo subido
+                $mensage .= '-> Archivo <b>' . $NombreOriginal . '</b> Subido correctamente. <br>';
+                $valor = "0";
+            }
+            if ($key['error'] != '') {//Si existio algún error retornamos un el error por cada archivo.
+                $mensage .= '-> No se pudo subir el archivo <b>' . $NombreOriginal . '</b> debido al siguiente Error: \n' . $key['error'];
+                $valor = "1";
+            } else {
+                $valor = "0";
+            }
+        }
+        echo ($valor); // Regresamos los mensajes generados al cliente
+    }
+
     function conectar() {
 
         $correo = $this->input->post('correo');
