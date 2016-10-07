@@ -39,7 +39,37 @@ class Welcome extends CI_Controller {
         echo json_encode(array("comentario" => $comentario, "fecha" => $fecha));
     }
 
-    function ingresarnoti() {
+    function ingresarnoticia() {
+
+        $titulo = $this->input->post('titulo');
+        $encabezado = $this->input->post('encabezado');
+        $texto = $this->input->post('texto');
+        $bibliografia = $this->input->post('bibliografia');
+        $autor = $this->input->post('autor');
+        $linkofoto = $this->input->post('linkofoto');
+        $ruta = $this->input->post('ruta');
+        $p1 = $this->input->post('p1');
+        $p2 = $this->input->post('p2');
+        $p3 = $this->input->post('p3');
+        $p4 = $this->input->post('p4');
+        $p5 = $this->input->post('p5');
+        if ($linkofoto == "imagen") {
+            $ruta = date("Y-m-d-H") . $ruta;
+        }
+        $p1 = date("Y-m-d-H") . $p1;
+        $p2 = date("Y-m-d-H") . $p2;
+        $p3 = date("Y-m-d-H") . $p3;
+        $p4 = date("Y-m-d-H") . $p4;
+        $p5 = date("Y-m-d-H") . $p5;
+
+        $valor = 1;
+        if ($this->modelo->ingresarnoticia($titulo, $encabezado, $texto, $bibliografia, $autor, $linkofoto, $ruta, $p1, $p2, $p3, $p4, $p5) == 0) {
+            $valor = 0;
+        }
+        echo json_encode(array("valor" => $valor));
+    }
+
+    function ingresaralbun() {
 
         $ruta = './Files/'; //Decalaramos una variable con la ruta en donde almacenaremos los archivos
         $mensage = ''; //Declaramos una variable mensaje quue almacenara el resultado de las operaciones.
@@ -48,7 +78,31 @@ class Welcome extends CI_Controller {
             if ($key['error'] == UPLOAD_ERR_OK) {//Si el archivo se paso correctamente Ccontinuamos 
                 $NombreOriginal = $key['name']; //Obtenemos el nombre original del archivo
                 $temporal = $key['tmp_name']; //Obtenemos la ruta Original del archivo
-                $Destino = $ruta . date("c") . $NombreOriginal; //Creamos una ruta de destino con la variable ruta y el nombre original del archivo	
+                $Destino = $ruta . date("Y-m-d-H") . $NombreOriginal; //Creamos una ruta de destino con la variable ruta y el nombre original del archivo	
+                move_uploaded_file($temporal, $Destino); //Movemos el archivo temporal a la ruta especificada	
+            }
+            if ($key['error'] == '') { //Si no existio ningun error, retornamos un mensaje por cada archivo subido
+                $mensage .= '-> Archivo <b>' . $NombreOriginal . '</b> Subido correctamente. <br>';
+                $valor = "1";
+            }
+            if ($key['error'] != '') {//Si existio algún error retornamos un el error por cada archivo.
+                $mensage .= '-> No se pudo subir el archivo <b>' . $NombreOriginal . '</b> debido al siguiente Error: \n' . $key['error'];
+                $valor = "0";
+            }
+        }
+        echo ($valor); // Regresamos los mensajes generados al cliente
+    }
+
+    function ingresportada() {
+
+        $ruta = './Files/'; //Decalaramos una variable con la ruta en donde almacenaremos los archivos
+        $mensage = ''; //Declaramos una variable mensaje quue almacenara el resultado de las operaciones.
+        $valor = "0";
+        foreach ($_FILES as $key) { //Iteramos el arreglo de archivos
+            if ($key['error'] == UPLOAD_ERR_OK) {//Si el archivo se paso correctamente Ccontinuamos 
+                $NombreOriginal = $key['name']; //Obtenemos el nombre original del archivo
+                $temporal = $key['tmp_name']; //Obtenemos la ruta Original del archivo
+                $Destino = $ruta . date("Y-m-d-H") . $NombreOriginal; //Creamos una ruta de destino con la variable ruta y el nombre original del archivo	
                 move_uploaded_file($temporal, $Destino); //Movemos el archivo temporal a la ruta especificada	
             }
             if ($key['error'] == '') { //Si no existio ningun error, retornamos un mensaje por cada archivo subido
@@ -64,7 +118,7 @@ class Welcome extends CI_Controller {
     }
 
     function ingresarHM() {
-        
+
         $ruta = './hechosmunicipales/'; //Decalaramos una variable con la ruta en donde almacenaremos los archivos
         $mensage = ''; //Declaramos una variable mensaje quue almacenara el resultado de las operaciones.
         $valor = "0";

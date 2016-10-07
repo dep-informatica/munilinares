@@ -18,22 +18,27 @@ $(document).ready(function () {
     });
 
     verifaLogin();
-
+    var p1 = "";
+    var p2 = "";
+    var p3 = "";
+    var p4 = "";
+    var p5 = "";
 
 
 });
 
 function opcionvideo() {
 
-    document.getElementById('ifoto').hidden = true;
+    document.getElementById('archivos2').hidden = true;
     document.getElementById('ivideo').hidden = false;
+    $("#oculto").val("video");
 
 }
 function opcionimagen() {
 
-    document.getElementById('ifoto').hidden = false;
+    document.getElementById('archivos2').hidden = false;
     document.getElementById('ivideo').hidden = true;
-
+    $("#oculto").val("imagen");
 }
 
 
@@ -146,9 +151,9 @@ function ingresarnoticia() {
     var texto = $("#txttexto").val();
     var bibliografia = $("#txtbibliografia").val();
     var autor = $("#txtautor").val();
-    var ivideo = $("#ivideo").val();
-    var chek = document.getElementById('rvideo');
-    var archivos = document.getElementById('archivos').files;
+    var linkofoto = $("#oculto").val();
+    var ruta = $("#ivideo").val();
+    var fotoportada = "";
 
     if (titulo == '' || encabezado == '' || texto == '' || bibliografia == '' || autor == '') {
         alertify.error("Revise los campos! Minimo 3 caracteres");
@@ -162,11 +167,28 @@ function ingresarnoticia() {
          indice para cada archivo, si no hacemos esto, los valores del arreglo se sobre escriben*/
         for (i = 0; i < archivo.length; i++) {
             archivos.append('archivo' + i, archivo[i]); //Añadimos cada archivo a el arreglo con un indice direfente
+            if (i == 0) {
+                var p1 = archivo[i].name;
+            }
+            if (i == 1) {
+                var p2 = archivo[i].name;
+            }
+            if (i == 2) {
+                var p3 = archivo[i].name;
+            }
+            if (i == 3) {
+                var p4 = archivo[i].name;
+            }
+            if (i == 4) {
+                var p5 = archivo[i].name;
+            }
+
+
         }
 
         /*Ejecutamos la función ajax de jQuery*/
         $.ajax({
-            url: base_url + "welcome/ingresarnoti", //Url a donde la enviaremos
+            url: base_url + "welcome/ingresaralbun", //Url a donde la enviaremos
             type: 'POST', //Metodo que usaremos
             contentType: false, //Debe estar en false para que pase el objeto sin procesar
             data: archivos, //Le pasamos el objeto que creamos con los archivos
@@ -176,14 +198,105 @@ function ingresarnoticia() {
             if (valor == "1") {
                 alertify.success("archivos subidos correctamente");
             } else {
-                alertify.error("Error en la subida de archivos VERIFIQUE")
+                alertify.error("Error en la subida de archivos VERIFIQUE");
             }
         });
+        if (linkofoto == "video") {
+            $.post(
+                    base_url + "welcome/ingresarnoticia",
+                    {
+                        titulo: titulo,
+                        encabezado: encabezado,
+                        texto: texto,
+                        bibliografia: bibliografia,
+                        autor: autor,
+                        linkofoto: linkofoto,
+                        ruta: ruta,
+                        p1: p1,
+                        p2: p2,
+                        p3: p3,
+                        p4: p4,
+                        p5: p5
+                    },
+                    function (valor) {
+                        if (valor.valor == 1) {
+                            alertify.error("Datos Fallidos Verifique!");
+                        } else {
+                            alertify.success("Datos guardados Correctamente");
+                            $("#txttituloo").val(" ");
+                            $("#txtencabezado").val(" ");
+                            $("#txttexto").val(" ");
+                            $("#txtbibliografia").val(" ");
+                            $("#txtautor").val(" ");
+                        }
+                    }, 'json');
+
+        }
+        if (linkofoto == "imagen") {
+            var archivos2 = document.getElementById("archivos2");//Creamos un objeto con el elemento que contiene los archivos: el campo input file, que tiene el id = 'archivos'
+            var archivo = archivos2.files; //Obtenemos los archivos seleccionados en el imput
+            //Creamos una instancia del Objeto FormDara.
+            var archivos2 = new FormData();
+            /* Como son multiples archivos creamos un ciclo for que recorra la el arreglo de los archivos seleccionados en el input
+             Este y añadimos cada elemento al formulario FormData en forma de arreglo, utilizando la variable i (autoincremental) como 
+             indice para cada archivo, si no hacemos esto, los valores del arreglo se sobre escriben*/
+            for (i = 0; i < archivo.length; i++) {
+                archivos2.append('archivo' + i, archivo[i]); //Añadimos cada archivo a el arreglo con un indice direfente
+                var fotoportada = archivo[i].name;
+
+
+            }
+            $.ajax({
+                url: base_url + "welcome/ingresportada", //Url a donde la enviaremos
+                type: 'POST', //Metodo que usaremos
+                contentType: false, //Debe estar en false para que pase el objeto sin procesar
+                data: archivos2, //Le pasamos el objeto que creamos con los archivos
+                processData: false, //Debe estar en false para que JQuery no procese los datos a enviar
+                cache: false //Para que el formulario no guarde cache
+            }).done(function (valor) {//Escuchamos la respuesta y capturamos el mensaje msg
+                if (valor == "1") {
+                    alertify.success("archivos subidos correctamente");
+                } else {
+                    alertify.error("Error en la subida de archivos VERIFIQUE");
+                }
+            });
+            $.post(
+                    base_url + "welcome/ingresarnoticia",
+                    {
+                        titulo: titulo,
+                        encabezado: encabezado,
+                        texto: texto,
+                        bibliografia: bibliografia,
+                        autor: autor,
+                        linkofoto: linkofoto,
+                        ruta: fotoportada,
+                        p1: p1,
+                        p2: p2,
+                        p3: p3,
+                        p4: p4,
+                        p5: p5
+                    },
+                    function (valor) {
+                        if (valor.valor == 1) {
+                            alertify.error("Datos Fallidos Verifique!");
+                        } else {
+                            alertify.success("Datos guardados Correctamente");
+                            $("#txttituloo").val(" ");
+                            $("#txtencabezado").val(" ");
+                            $("#txttexto").val(" ");
+                            $("#txtbibliografia").val(" ");
+                            $("#txtautor").val(" ");
+                        }
+                    }, 'json');
+        }
+        ///mascodigo
 
 
     }
-
 }
+
+
+
 function MensajeFinal(msg) {
     $('.mensage').html(msg);//A el div con la clase msg, le insertamos el mensaje en formato  thml
     $('.mensage').show('slow');//Mostramos el div.

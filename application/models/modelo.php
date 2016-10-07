@@ -29,27 +29,29 @@ class modelo extends CI_Model {
         }
     }
 
-    
-       function  ingresarnoticia($titulo, $encabezado, $texo, $bibliografia, $autor, $ivideo) {
-        $estado = "ENVIADO";
+    function ingresarnoticia($titulo, $encabezado, $texto, $bibliografia, $autor, $linkofoto,$ruta, $p1, $p2, $p3, $p4, $p5) {
+
         $data = array(
             "titulo" => $titulo,
             "encabezado" => $encabezado,
-            "parrafo" => $texo,
+            "texto" => $texto,
             "bibliografia" => $bibliografia,
             "autor" => $autor,
-            "link" => $ivideo
+            "linkofoto" => $linkofoto,
+            "ruta" => $ruta,
+            "foto1" => $p1,
+            "foto2" => $p2,
+            "foto3" => $p3,
+            "foto4" => $p4,
+            "foto5" => $p5
         );
         if ($this->db->insert("noticia", $data) == 0) {
-           
             return 1;
         } else {
             return 0;
         }
     }
-    
-    
-    
+
     function ingresarusuario($nombre, $correo, $departamento, $clave, $peril) {
         if ($peril == "usuario") {
             $data = array(
@@ -177,8 +179,6 @@ class modelo extends CI_Model {
             return 0;
         }
     }
-
- 
 
     function ingresarcategoria($categorianueva) {
         $query = $this->db->get_where('categoria', array('nombre_categoria' => $categorianueva))->num_rows();

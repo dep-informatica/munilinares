@@ -25,6 +25,7 @@
         <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>../css/alertify.core.css"/>
         <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>../css/alertify.default.css"/>
         <script type="text/javascript" src="<?php echo base_url(); ?>../js/funciones.js"></script>
+        <script type="text/javascript" src="<?php echo base_url(); ?>../js/upload.js"></script>
         <!--hechos municipales-->
         <script src="<?php echo base_url(); ?>../js/hechos-municipales.js" type="text/javascript"></script>
         
