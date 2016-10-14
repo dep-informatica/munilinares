@@ -29,7 +29,7 @@ class modelo extends CI_Model {
         }
     }
 
-    function ingresarnoticia($titulo, $encabezado, $texto, $bibliografia, $autor, $linkofoto,$ruta, $p1, $p2, $p3, $p4, $p5) {
+    function ingresarnoticia($titulo, $encabezado, $texto, $bibliografia, $autor, $linkofoto, $ruta, $p1, $p2, $p3, $p4, $p5) {
 
         $data = array(
             "titulo" => $titulo,
@@ -43,9 +43,20 @@ class modelo extends CI_Model {
             "foto2" => $p2,
             "foto3" => $p3,
             "foto4" => $p4,
-            "foto5" => $p5
+            "foto5" => $p5,
+            "fecha_registro" => date("Y-m-d")
         );
         if ($this->db->insert("noticia", $data) == 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    function ingresarHMf($fe, $p1) {
+        $data = array("fecha" => $fe,
+            "rutapdf" => $p1);
+        if ($this->db->insert('hechosmunicipal', $data)) {
             return 1;
         } else {
             return 0;
@@ -132,9 +143,9 @@ class modelo extends CI_Model {
         $this->db->update('solicitud', $data);
     }
 
-    function cargaCategorias() {
-        $this->db->select('*');
-        return $this->db->get('categoria');
+    function cargarnoticias() {
+        $consulta = "SELECT * FROM noticia ORDER BY `id_noticia` DESC LIMIT 5";
+        return $this->db->query($consulta);
     }
 
     function leer($codigo) {

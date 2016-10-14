@@ -41,7 +41,6 @@ function opcionimagen() {
     $("#oculto").val("imagen");
 }
 
-
 function verifaLogin() {
     $.post(
             base_url + "welcome/verifaLogin",
@@ -50,6 +49,7 @@ function verifaLogin() {
 
                 if (datos.valor == 0) {
                     $("#stream").show();
+                    cargarnoticias();
                     $("#contenido").hide();
                 } else {
 
@@ -58,6 +58,7 @@ function verifaLogin() {
                         $("#contenido").show();
                         $("#stream").hide();
                         cargacpanel();
+
                     }
                 }
             }, 'json'
@@ -124,7 +125,7 @@ function cerrarSesion() {
         alertify.success("Session Cerrada Correctamente");
     });
 }
-function verifaLogin2() {
+function verifaLogin2no() {
     $.post(
             base_url + "welcome/verifaLogin",
             {},
@@ -132,6 +133,7 @@ function verifaLogin2() {
 
                 if (datos.valor == 0) {
                     $("#stream").show();
+                    cargarnoticias();
                     $("#contenido").hide();
                 } else {
 
@@ -143,6 +145,77 @@ function verifaLogin2() {
                 }
             }, 'json'
             );
+}
+
+function cargarnoticias() {
+    $.post(
+            base_url + "welcome/cargarnoticias",
+            {},
+            function (ruta, datos) {
+                $("#stream").html(ruta, datos);
+            });
+}
+
+function ingresarHM() {
+    var fecha = $("#datepicker").val();
+    var archivos = document.getElementById("archivopdf").files;//Creamos un objeto con el elemento que contiene los archivos: el campo input file, que tiene el id = 'archivos'
+
+    if (archivos.length !== 1) {
+        alertify.error(" revise la entrada de su archivo PDF");
+    } else {
+        if (fecha == '' || fecha == null) {
+            alertify.error("Revise los Campos");
+        } else {
+            $("#carg2").show();
+            var archivos = document.getElementById("archivopdf");
+            var archivo = archivos.files;
+            var archivos = new FormData();
+            var p1 = "";
+            for (i = 0; i < archivo.length; i++) {
+                archivos.append('archivo' + i, archivo[i]); //Añadimos cada archivo a el arreglo con un indice direfente
+                p1 = archivo[i].name;
+            }
+
+            $.ajax({
+                url: base_url + "welcome/ingresarHM", //Url a donde la enviaremos
+                type: 'POST', //Metodo que usaremos
+                contentType: false, //Debe estar en false para que pase el objeto sin procesar
+                data: archivos, //Le pasamos el objeto que creamos con los archivos
+                processData: false, //Debe estar en false para que JQuery no procese los datos a enviar
+                cache: false //Para que el formulario no guarde cache
+            }).done(function (valor) {//Escuchamos la respuesta y capturamos el mensaje msg
+                if (valor == "0") {
+                    alertify.success("PDF subidos correctamente");
+                    $("#carg2").hide();
+                    $.post(
+                            base_url + "welcome/ingresarHMf",
+                            {
+                                fecha: fecha,
+                                p1: p1
+                            },
+                            function (datos) {
+
+                                if (datos.valor == 1) {
+                                    alertify.success("Guardado Correctamente");
+                                } else {
+                                    alertify.error("Verifique la Fecha y vuelva a Subir");
+                                }
+                            }, 'json'
+                            );
+                    $("#datepicker").val(" ");
+                    $("#archivopdf").val("");
+
+                } else {
+                    alertify.error("Error en la subida de archivos VERIFIQUE");
+                    $("#datepicker").val(" ");
+                    $("#archivopdf").val("");
+                }
+            });
+
+        }
+    }
+
+
 }
 
 function ingresarnoticia() {
@@ -158,6 +231,7 @@ function ingresarnoticia() {
     if (titulo == '' || encabezado == '' || texto == '' || bibliografia == '' || autor == '') {
         alertify.error("Revise los campos! Minimo 3 caracteres");
     } else {
+        $("#carg").show();
         var archivos = document.getElementById("archivos");//Creamos un objeto con el elemento que contiene los archivos: el campo input file, que tiene el id = 'archivos'
         var archivo = archivos.files; //Obtenemos los archivos seleccionados en el imput
         //Creamos una instancia del Objeto FormDara.
@@ -223,11 +297,15 @@ function ingresarnoticia() {
                             alertify.error("Datos Fallidos Verifique!");
                         } else {
                             alertify.success("Datos guardados Correctamente");
-                            $("#txttituloo").val(" ");
-                            $("#txtencabezado").val(" ");
-                            $("#txttexto").val(" ");
-                            $("#txtbibliografia").val(" ");
-                            $("#txtautor").val(" ");
+                            $("#txttituloo").val("");
+                            $("#txtencabezado").val("");
+                            $("#txttexto").val("");
+                            $("#txtbibliografia").val("");
+                            $("#txtautor").val("");
+                            $("#ivideo").val("");
+                            $('input[type=file]').val('');
+                            $("#vis2").html("");
+                            $("#vis2").html("<div id='vistaa'>:</div>");
                         }
                     }, 'json');
 
@@ -281,15 +359,20 @@ function ingresarnoticia() {
                             alertify.error("Datos Fallidos Verifique!");
                         } else {
                             alertify.success("Datos guardados Correctamente");
-                            $("#txttituloo").val(" ");
-                            $("#txtencabezado").val(" ");
-                            $("#txttexto").val(" ");
-                            $("#txtbibliografia").val(" ");
-                            $("#txtautor").val(" ");
+                            $("#txttituloo").val("");
+                            $("#txtencabezado").val("");
+                            $("#txttexto").val("");
+                            $("#txtbibliografia").val("");
+                            $("#txtautor").val("");
+                            $("#archivos").val("");
+
+                            $('input[type=file]').val('');
+                            $("#vis2").html("");
+                            $("#vis2").html("<div id='vistaa'>:</div>");
                         }
                     }, 'json');
         }
-        ///mascodigo
+        $("#carg").hide();
 
 
     }
@@ -546,6 +629,8 @@ function reportetecnico() {
                 $("#reporte3").show('fast');
             });
 }
+
+
 function enviarcorreo() {
 
     $.post(

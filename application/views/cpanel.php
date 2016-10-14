@@ -173,12 +173,17 @@
                         </tr>
                         <tr style="background: #efefef">
                             <td> VISTA PREVIA </td>
-                            <td><div id="vistaa">:</div></td>
+                            <td><div id="vis2">
+                                    <div id="vistaa">:</div>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td><div class="mensage"> </div></td>
-                            <td><div class="cssload-wraper">
-                                 <div class="cssload-dots"></div></td>
+                            <td><div  id="carg" class="cssload-wraper">
+                                    <div class="cssload-dots"></div>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td> </td>
@@ -195,11 +200,12 @@
                             <td><input id="datepicker">
                                 <script>
                                     $('#datepicker').datepicker({
-                                        dateFormat: 'dd-mm-yy',
+                                        dateFormat: 'mm-yy',
                                         duration: "fast",
                                         showAnim: "drop",
                                         showOptions: {direction: "up"}
                                     });
+
                                 </script> 
                             </td>
                         </tr>
@@ -213,8 +219,8 @@
                         </tr>
                         <tr>
                             <td></td>
-                            <td><div class="cssload-wraper">
-                                 <div class="cssload-dots"></div>
+                            <td><div  id="carg2" class="cssload-wraper">
+                                    <div class="cssload-dots"></div>
                                 </div>
                             </td>
                         </tr>

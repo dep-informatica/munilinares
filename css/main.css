@@ -13,9 +13,15 @@ body {
 }
 
 /*    INICIO PRELOOOAD  ooook*/
+#carg{
+    display: none;
+}
+#carg2{
+    display: none;
+}
 .cssload-wraper{
 	width:0px;
-	display:none;
+
 	margin: 30px auto;
 }
 	
