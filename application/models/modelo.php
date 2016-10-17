@@ -148,6 +148,11 @@ class modelo extends CI_Model {
         return $this->db->query($consulta);
     }
 
+    function vernoticia($id) {
+        $consulta = "SELECT * FROM noticia where `id_noticia`='$id'";
+        return $this->db->query($consulta);
+    }
+
     function leer($codigo) {
 
         $this->db->select('fecha_estimada');

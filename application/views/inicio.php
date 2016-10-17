@@ -16,7 +16,7 @@
             </div>
             <div class="texto">
                 <div class="left">
-                    <h4 class="title"><a href="#"><?php echo $fila->titulo; ?></a></h4>
+                    <h4 class="title"><a href="#" onclick="vernoticia(<?= $fila->id_noticia?>)"><?php echo $fila->titulo; ?></a></h4>
                 </div>
                 <div class="right">
                     <span class="meta">Fecha Publicacion: <?php echo $fila->fecha_registro; ?> </span>
@@ -27,7 +27,7 @@
             <div class="social">
                 <ul>
                     <li>
-                        <div class="fb-like" data-href="#" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+                        <div class="fb-like" data-href="http://www.munilinares.cl" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
                     </li>
                     <li>
                         <div class="g-plus" data-action="share" data-annotation="bubble"></div>
@@ -45,11 +45,10 @@
         <!--INICIONoticia Chica -->
         <div class="post tarjeta">
             <div class="pic">
-                <a href="#">
+                <a href="#" onclick="vernoticia(<?= $fila->id_noticia ?>)" >
 
                     <?php if ($fila->linkofoto === "video") { ?>
                         <iframe width ="320" height="210" src = "<?php echo $fila->ruta; ?>" frameborder = "0" allowfullscreen></iframe>
-
                     <?php } else { ?>
                         <img  width="320" height="210" src = "<?php echo base_url(); ?>../Files/<?php echo $fila->ruta; ?>">
                     <?php } ?>
@@ -57,7 +56,7 @@
             </div>
             <div class="texto">
                 <span class="meta">Fecha Publicacion: <?php echo $fila->fecha_registro; ?> </span>
-                <h4 class="title"><a href="#"><?php echo $fila->titulo; ?></a></h4>
+                <h4 class="title"><a href="#" onclick="vernoticia(<?= $fila->id_noticia ?>)" ><?php echo $fila->titulo; ?></a></h4>
             </div>
             <div class="clearfix"></div>
         </div>

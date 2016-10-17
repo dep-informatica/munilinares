@@ -40,6 +40,12 @@ function opcionimagen() {
     document.getElementById('ivideo').hidden = true;
     $("#oculto").val("imagen");
 }
+function zoommas() {
+    var fontSize = 1;
+    fontSize += 0.1;
+//    document.post.texto.p.fontSize = fontSize + "em";
+    document.getElementById("p#parrafoo").style.fontSize= fontSize + "em";
+}
 
 function verifaLogin() {
     $.post(
@@ -146,7 +152,19 @@ function verifaLogin2no() {
             }, 'json'
             );
 }
+function vernoticia(id) {
+  
+    $("#stream").hide();
+    $.post(
+            base_url + "welcome/vernoticia",
+            {id: id},
+            function (ruta, datos) {
+                $("#stream").hide();
+                $("#stream").html(ruta, datos);
+                $("#stream").show();
+            });
 
+}
 function cargarnoticias() {
     $.post(
             base_url + "welcome/cargarnoticias",

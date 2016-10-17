@@ -520,6 +520,9 @@ td,
 th {
     padding: 0;
 }
+small{
+    font-size: 25px;
+}
 html {
     font-size: 100%;
 }
@@ -1230,9 +1233,11 @@ header nav#menu-principal ul li:hover ul.sub-menu {
     border-bottom: 2px solid #bdc9d1;
     margin: 0 0 20px;
 }
+
+/*aqui es donde se ajusta la imagen*/
 #content #main .stream .tarjeta .pic {
     width: 320px;
-    height: 210px;
+    /*height: 210px;*/
     float: left;
 }
 #content #main .stream .tarjeta .pic a img {

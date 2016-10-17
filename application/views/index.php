@@ -26,9 +26,11 @@
         <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>../css/alertify.default.css"/>
         <script type="text/javascript" src="<?php echo base_url(); ?>../js/funciones.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>../js/upload.js"></script>
+        <script type="text/javascript" src="<?php echo base_url(); ?>../js/lsb.min.js"></script>
+        <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>../css/lsb.css"/>
         <!--hechos municipales-->
         <script src="<?php echo base_url(); ?>../js/hechos-municipales.js" type="text/javascript"></script>
-        
+
     </head>
     <body>
         <div id="fb-root"></div>
@@ -133,19 +135,7 @@
             </div>
         </header>
 
-<!--        Metodo para visualizador de imagenes
 
-                <div >
-                    <a href="<?php echo base_url(); ?>../img/bg.png" class="lsb-preview" data-lsb-group="gallery1"> 
-                        <img src="<?php echo base_url(); ?>../img/bg.png" alt="Image Title"> 
-                    </a> 
-                    <a href="img/img02_fullsize.jpg" class="lsb-preview" data-lsb-group="gallery1"> 
-                    </a> 
-                    <a href="img/img03_fullsize.jpg" class="lsb-preview" data-lsb-group="gallery1"> 
-                    </a>
-                </div>
-
-        FIN visualizador de imagenes-->
 
         <div id="content">
 
@@ -175,7 +165,7 @@
                     </div>
                     <!-- Normal -->
                     <div id="stream" class="stream" >
-   
+
                     </div>
                     <!-- Fin Normal -->           
                     <!-- nel -->      
@@ -237,8 +227,8 @@
                                         <span class="red">Flickr</span>
                                         <span class="usuario">usuario</span>
                                     </div>
-                                    
-                                    
+
+
                                 </a>
                             </li>
                             <li id="youtube">
@@ -504,15 +494,15 @@
         <script type="text/javascript" src="<?php echo base_url(); ?>../js/main.js" ></script>
 
         <script type="text/javascript">
-            window.___gcfg = {lang: 'es-419'};
-            (function () {
-                var po = document.createElement('script');
-                po.type = 'text/javascript';
-                po.async = true;
-                po.src = 'https://apis.google.com/js/platform.js';
-                var s = document.getElementsByTagName('script')[0];
-                s.parentNode.insertBefore(po, s);
-            })();
+                                window.___gcfg = {lang: 'es-419'};
+                                (function () {
+                                    var po = document.createElement('script');
+                                    po.type = 'text/javascript';
+                                    po.async = true;
+                                    po.src = 'https://apis.google.com/js/platform.js';
+                                    var s = document.getElementsByTagName('script')[0];
+                                    s.parentNode.insertBefore(po, s);
+                                })();
         </script>
 
         <script>!function (d, s, id) {
