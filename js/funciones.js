@@ -2,6 +2,8 @@ $(document).ready(function () {
     $("#conectar").button().click(function () {
         conectar();
     });
+ 
+
 
 //    
 //    $("#areacliente").tabs();
@@ -44,7 +46,7 @@ function zoommas() {
     var fontSize = 1;
     fontSize += 0.1;
 //    document.post.texto.p.fontSize = fontSize + "em";
-    document.getElementById("p#parrafoo").style.fontSize= fontSize + "em";
+    document.getElementsByTagName("p").style.fontSize = fontSize + "em";
 }
 
 function verifaLogin() {
@@ -153,7 +155,7 @@ function verifaLogin2no() {
             );
 }
 function vernoticia(id) {
-  
+
     $("#stream").hide();
     $.post(
             base_url + "welcome/vernoticia",
@@ -647,19 +649,64 @@ function reportetecnico() {
                 $("#reporte3").show('fast');
             });
 }
-
-
-function enviarcorreo() {
-
+function contacto() {
     $.post(
-            base_url + "welcome/enviarcorreo",
+            base_url + "welcome/contacto",
             {},
-            function (datos) {
-                if (datos.valor == 1) {
+            function (ruta) {
+                $("#contenido").hide();
+                $("#stream").hide();
+                $("#stream").html(ruta);
+                $("#stream").show('fast');
+            });
+}
 
-                } else {
+function enviar() {
 
-                }
+    var nombre = $("#txtnombre").val();
+    var mail = $("#txtmail").val();
+    var asunto = $("#txtasunto").val();
+    var mensaje = $("#txtmensaje").val();
+    var txtCaptcha = $("#txtCaptcha").val();
+    var txtInput = $("#txtInput").val();
+    var depart = $("#depart").val();
+
+    if (nombre == '' || mail == '' || asunto == '' || mensaje == '' || txtInput == '') {
+        alertify.error("Revise los campos");
+    } else {
+        if (txtInput != txtCaptcha) {
+            alertify.error("Revise su codigo de verificacion");
+        } else {
+            var n = mail.indexOf("@");
+            if (n == -1) {
+                alertify.error("Revise su direccion de correo electronico");
+            } else {
+                alertify.confirm("<p>Seguro que desea enviar tu mensaje al "+ j+" .<br><br><b>ENTER</b> o <b>ACEPTAR</b> Si <br>  <b>ESC</b> o <b>CANCELAR</b> No</p>", function (e) {
+                    if (e) {
+                        $.post(base_url + "welcome/enviar", {
+                            nombre: nombre,
+                            mail: mail,
+                            asunto: asunto,
+                            mensaje: mensaje,
+                            depart:depart
+                        }, function (valor) {
+                            if (valor.valor == 1) {
+                                alertify.success("Mail enviado  con Exito");
+                                $("#txtnombre").val("");
+                                $("#txtmail").val("");
+                                $("#txtasunto").val("");
+                                $("#txtmensaje").val("");
+                                $("#txtInput").val("");
+                            } else {
+                                alertify.error("Revise su email y vuelva a enviarlo");
+                            }
+
+                        }, 'json');
+                    } else {
+                        alertify.error("Revise su email y vuelva a enviarlo");
+                    }
+                });
             }
-    );
+        }
+    }
 }

@@ -73,11 +73,11 @@
                     </li>
                     <li><a href="#">Tramites En Linea</a>
                         <ul class="sub-menu">
-                            <li><a href="#">Permiso De Circulacion</a></li>
+                            <li><a href="https://www.sem.gob.cl/pcirc/index.php?inst_id=69130300&pago_id=22">Permiso De Circulacion</a></li>
                             <li><a href="#">Item Sub-menú 2</a></li>
                         </ul>
                     </li>
-                    <li><a href="#">Contacto</a>
+                    <li><a href="#" onclick="contacto();">Contacto</a>
                     </li>
                     <li><a id="loginm">Login</a></li>
                     </ul>
@@ -119,11 +119,11 @@
                     </li>
                     <li><a href="#">Tramites En Linea</a>
                         <ul class="sub-menu">
-                            <li><a href="#">Permiso De Circulacion</a></li>
+                            <li><a href="https://www.sem.gob.cl/pcirc/index.php?inst_id=69130300&pago_id=22">Permiso De Circulacion</a></li>
                             <li><a href="#">Item Sub-menú 2</a></li>
                         </ul>
                     </li>
-                    <li><a href="#">Contacto</a>
+                    <li><a href="#" onclick="contacto();">Contacto</a>
                     </li>
                     <li><a id="login" >Login</a>
                     </li>

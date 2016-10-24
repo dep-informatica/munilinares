@@ -25,8 +25,10 @@
 
         <div class="fontsize">
             <ul>
-                <li class="small"><a onclick="CambioTamanio()" data-size="10">-</a></li>
-                <li class="medium current"><a  onclick="zoommas()" data-size="14">+</a></li>
+                <li class="small"><a  data-size="10">-</a></li> 
+            </ul>
+            <ul>
+                <li class="medium current"><a   data-size="20">+</a></li>
 
             </ul>
         </div>
@@ -44,16 +46,66 @@
 
             </div>
 
-            <!--<a id="wa_share" href="whatsapp://send" data-text="Gobierno se prepara para intensa gestión en el Congreso y lograr aprobación de proyecto de ley sobre domicilios electorales" data-href="" class="wa_btn wa_btn_s" style="display:none">Compartir</a>-->
         </div>
 
-        <a style="margin-bottom: 10px" href="#" id="mas-noticias" class="boton">+ Ver Albun de <strong>Fotos</strong></a>
+        <a style="margin-bottom: 10px" href="#" id="mas-noticias" class="boton lsb-preview" data-lsb-group="<?php echo $fila->id_noticia; ?>">+ Ver Albun de <strong>Fotos</strong></a>
 
-        <!--        Metodo para visualizador de imagenes-->
-     
+        <table>
+            <tr>
+                <td style="width: 200px;height: 200px">
+                    <a  href="<?php echo base_url(); ?>../Files/<?php echo $fila->foto1; ?>" class="lsb-preview" data-lsb-group="<?php echo $fila->id_noticia; ?>"> 
+                        <img src="<?php echo base_url(); ?>../Files/<?php echo $fila->foto1; ?>" alt="www.munilinares.cl"> 
+                    </a> 
+                </td>
+                 <td style="width: 200px;height: 200px">
+                    <a  href="<?php echo base_url(); ?>../Files/<?php echo $fila->foto2; ?>" class="lsb-preview" data-lsb-group="<?php echo $fila->id_noticia; ?>"> 
+                        <img src="<?php echo base_url(); ?>../Files/<?php echo $fila->foto2; ?>" alt="www.munilinares.cl"> 
+                    </a> 
+                </td>
+                 <td style="width: 200px;height: 200px">
+                    <a  href="<?php echo base_url(); ?>../Files/<?php echo $fila->foto3; ?>" class="lsb-preview" data-lsb-group="<?php echo $fila->id_noticia; ?>"> 
+                        <img src="<?php echo base_url(); ?>../Files/<?php echo $fila->foto3; ?>" alt="www.munilinares.cl"> 
+                    </a> 
+                </td>
+                 <td style="width: 200px;height: 200px">
+                    <a  href="<?php echo base_url(); ?>../Files/<?php echo $fila->foto4; ?>" class="lsb-preview" data-lsb-group="<?php echo $fila->id_noticia; ?>"> 
+                        <img src="<?php echo base_url(); ?>../Files/<?php echo $fila->foto4; ?>" alt="www.munilinares.cl"> 
+                    </a> 
+                </td>
+                <td style="width: 200px;height: 200px">
+                    <a  href="<?php echo base_url(); ?>../Files/<?php echo $fila->foto5; ?>" class="lsb-preview" data-lsb-group="<?php echo $fila->id_noticia; ?>"> 
+                        <img src="<?php echo base_url(); ?>../Files/<?php echo $fila->foto5; ?>" alt="www.munilinares.cl"> 
+                    </a> 
+                </td>
+            </tr>
+        </table>
 
 
-        <!--        FIN visualizador de imagenes-->
+        <script>
+            $(document).ready(function () {
+
+                $.fn.lightspeedBox({
+                    showImageTitle: true,
+                    showImageCount: true,
+                    showDownloadButton: true,
+                    showAutoPlayButton: true,
+                    autoPlayback: false,
+                    playbackTiming: 3500,
+                    zIndex: 30,
+                    locale: {
+                        nextButton: 'Next image',
+                        prevButton: 'Previous image',
+                        closeButton: 'Close',
+                        downloadButton: 'Download image',
+                        noImageFound: 'Sorry, no image found.',
+                        autoplayButton: 'Enable autoplay'
+                    }
+                });
+
+
+            });
+        </script>
+
 
         <div class="clearfix"></div>
     <?php endforeach; ?>

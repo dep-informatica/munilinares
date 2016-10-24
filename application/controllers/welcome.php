@@ -16,8 +16,6 @@ class Welcome extends CI_Controller {
         $this->load->view('index');
     }
 
- 
-
     function Terminar() {
         $codigo = $this->input->post('codigo');
         $this->modelo->Terminar($codigo);
@@ -335,6 +333,29 @@ class Welcome extends CI_Controller {
 //echos municipales
     function vistaechosmunicipales() {
         $this->load->view('hechos-municipales');
+    }
+
+    function contacto() {
+        $this->load->view('contacto');
+    }
+
+    function enviar() {
+        $nombre = $this->input->post('nombre');
+        $mail = $this->input->post('mail');
+        $asunto = $this->input->post('asunto');
+        $mensaje = $this->input->post('mensaje');
+        $depart = $this->input->post('depart');
+        $mensajee = "Se a envia un mail mediante el sistema web de parte de  " . $nombre . "  y su mail " . $mail . " \r\n " . $mensaje;
+        // Si cualquier línea es más larga de 70 caracteres, se debería usar wordwrap()
+        $mensaj = wordwrap($mensajee, 70, "\r\n");
+        $cabeceras = 'From: SISTEMA DE CORREOS <info@munilinares.cl>' . "\r\n";
+        if (mail($depart, $asunto, $mensaj, $cabeceras)) {
+            $valor = 1;
+            echo json_encode(array("valor" => $valor));
+        } else {
+            $valor = 0;
+            echo json_encode(array("valor" => $valor));
+        }
     }
 
 }

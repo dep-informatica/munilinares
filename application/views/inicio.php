@@ -10,17 +10,18 @@
                         <iframe width = "660" height = "250" src = "<?php echo $fila->ruta; ?>" frameborder = "0" allowfullscreen></iframe>
 
                     <?php } else { ?>
-                        <img  width="660"height="250" src = "<?php echo base_url(); ?>../Files/<?php echo $fila->ruta; ?>">
+                        <img onclick="vernoticia(<?= $fila->id_noticia ?>)" width="660"height="250" src = "<?php echo base_url(); ?>../Files/<?php echo $fila->ruta; ?>">
                     <?php } ?>
                 </a>
             </div>
             <div class="texto">
                 <div class="left">
-                    <h4 class="title"><a href="#" onclick="vernoticia(<?= $fila->id_noticia?>)"><?php echo $fila->titulo; ?></a></h4>
+                    <h4 class="title"><a href="#" onclick="vernoticia(<?= $fila->id_noticia ?>)"><?php echo $fila->titulo; ?></a></h4>
                 </div>
                 <div class="right">
                     <span class="meta">Fecha Publicacion: <?php echo $fila->fecha_registro; ?> </span>
-                    <p> <?php echo $fila->encabezado; ?> </p>
+                    <a href="#"> <p onclick="vernoticia(<?= $fila->id_noticia ?>)"> <?php echo $fila->encabezado; ?> </p>
+                    </a>
                 </div>
                 <div class="clearfix"></div>
             </div>
