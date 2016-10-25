@@ -48,35 +48,39 @@
 
         </div>
 
-        <a style="margin-bottom: 10px" href="#" id="mas-noticias" class="boton lsb-preview" data-lsb-group="<?php echo $fila->id_noticia; ?>">+ Ver Albun de <strong>Fotos</strong></a>
+        <a style="margin-bottom: 10px" href="#" id="mas-noticias" class="boton lsb-preview" data-lsb-group="<?php echo $fila->id_noticia; ?>">+ Ver Albun de <strong>Fotos</strong>  <img  hidden="true"src="<?php echo base_url(); ?>../Files/<?php echo $fila->foto1; ?>" alt="www.munilinares.cl"> </a>
 
         <table>
             <tr>
-                <td style="width: 200px;height: 200px">
+                <th style="width: 200px;height: 200px">
                     <a  href="<?php echo base_url(); ?>../Files/<?php echo $fila->foto1; ?>" class="lsb-preview" data-lsb-group="<?php echo $fila->id_noticia; ?>"> 
                         <img src="<?php echo base_url(); ?>../Files/<?php echo $fila->foto1; ?>" alt="www.munilinares.cl"> 
                     </a> 
-                </td>
-                 <td style="width: 200px;height: 200px">
+
+                </th>
+                <th style="width: 200px;height: 200px">
                     <a  href="<?php echo base_url(); ?>../Files/<?php echo $fila->foto2; ?>" class="lsb-preview" data-lsb-group="<?php echo $fila->id_noticia; ?>"> 
                         <img src="<?php echo base_url(); ?>../Files/<?php echo $fila->foto2; ?>" alt="www.munilinares.cl"> 
                     </a> 
-                </td>
-                 <td style="width: 200px;height: 200px">
+                </th>
+                <th style="width: 200px;height: 200px">
+
                     <a  href="<?php echo base_url(); ?>../Files/<?php echo $fila->foto3; ?>" class="lsb-preview" data-lsb-group="<?php echo $fila->id_noticia; ?>"> 
                         <img src="<?php echo base_url(); ?>../Files/<?php echo $fila->foto3; ?>" alt="www.munilinares.cl"> 
                     </a> 
-                </td>
-                 <td style="width: 200px;height: 200px">
+                </th>
+                <th style="width: 200px;height: 200px">
                     <a  href="<?php echo base_url(); ?>../Files/<?php echo $fila->foto4; ?>" class="lsb-preview" data-lsb-group="<?php echo $fila->id_noticia; ?>"> 
                         <img src="<?php echo base_url(); ?>../Files/<?php echo $fila->foto4; ?>" alt="www.munilinares.cl"> 
                     </a> 
-                </td>
-                <td style="width: 200px;height: 200px">
-                    <a  href="<?php echo base_url(); ?>../Files/<?php echo $fila->foto5; ?>" class="lsb-preview" data-lsb-group="<?php echo $fila->id_noticia; ?>"> 
+                </th>
+                <th style="width: 200px;height: 200px">
+
+                    <a href="<?php echo base_url(); ?>../Files/<?php echo $fila->foto5; ?>" class="lsb-preview" data-lsb-group="<?php echo $fila->id_noticia; ?>"> 
                         <img src="<?php echo base_url(); ?>../Files/<?php echo $fila->foto5; ?>" alt="www.munilinares.cl"> 
                     </a> 
-                </td>
+                </th>
+
             </tr>
         </table>
 
