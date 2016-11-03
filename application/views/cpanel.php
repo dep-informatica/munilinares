@@ -19,7 +19,9 @@
     $("#boton_subir").button({icons: {primary: "ui-icon-disk"}}).click(function () {
         ingresarHM();
     });
-
+    $("#reportenoti").button({icons: {primary: "ui-icon-círculo-triángulo-s"}}).click(function () {
+        reportenoti();
+    });
     $(function () {
         $("#archivos").on("change", function () {
 //            $("#vistaa").html("");
@@ -118,7 +120,7 @@
                 <ul>
                     <li><a href="#tabs-1">Ingresar Noticia </a></li>
                     <li><a href="#tabs-2">Ingesar Boletin HM </a></li>
-                    <li><a href="#tabs-3">Mantenedor de Albunes</a></li>
+                    <li><a href="#tabs-3">Borrar Noticia</a></li>
                     <li><a href="#tabs-4">Cerrar Sesion </a></li>
                 </ul>
                 <div id="tabs-1">
@@ -232,16 +234,16 @@
 
                 </div>
                 <div id="tabs-3">
+                    <div id="reportenoti">Ver Reporte de Noticias </div>
+                    <tr></tr>
+                    <div id="reportenoticias"></div>
 
                 </div>
                 <div id="tabs-4">
                     <table>
                         <tr>
                             <td><h3>Cerrar sesion:</h3></td>
-
                             <td><div id="cerrarSesion">Cerrar Sesion</div></td>
-
-
                         </tr>
 
                     </table>

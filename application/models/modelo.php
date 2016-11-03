@@ -134,17 +134,26 @@ class modelo extends CI_Model {
         $this->db->update('solicitud', $data);
     }
 
-    function eliminar($id_solicitud) {
-
-        $data = array(
-            "estado_solicitud" => "ELIMINADA"
-        );
-        $this->db->where('id_solicitud', $id_solicitud);
-        $this->db->update('solicitud', $data);
+    function eliminarnoticia($id_noticia) {
+       
+       
+        $this->db->where('id_noticia', $id_noticia);
+        $this->db->delete('noticia');
+        $a = mysql_affected_rows();
+        if ($a == 0) {
+            return 0;
+        } else {
+            return 1;
+        }
     }
 
     function cargarnoticias() {
         $consulta = "SELECT * FROM noticia ORDER BY `id_noticia` DESC LIMIT 5";
+        return $this->db->query($consulta);
+    }
+
+    function reportenoti() {
+        $consulta = "SELECT `id_noticia`, `titulo` FROM `noticia`";
         return $this->db->query($consulta);
     }
 

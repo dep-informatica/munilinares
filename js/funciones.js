@@ -2,15 +2,10 @@ $(document).ready(function () {
     $("#conectar").button().click(function () {
         conectar();
     });
- 
-
-
-//    
 //    $("#areacliente").tabs();
 //    $("#areaadministrador").tabs();
 //    $("#areatecnico").tabs();
 //    verifaLogin();
-
     $("#dialog").dialog({width: 400, autoOpen: false});
     $("#login").click(function () {
         $("#dialog").dialog("open");
@@ -25,23 +20,22 @@ $(document).ready(function () {
     var p3 = "";
     var p4 = "";
     var p5 = "";
-
-
+   
 });
+
 
 function opcionvideo() {
 
     document.getElementById('archivos2').hidden = true;
     document.getElementById('ivideo').hidden = false;
     $("#oculto").val("video");
-
 }
 function opcionimagen() {
-
     document.getElementById('archivos2').hidden = false;
     document.getElementById('ivideo').hidden = true;
     $("#oculto").val("imagen");
 }
+
 function zoommas() {
     var fontSize = 1;
     fontSize += 0.1;
@@ -66,14 +60,13 @@ function verifaLogin() {
                         $("#contenido").show();
                         $("#stream").hide();
                         cargacpanel();
-
                     }
                 }
             }, 'json'
             );
 }
-function conectar() {
 
+function conectar() {
     var correo = $("#correo").val();
     var clave = $("#clave").val();
 
@@ -104,12 +97,9 @@ function conectar() {
                     }
                 }, 'json'
                 );
-
     } else {
-
         alertify.error("Revise Usuario y Contraseña");
     }
-
 }
 
 function cargacpanel() {
@@ -123,7 +113,6 @@ function cargacpanel() {
             });
 }
 
-
 function cerrarSesion() {
     $.post(base_url + "welcome/cerrar",
             {
@@ -133,6 +122,7 @@ function cerrarSesion() {
         alertify.success("Session Cerrada Correctamente");
     });
 }
+
 function verifaLogin2no() {
     $.post(
             base_url + "welcome/verifaLogin",
@@ -173,6 +163,14 @@ function cargarnoticias() {
             {},
             function (ruta, datos) {
                 $("#stream").html(ruta, datos);
+            });
+}
+function reportenoti() {
+    $.post(
+            base_url + "welcome/reportenoti",
+            {},
+            function (ruta, datos) {
+                $("#reportenoticias").html(ruta, datos);
             });
 }
 
@@ -503,18 +501,20 @@ function derivar(id_solicitud) {
             }, 'json'
             );
 }
-function eliminar(id_solicitud) {
-    alertify.confirm("<p>Seguro que desea Eliminar  la Solicitud?.<br><br><b>ENTER</b> o <b>ACEPTAR</b> Si <br>  <b>ESC</b> o <b>CANCELAR</b> No</p>", function (e) {
+function eliminarnoticia(id_noticia) {
+    alertify.confirm("<p>Seguro que desea Eliminar  la noticia .<br><br><b>ENTER</b> o <b>ACEPTAR</b> Si <br>  <b>ESC</b> o <b>CANCELAR</b> No</p>", function (e) {
         if (e) {
-            $.post(base_url + "welcome/eliminar", {
-                id_solicitud: id_solicitud
-            }, function () {
-                alertify.success("Solicitud Eliminada con Exito");
+            $.post(base_url + "welcome/eliminarnoticia", {
+                id_noticia: id_noticia
+            }, function (valor) {
+                if(valor.valor==1){
+                     alertify.success("Noticia Eliminada con Exito");
+                }
             }, 'json');
-
-            verifaLogin();
+            $("#reportenoticias").val("");
+            reportenoti();
         } else {
-            alertify.error("Eliminacion cancelada " + " AUN EN PROCESO" + "");
+            alertify.error("Eliminacion cancelada " + " Noticia Aun  Visible" + "");
         }
     });
 }
@@ -681,14 +681,14 @@ function enviar() {
             if (n == -1) {
                 alertify.error("Revise su direccion de correo electronico");
             } else {
-                alertify.confirm("<p>Seguro que desea enviar tu mensaje al "+ j+" .<br><br><b>ENTER</b> o <b>ACEPTAR</b> Si <br>  <b>ESC</b> o <b>CANCELAR</b> No</p>", function (e) {
+                alertify.confirm("<p>Seguro que desea enviar tu mensaje al " + j + " .<br><br><b>ENTER</b> o <b>ACEPTAR</b> Si <br>  <b>ESC</b> o <b>CANCELAR</b> No</p>", function (e) {
                     if (e) {
                         $.post(base_url + "welcome/enviar", {
                             nombre: nombre,
                             mail: mail,
                             asunto: asunto,
                             mensaje: mensaje,
-                            depart:depart
+                            depart: depart
                         }, function (valor) {
                             if (valor.valor == 1) {
                                 alertify.success("Mail enviado  con Exito");

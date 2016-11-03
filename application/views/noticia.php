@@ -41,8 +41,10 @@
             <div class="contenido">
 
                 <h4><?php echo $fila->encabezado; ?></h4>
-                <p id="parrafoo">    <?php echo $fila->texto; ?></p>
-
+               <!--Tamaño de letra: <a href="javascript:void(0);" onclick="javascript:body.style.fontSize=&apos;10px&apos;"><span>10</span></a> <a href="javascript:void(0);" onclick="javascript:body.style.fontSize=&apos;12px&apos;"><span>12</span></a> <a href="javascript:void(0);" onclick="javascript:body.style.fontSize=&apos;14px&apos;"><span>14</span></a> <a href="javascript:void(0);" onclick="javascript:body.style.fontSize=&apos;16px&apos;"><span>16</span></a> <a href="javascript:void(0);" onclick="javascript:body.style.p.fontSize=&apos;18px&apos;"><span>18</span></a>-->
+                <p> <?php echo $fila->texto; ?></p>
+                <a href="javascript:decreaseFontSize();">-</a>
+                <a href="javascript:increaseFontSize();">+</a>
 
             </div>
 

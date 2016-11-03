@@ -28,8 +28,10 @@
         <script type="text/javascript" src="<?php echo base_url(); ?>../js/upload.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>../js/lsb.min.js"></script>
         <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>../css/lsb.css"/>
+
         <!--hechos municipales-->
         <script src="<?php echo base_url(); ?>../js/hechos-municipales.js" type="text/javascript"></script>
+
 
     </head>
     <body>
@@ -84,15 +86,19 @@
                 </nav>
             </div>
         </div>
+
         <!--slider principal y movil-->
-        <header style="background-image:url('<?php echo base_url(); ?>../img/bg.png')">
+
+        <header id="sliderdos" style="height: 300px; background-image:url('<?php echo base_url(); ?>../img/bg.png');">
+            
             <div class="wrap">
                 <h1 id="logo-main">
-                    <a href="/">
+                    <a href="">
                         <img src="<?php echo base_url(); ?>../img/logo-main2.png">
                     </a>
                 </h1>
-                <!--menu general-->
+                 <!--menu general-->
+
                 <nav id="menu-principal">
                     <ul id="menu-main-menu" class="menu-main">
                         <li><a href="<?php echo base_url(); ?>">Inicio</a></li>

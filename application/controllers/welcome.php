@@ -21,9 +21,10 @@ class Welcome extends CI_Controller {
         $this->modelo->Terminar($codigo);
     }
 
-    function eliminar() {
-        $id_solicitud = $this->input->post('id_solicitud');
-        $this->modelo->eliminar($id_solicitud);
+    function eliminarnoticia() {
+        $id_noticia = $this->input->post('id_noticia');
+        $valor=$this->modelo->eliminarnoticia($id_noticia);
+         echo json_encode(array("valor" => $valor));
     }
 
     function leer() {
@@ -195,6 +196,13 @@ class Welcome extends CI_Controller {
 
         $datos['noticia'] = $this->modelo->cargarnoticias()->result();
         $this->load->view('inicio', $datos);
+    }
+
+    function reportenoti() {
+        $data = $this->modelo->reportenoti();
+        $datos['cantidad'] = $data->num_rows();
+        $datos['noticias'] = $data->result();
+        $this->load->view('reportenoti', $datos);
     }
 
     function vernoticia() {
