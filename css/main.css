@@ -4,9 +4,9 @@ html {
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
 }
-/*body {
+body {
     margin: 0;
-}*/
+}
 #ingresarnoticia:hover{
     /*    background-color:#00a65a;*/
     border-bottom: 2px solid #0f69b4;
@@ -1977,6 +1977,7 @@ footer .bottom .bicolor {
         width: 680px;
     }
     .wrap {
+       
         width: 660px;
     }
     #content #main {

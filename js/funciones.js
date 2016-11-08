@@ -113,6 +113,17 @@ function cargacpanel() {
             });
 }
 
+function masnoticias() {
+    $.post(
+            base_url + "welcome/masnoticias",
+            {},
+            function (ruta, datos) {
+                $("#contenido").hide();
+                $("#contenido").html(ruta, datos);
+                $("#contenido").show('fast');
+            });
+}
+
 function cerrarSesion() {
     $.post(base_url + "welcome/cerrar",
             {

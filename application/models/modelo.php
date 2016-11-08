@@ -298,6 +298,120 @@ FROM solicitud INNER JOIN usuario ON solicitud.fk_usuario=usuario.id_usuario INN
 
         //actualizar la tabla solicitud cambiando el estado a derivado
     }
+    
+    
+    //    ----alejandro--
+    
+    function TBDiarioOficial() {
+        $query = "select nombre,
+            link,
+            formato,
+            carpeta,
+            subcarpeta,
+            archivo,
+            mes,
+            periodo
+            From transparencia_contenido 
+            where codigo= 17 order by orden";
+
+        return $this->db->query($query);
+    }
+
+    function TBPotestades() {
+        $query = "select id,
+                nombre,
+                formato,
+                carpeta,
+                subcarpeta 
+                From transparencia_contenido 
+                where codigo= 2 order by orden";
+
+        return $this->db->query($query);
+    }
+
+    function TBMarcoNarrativo() {
+        $query = "select id,
+                nombre,
+                formato,
+                carpeta,
+                subcarpeta,
+                archivo,
+                mes,
+                area,
+                calidad 
+                From transparencia_contenido 
+                where codigo= 3 order by orden";
+
+        return $this->db->query($query);
+    }
+
+    function TBEmprendedores1() {
+        $query = "SELECT id,
+                codigo,
+                nombre,
+                link,
+                formato  
+                FROM transparencia_contenido 
+                where  codigo='7_8_1'  order by orden";
+        return $this->db->query($query);
+    }
+
+    function TBEmprendedores2() {
+        $query = "SELECT id,
+                codigo,
+                nombre,
+                link,
+                formato  
+                FROM transparencia_contenido 
+                where  codigo='7_8_2'  order by orden";
+
+        return $this->db->query($query);
+    }
+
+    function TBPostulacionFondeve() {
+
+        $query = "SELECT id,
+                codigo,
+                nombre,
+                link,
+                formato  
+                FROM transparencia_contenido 
+                where  codigo='7_7'  order by orden ";
+        return $this->db->query($query);
+    }
+
+    function TBConcursoPublicos() {
+
+        $query = "SELECT id,codigo,nombre,link,formato  FROM transparencia_contenido where  codigo='7_6'  order by orden";
+        return $this->db->query($query);
+    }
+
+    function TBPatenteComerc() {
+
+        $query = "SELECT id,codigo,nombre,link,formato  FROM transparencia_contenido where  codigo='7_4'  order by orden desc";
+        return $this->db->query($query);
+    }
+
+    function TBPermisoEdif() {
+
+        $query = "SELECT id,codigo,nombre,link,formato  FROM transparencia_contenido where  codigo='7_5'  order by orden desc";
+        return $this->db->query($query);
+    }
+
+  function TBOrdenanzas() {
+
+        $query = "select * From transparencia_contenido where codigo='7_2' order by orden desc";
+        return $this->db->query($query);
+    }
+    
+    function TBConvenios() {
+
+        $query = "select id,nombre,link,formato,carpeta,subcarpeta,archivo,mes,periodo,area From transparencia_contenido where codigo='7_10' order by orden desc ";
+        return $this->db->query($query);
+    }
+    
+    
+    
 
 }
 

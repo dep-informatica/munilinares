@@ -50,7 +50,7 @@
 
         </div>
 
-        <a style="margin-bottom: 10px" href="#" id="mas-noticias" class="boton lsb-preview" data-lsb-group="<?php echo $fila->id_noticia; ?>">+ Ver Albun de <strong>Fotos</strong>  <img  hidden="true"src="<?php echo base_url(); ?>../Files/<?php echo $fila->foto1; ?>" alt="www.munilinares.cl"> </a>
+        <a style="margin-bottom: 10px" onclick="masnoticias()" id="mas-noticias" class="boton lsb-preview" data-lsb-group="<?php echo $fila->id_noticia; ?>">+ Ver Albun de <strong>Fotos</strong>  <img  hidden="true"src="<?php echo base_url(); ?>../Files/<?php echo $fila->foto1; ?>" alt="www.munilinares.cl"> </a>
 
         <table>
             <tr>

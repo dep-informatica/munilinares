@@ -338,10 +338,7 @@ class Welcome extends CI_Controller {
         }
     }
 
-//echos municipales
-    function vistaechosmunicipales() {
-        $this->load->view('hechos-municipales');
-    }
+
 
     function contacto() {
         $this->load->view('contacto');
@@ -365,6 +362,253 @@ class Welcome extends CI_Controller {
             echo json_encode(array("valor" => $valor));
         }
     }
+    
+    //    ----------------------alejandro----------
+    
+    
+    //quienes somos
+    function vistaquienSomos() {
+        $this->load->view('quienSomos');
+    }
+
+    //historia
+    function vistaHistoria() {
+        $this->load->view('historia');
+    }
+
+    //msj alcalde
+    function vistaMSJalcalde() {
+        $this->load->view('mensajeAlcalde');
+    }
+
+    //consejo municipal
+    function vistaConsejoMunicipal() {
+        $this->load->view('consejoMunicipal');
+    }
+
+    //estructura organica
+    function vistaOrganigrama() {
+        $this->load->view('organigrama');
+    }
+
+    function vistaOrganigramaDepto() {
+        $this->load->view('organigramasDepartamentos');
+    }
+
+//salud
+
+    function vistaSalud() {
+        $this->load->view('deptoSalud');
+    }
+
+    //cartografia
+    function vistaDeCartografia() {
+        $this->load->view('cartografia');
+    }
+
+    //deporte
+    function vistaDeporte() {
+        $this->load->view('deporte');
+    }
+
+    //direcion unidades
+    function vistaDireccionUnidad() {
+        $this->load->view('directorUnidad');
+    }
+
+    //jefe depto
+    function vistajefeDepto() {
+        $this->load->view('jefeDepartamento');
+    }
+
+    //echos municipales
+    function vistaechosmunicipales() {
+        
+        $this->load->view('hechos-municipales');
+    }
+
+    function vistaembepdf() {
+        $this->load->view('mebePDF');
+    }
+
+    function vistaMenuTransActiva() {
+        $this->load->view('menuTransActiva');
+    }
+
+// diario oficial
+    function vistaDiarioOficial() {
+        $datos = $this->modelo->TBDiarioOficial();
+        $data['cantidad'] = $datos->num_rows();
+        $data['resultado'] = $datos->result();
+        $this->load->view('diarioOficial', $data);
+    }
+
+    // potestad
+    function vistaPotestad() {
+        $datos = $this->modelo->TBPotestades();
+        $data['cantidad'] = $datos->num_rows();
+        $data['resultado'] = $datos->result();
+        $this->load->view('potestades', $data);
+    }
+
+    //marco narrativo
+
+    function vistaMarcoNarrat() {
+        $datos = $this->modelo->TBMarcoNarrativo();
+        $data['cantidad'] = $datos->num_rows();
+        $data['resultado'] = $datos->result();
+        $this->load->view('marcoNarrativo', $data);
+    }
+
+    function vistaPersonalRemun() {
+        $this->load->view('personalRemun');
+    }
+
+    function vistaEmprendedores() {
+
+        $datos1 = $this->modelo->TBEmprendedores1();
+        $data['cantidad1'] = $datos1->num_rows();
+        $data['resultado1'] = $datos1->result();
+
+        $datos2 = $this->modelo->TBEmprendedores2();
+        $data['cantidad2'] = $datos2->num_rows();
+        $data['resultado2'] = $datos2->result();
+
+        $this->load->view('emprendedores', $data);
+    }
+
+    function vistaPostulacionFondeve() {
+        $datos = $this->modelo->TBPostulacionFondeve();
+        $data['cantidad'] = $datos->num_rows();
+        $data['resultado'] = $datos->result();
+
+
+        $this->load->view('PostulacionFondeve', $data);
+    }
+
+    function vistaConcursoPublicos() {
+        $datos = $this->modelo->TBConcursoPublicos();
+        $data['cantidad'] = $datos->num_rows();
+        $data['resultado'] = $datos->result();
+        $this->load->view('concursopublicos', $data);
+    }
+
+    function vistaPatenteComerc() {
+        $datos = $this->modelo->TBPatenteComerc();
+        $data['cantidad'] = $datos->num_rows();
+        $data['resultado'] = $datos->result();
+        $this->load->view('patenteComerc', $data);
+    }
+
+    function vistaPermisoEdif() {
+        $datos = $this->modelo->TBPermisoEdif();
+        $data['cantidad'] = $datos->num_rows();
+        $data['resultado'] = $datos->result();
+        $this->load->view('PermisoEdif', $data);
+    }
+
+    function vistaDecretoMunicipales() {
+
+        $this->load->view('DecretoMunicipales');
+    }
+
+    function vistaOrdenanzas() {
+
+        $datos = $this->modelo->TBOrdenanzas();
+        $data['cantidad'] = $datos->num_rows();
+        $data['resultado'] = $datos->result();
+        $this->load->view('ordenanzas', $data);
+    }
+
+    function vistaConvenios() {
+
+        $datos = $this->modelo->TBConvenios();
+        $data['cantidad'] = $datos->num_rows();
+        $data['resultado'] = $datos->result();
+        $this->load->view('convenios', $data);
+    }
+
+    
+    function vistaMe3utm() {
+        $this->load->view('CMe3UTM');
+    }
+
+    function vistaMa3utm() {
+        $this->load->view('CMa3UTM');
+    }
+
+    function vistaMpartCiudadana() {
+        $this->load->view('MparticipacionCiudadana');
+    }
+
+    function vistaActasConsejos() {
+        $this->load->view('actasConsejo');
+    }
+
+    function vistaCpublicas() {
+        $this->load->view('cuentasPublicas');
+    }
+
+    function vistaEntiMunicipales() {
+        $this->load->view('VinculosEntidades');
+    }
+
+    function vistaDocReservados() {
+        $this->load->view('DocReservados');
+    }
+
+    function vistaAntePreparatorios() {
+        $this->load->view('antePreparatorios');
+    }
+
+    function vistaDificultades() {
+        $this->load->view('DifTecnicas');
+    }
+
+    function vistaResAuditorias() {
+        $this->load->view('resAuditorias');
+    }
+
+    function vistaInfoTrimestral() {
+        $this->load->view('infoTrimestrales');
+    }
+
+    function vistaVideoSenias() {
+        $this->load->view('VideoSenias');
+    }
+
+    function vistaFComunMuni() {
+        $this->load->view('FComunMun');
+    }
+
+    function vistaInfoPTrimestral() {
+        $this->load->view('infPTrimestral');
+    }
+
+    function vistaModPresupuestaria() {
+        $this->load->view('modPresupuestaria');
+    }
+
+    function vistaBPreAreasPresup() {
+        $this->load->view('BPreAreasPresup');
+    }
+
+    function vistaPrepAreaMuni() {
+        $this->load->view('PrepAreaMuni');
+    }
+
+    function vistaEstadosFinan() {
+        $this->load->view('estadosFinan');
+    }
+
+    function vistaCostosReproduccion() {
+        $this->load->view('CostosReproduccion');
+    }
+
+    function vistaAnteMernorTaman() {
+        $this->load->view('AnteMernorTaman');
+    }
+    
 
 }
 

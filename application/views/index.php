@@ -28,10 +28,16 @@
         <script type="text/javascript" src="<?php echo base_url(); ?>../js/upload.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>../js/lsb.min.js"></script>
         <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>../css/lsb.css"/>
-
+        <!--nivo-->
+        <script type="text/javascript" src="<?php echo base_url(); ?>../js/nivo.js"></script>
+        <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>../css/nivo.css"/>
+        <!--fin nivo-->
+        
         <!--hechos municipales-->
         <script src="<?php echo base_url(); ?>../js/hechos-municipales.js" type="text/javascript"></script>
-
+        <link href="<?php echo base_url(); ?>../css/tabla_info.css" rel="stylesheet" type="text/css"/>
+        <script src="<?php echo base_url(); ?>../js/transparencia.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>../js/pagination-tda-plugin.js" type="text/javascript"></script>
 
     </head>
     <body>
@@ -62,77 +68,103 @@
                                 <li><a href="#">Estructura Organica</a></li>
                             </ul>
                         </li>
-                        <li><a href="#">Departamentos</a>
+                        <li>
+                            <a href="#">Departamentos</a>
                             <ul class="sub-menu">
                                 <li><a href="#">Salud</a></li>
                                 <li><a href="#">Educacion</a></li>
                                 <li><a href="#">Deporte</a></li>
                                 <li><a href="#">Transito</a></li>
                                 <li><a href="#">Salud</a></li>
-                                <li><a href="#">Educacion</a></li>
+                                <li><a href="#">Educacion</a></li>                      
+                            </ul>
                         </li>
-                    </ul>
-                    </li>
-                    <li><a href="#">Tramites En Linea</a>
-                        <ul class="sub-menu">
-                            <li><a href="https://www.sem.gob.cl/pcirc/index.php?inst_id=69130300&pago_id=22">Permiso De Circulacion</a></li>
-                            <li><a href="#">Item Sub-menú 2</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#" onclick="contacto();">Contacto</a>
-                    </li>
-                    <li><a id="loginm">Login</a></li>
+                        <li><a href="#">Tramites En Linea</a>
+                            <ul class="sub-menu">
+                                <li><a href="#">Permiso De Circulacion</a></li>
+                                <li><a href="#">Item Sub-menú 2</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Contacto</a>
+                        </li>
+                        <li><a id="loginm">Login</a></li>
                     </ul>
                 </nav>
             </div>
         </div>
-
         <!--slider principal y movil-->
-
-        <header id="sliderdos" style="height: 300px; background-image:url('<?php echo base_url(); ?>../img/bg.png');">
-            
+         <header >
+            <div  class="slider-wrapper theme-light">
+                <div id="slider" class="nivoSlider">
+                    <img src="<?php echo base_url(); ?>../img/slider/bg2.png"  />
+                    <img src="<?php echo base_url(); ?>../img/slider/proyeccion2.png" />
+                    <img src="<?php echo base_url(); ?>../img/slider/bg2.png" />
+                    <img src="<?php echo base_url(); ?>../img/slider/proyeccion2.png" />
+                </div>
+    <!--                <div id="caption1" style="display: none;">
+                    <h3>Hola, esto es un caption HTML</h3>
+                    <a href="www.audiolive.cl"><p>Link a AUDIOLIVE</p></a>
+                    <ul>
+                        <li>text1.</li>
+                        <li>text2 li2</li>
+                    </ul>
+                </div>-->
+            </div>
+            <script type="text/javascript">
+                                $(window).load(function () {
+                                    $('#slider').nivoSlider({
+                                    });
+                                });
+            </script>
             <div class="wrap">
-                <h1 id="logo-main">
-                    <a href="">
-                        <img src="<?php echo base_url(); ?>../img/logo-main2.png">
-                    </a>
-                </h1>
-                 <!--menu general-->
-
                 <nav id="menu-principal">
                     <ul id="menu-main-menu" class="menu-main">
                         <li><a href="<?php echo base_url(); ?>">Inicio</a></li>
 
                         <li><a href="#">Municipalidad </a>
                             <ul class="sub-menu">
-                                <li><a href="#">Quienes somos</a></li>
-                                <li><a href="#">Historia</a></li>
-                                <li><a href="#">Mensaje del Alcalde</a></li>
-                                <li><a href="#">Consejo Municio</a></li>
-                                <li><a href="#">Estructura Organica</a></li>
+                                <li><a href="#" onclick="vistaquienessomos();">Quienes somos</a></li>
+                                <li><a href="#" onclick="vistaHistoriaMuni();">Historia</a></li>
+                                <li><a href="<?php echo base_url(); ?>../pdf/reglamento/reglamento_interno.pdf" >Reglamento</a></li>
+                                <li><a href="#" onclick="vistaMSJealcalde();">Mensaje del Alcalde</a></li>
+                                <li><a href="#" onclick="vistaConsejoMunici();">Consejo Municipal</a></li>
+                                <li><a href="#" onclick="vistaOrgrama();">Estructura Organica</a></li>
                             </ul>
                         </li>
-                        <li><a href="#">Departamentos</a>
+
+                        <li>
+                            <a href="#">Departamentos</a>
                             <ul class="sub-menu">
-                                <li><a href="#">Salud</a></li>
-                                <li><a href="#">Educacion</a></li>
-                                <li><a href="#">Deporte</a></li>
-                                <li><a href="#">Transito</a></li>
-                                <li><a href="#">Salud</a></li>
-                                <li><a href="#">Educacion</a></li>
+                                <li><a href="#" onclick="vistaDirUnidad();">Direccion Unidades</a></li>
+                                <li><a href="#" onclick="vistaJefeDepartamentos();">Jefes de Departamentos</a></li>
+                                <li><a href="#" onclick="vistaSaludd();">Salud</a></li>
+                                <li><a href="http://www.daemlinares.cl" target="_blank">Educacion</a></li>
+                                <li><a href="#" onclick="vistaCartografia();">Cartografia</a></li>
+                                <li><a href="#" onclick="vistaDeportes();">Deporte</a></li>
+                                <li><a href="#">Transito</a></li>                           
+                            </ul>
+                        </li>                         
+                        <li>                           
+                            <a href="#">Bienestar</a>
+                            <ul class="sub-menu">                            
+                                <li><a href="<?php echo base_url(); ?>../bienestar/presentacion_servicio_bienestar.pdf" target="_blank">Presentacion</a></li>
+                                <li><a href="<?php echo base_url(); ?>../bienestar/reglamento_interno.pdf" target="_blank">Reglamento Interno</a></li>
+                                <li><a href="<?php echo base_url(); ?>../bienestar/formulario_de_prestamo_auxilio.pdf" target="_blank">Solicitud Online</a></li>
+                                <li><a href="<?php echo base_url(); ?>../bienestar/camping_rari.pdf" target="_blank">Camping</a></li>
+                                <li><a href="<?php echo base_url(); ?>../bienestar/convenios.pdf" target="_blank">Convenios</a></li>
+                                <li><a href="<?php echo base_url(); ?>../bienestar/beneficios_bienestar_2014.pdf" target="_blank">Beneficios</a></li>
+                            </ul>                              
                         </li>
-                    </ul>
-                    </li>
-                    <li><a href="#">Tramites En Linea</a>
-                        <ul class="sub-menu">
-                            <li><a href="https://www.sem.gob.cl/pcirc/index.php?inst_id=69130300&pago_id=22">Permiso De Circulacion</a></li>
-                            <li><a href="#">Item Sub-menú 2</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#" onclick="contacto();">Contacto</a>
-                    </li>
-                    <li><a id="login" >Login</a>
-                    </li>
+                        <li><a href="#">Tramites En Linea</a>
+                            <ul class="sub-menu">
+                                <li><a href="https://www.sem.gob.cl/pcirc/index.php?inst_id=69130300&pago_id=22">Permiso De Circulacion</a></li>
+                                <li><a href="#">Item Sub-menú 2</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#" onclick="contacto();">Contacto</a>
+                        </li>
+                        <li><a id="login" >Login</a>
+                        </li>
                     </ul>
                 </nav>
 
@@ -324,7 +356,13 @@
                     </div>
 
                     <div class="banners">
+                        <div class="banner banner-corto">
+                            <a  href="http://www.portaltransparencia.cl/PortalPdT/web/guest/directorio-de-organismos-regulados?p_p_id=pdtorganismos_WAR_pdtorganismosportlet&orgcode=8691dfce267db7cb63c54511ff105f64"><img src="<?php echo base_url(); ?>../trasparencia/TransInformacion_banner.PNG" style="height: 81px; width: 320px; border-bottom : #bbb groove; border-right : #bbb groove;"></a>
+                        </div>
 
+                        <div class="banner banner-corto">
+                            <a href="#"onclick="vistaMenuTransparenciaActiva();"><img src="<?php echo base_url(); ?>../trasparencia/transActiva_banner.PNG" style="height: 81px; width: 320px; border-bottom : #bbb groove; border-right : #bbb groove;"></a>
+                        </div>
                         <div class="banner banner-corto">
                             <a href="#"><img src="<?php echo base_url(); ?>../img/cuenta-publica.png" alt="Banner 320x120"></a>
                         </div>

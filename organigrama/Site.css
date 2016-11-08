@@ -1,0 +1,533 @@
+﻿.form-horizontal .control-group {
+    margin-bottom: 8px;
+}
+
+.form-actions-clean
+{
+    padding-top: 5px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    background-color: white !important;
+    border-top: 0px; 
+}
+
+.screen-spinner
+{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin-left: -1;
+    margin-top: -1;
+    z-index: 999;
+}
+
+.input-auto {
+    width: auto;
+}
+
+.filterbox {
+    display:inline-block;
+    background-color:#FFF;
+    box-shadow:none;
+    border-radius:0;
+    xx-margin:-1px 0 0 -1px;
+    xx-padding:8px 3px 6px 9px;
+    border:1px dotted;
+    border-color:#D8D8D8 !important;
+    vertical-align:top; text-align:left;
+    position:relative;
+    width:auto;
+    clear: both;
+}
+
+.filterbox:after {
+    clear: both;
+}
+
+.filterbox .control-label 
+{
+}
+
+.filterbox .control-label label {
+    margin-bottom: 0px;
+    text-align: left;
+    font-size: 11px;
+    color: #999999;
+}
+
+.filterbox .control-group 
+{
+    clear: none;
+    float: left;
+    margin-left: 8px;   
+    margin-bottom: 0px;
+    /*border:1px dotted;*/
+}
+
+.filterbox .row
+{
+    /*border:1px dotted;*/
+    vertical-align: middle;
+}   
+
+.filterbox .btn
+{
+    vertical-align: bottom;
+}
+
+
+.display-label
+{
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 20px;
+    display: block;
+    margin-bottom: 8px;
+    color: #999999;
+}
+
+.display-field
+{
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 14px;
+    display: block;
+    margin-bottom: 0px;
+}
+
+/* Bootstrap like styles for alerts (jGrowl,flashMessage) */
+
+div.jGrowl div.jGrowl-notification
+{
+    font-size: 14px;
+    font-family: 'Open Sans';
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    background-color: #fcf8e3;
+    border: 1px solid #fbeed5;
+}
+
+div.jGrowl div.jGrowl-notification.ui-state-highlight,
+div.jGrowl div.jGrowl-notification.ui-state-success
+{
+    color: #468847;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    opacity: 1.0;
+}
+
+div.jGrowl div.jGrowl-notification.ui-state-danger,
+div.jGrowl div.jGrowl-notification.ui-state-error 
+{
+    color: #b94a48;
+    background-color: #f2dede !important;
+    border-color: #eed3d7 !important;
+    opacity: 1.0;
+}
+
+div.jGrowl div.jGrowl-notification.ui-state-info 
+{
+    color: #3a87ad;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    opacity: 1.0;
+}
+
+/* Modal override */
+.modal-backdrop,
+.modal-backdrop.fade.in {
+    opacity: 0.30;
+    filter: alpha(opacity=30);
+}
+
+.formTextArea
+{
+    width:400px;
+    height:100px
+}
+
+.PersonaCargo
+{
+    width:400px
+}
+
+.columOnCreate
+{
+    float:left;
+    margin-left:50px;
+}
+
+.notColumOnCreate
+{
+    clear:left;
+}
+
+.alignButtonSave
+{
+    text-align:right;
+    width:95%;
+}
+
+.containerForm
+{
+    height:300px;
+}
+
+.listaNodos
+{
+    text-align:left;
+}
+
+
+/*************
+Lista de nodos
+**************/
+ul
+{
+    list-style-type: none;
+}
+.ulListaNodos {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.liListaNodos {
+    /*font: 200 20px/1.5 Helvetica, Verdana, sans-serif;
+    border-bottom: 1px solid #ccc;*/
+
+}
+
+.liListaNodos:last-child {
+    border: none;
+}
+
+.liListaNodos a {
+    text-decoration: none;
+    color: #000;
+    display: block;
+    /*
+     -webkit-transition: font-size 0.1s ease, background-color 0.3s ease;
+     -moz-transition: font-size 0.1s ease, background-color 0.3s ease;
+     -o-transition: font-size 0.1s ease, background-color 0.3s ease;
+     -ms-transition: font-size 0.1s ease, background-color 0.3s ease;
+     transition: font-size 0.1s ease, background-color 0.3s ease;*/
+}
+
+.liListaNodos a:hover {
+    /*font-size: 16px;*/
+    background: #f0f0f0;
+}
+.selectNodo{
+
+}
+
+.divHandleListNodo  
+{
+    margin-bottom:2px;
+    border-bottom:1px solid #d5d5d5;
+}
+
+.listaNodos
+{
+    margin:8px 8px 8px 8px;
+}
+.nodoContent
+{
+    text-align:center;
+    vertical-align:middle;
+    width:500px;
+    height:240px;
+    border: 1px solid #d5d5d5;
+    overflow:auto;
+    background-color:White;
+}
+
+.checkbox-select-item
+{
+    float:left;
+    width:18px;
+}
+.edit-select-item
+{
+    float:left;
+    width:-moz-calc(100% - 18px);
+    width:calc(100% - 18px);
+    height:100%;
+    margin-top:3px;
+}
+.clear
+{
+    clear:both;
+}
+
+.hiddenTextArea
+{
+    display:none;
+}
+
+.textoFuncionesUnidad
+{
+    padding: 10px 10px 10px 10px;
+    margin: 10px 10px 10px 10px;
+    border-radius: 10px;
+    background-color:white;
+    border: 1px solid #8a8a8a;
+    width:500px;
+    display:none;
+    position: absolute;
+    margin: 0 auto;
+}
+
+.headTextoFunc
+{
+    text-align:left;
+}
+
+.imagenPerTextoFunc > img
+{
+    width:140px;
+    height:160px;
+}
+
+#contentTextUnidad
+{
+    text-align:left;
+}
+
+.imagenPerTextoFunc
+{
+    width:140px;
+    height:160px;
+    margin-bottom:10px;
+}
+
+.infoPerTextoFunc
+{
+    margin-bottom:10px;
+}
+.namePerTextFunc
+{
+    font-weight:bold;
+    font-size:16px;
+}
+.nodoPerTextFunc
+{
+    font-size:12px;
+    font-weight:bold;
+}
+.nameItemTextFunc
+{
+    color:Gray;
+    float:left;
+    width:60px;
+    font-size:12px;
+}
+.contItemTextFunc
+{
+    font-size:12px;
+    /*float:left;*/
+}
+
+.version
+{
+    text-align:center;
+    color:Gray;
+    margin-top:30px;
+    border-top:1px solid #eaeaea;
+    padding-top:10px;
+}
+
+/******************************/
+.headerOrganigrama
+{
+    width:100%
+}
+.logoProvidenciaDiv
+{
+    float:left;
+    /*background-image:url('/Content/images/LogoProv.png');
+    background-size:300px 72px;*/
+    width:250px;
+    height:80px;
+}
+.logOnDiv
+{
+    float:right;
+    padding: 10px 10px 10px 10px;
+}
+
+.sorgBodyContainer
+{
+    text-align:center;
+}
+
+.sorgContet
+{
+    text-align: left;
+}
+.sorgSVGContent
+{
+    
+}
+
+.messageError
+{
+    font-size:larger;
+    color:Red;
+    background-color:Silver;
+    width:100%;
+}
+
+rect
+{
+    cursor:pointer;
+}
+
+
+
+/*parches para ace*/
+/*menú*/
+.nav-list > li .submenu > li > a {
+    display: block;
+    position: relative;
+    color: #2b7dbc;
+    padding: 7px 0 9px 37px;
+    margin: 0;
+    border-top: 1px dotted #e4e4e4;
+    text-decoration:none;
+}
+
+.nav-list>li>a {
+    display: block;
+    height: 38px;
+    line-height: 36px;
+    padding: 0 16px 0 7px;
+    background-color: #f9f9f9;
+    color: #2b7dbc;
+    text-shadow: none!important;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.nav-list>li>a:hover:before {
+    display: block;
+    content: "";
+    position: absolute;
+    top: -1px;
+    bottom: 0;
+    left: 0;
+    width: 3px;
+    max-width: 3px;
+    overflow: hidden;
+    background-color: #3382af;
+    color:#2b7dbc;
+}
+
+.nav-list > li.open > a {
+    background-color: #fafafa;
+    color: #2b7dbc;
+}
+
+.nav-list > li > a:hover {
+    background-color: #FFF;
+    color: #2b7dbc;
+}
+
+body {
+    padding-bottom: 0;
+    background-color: #2b7dbc;
+    min-height: 100%;
+    font-family: 'Open Sans';
+    font-size: 13px;
+    color: #393939;
+    line-height: 1.5;
+}
+
+a:link {
+    color: #2b7dbc;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #2b7dbc;
+    text-decoration:none;
+}
+
+.dropdown-toggle
+{
+    cursor:pointer;
+}
+
+.float-left
+{
+    float:left;
+}
+
+.float-right
+{
+    float:right;
+}
+
+.table-head
+{
+    border-bottom:1px solid #eaeaea;
+}
+.table-head > .title-head
+{
+    font-family: 'Open Sans';
+    font-size:large;
+}
+.table-item
+{
+    border-bottom:1px solid #eaeaea;
+    padding:10px 10px 10px 10px
+}
+div>.table-item:hover
+{
+    background-color:#eeeeee;
+}
+.action-item
+{
+    padding: 0 0 0 10px;
+}
+.table-body
+{
+}
+
+.organigrama-link
+{
+    padding:0 0 0 10px;
+}
+
+.zoomTool
+{
+    margin-right:20px;
+}
+
+.margin-right
+{
+    margin-right:10px;
+}
+
+@import 'bootstrap.less';
+.validation-summary-errors
+{
+    padding-top:10px;
+    margin-bottom:10px;
+    background-color:#ffeacd;
+    border: 1px solid #ffd08d;
+    color:Red;
+    font-size:14px;
+    .border-radius(5);
+}
+
+.border-radius(@radius: 5px) {
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+    border-radius: @radius;
+}
+
+.field-validation-error
+{
+    color:Red;
+}
