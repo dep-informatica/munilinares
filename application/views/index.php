@@ -32,7 +32,7 @@
         <script type="text/javascript" src="<?php echo base_url(); ?>../js/nivo.js"></script>
         <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>../css/nivo.css"/>
         <!--fin nivo-->
-        
+
         <!--hechos municipales-->
         <script src="<?php echo base_url(); ?>../js/hechos-municipales.js" type="text/javascript"></script>
         <link href="<?php echo base_url(); ?>../css/tabla_info.css" rel="stylesheet" type="text/css"/>
@@ -93,7 +93,7 @@
             </div>
         </div>
         <!--slider principal y movil-->
-         <header >
+        <header >
             <div  class="slider-wrapper theme-light">
                 <div id="slider" class="nivoSlider">
                     <img src="<?php echo base_url(); ?>../img/slider/bg2.png"  />
@@ -101,20 +101,20 @@
                     <img src="<?php echo base_url(); ?>../img/slider/bg2.png" />
                     <img src="<?php echo base_url(); ?>../img/slider/proyeccion2.png" />
                 </div>
-    <!--                <div id="caption1" style="display: none;">
-                    <h3>Hola, esto es un caption HTML</h3>
-                    <a href="www.audiolive.cl"><p>Link a AUDIOLIVE</p></a>
-                    <ul>
-                        <li>text1.</li>
-                        <li>text2 li2</li>
-                    </ul>
-                </div>-->
+                <!--                <div id="caption1" style="display: none;">
+                                <h3>Hola, esto es un caption HTML</h3>
+                                <a href="www.audiolive.cl"><p>Link a AUDIOLIVE</p></a>
+                                <ul>
+                                    <li>text1.</li>
+                                    <li>text2 li2</li>
+                                </ul>
+                            </div>-->
             </div>
             <script type="text/javascript">
-                                $(window).load(function () {
-                                    $('#slider').nivoSlider({
-                                    });
-                                });
+                $(window).load(function () {
+                    $('#slider').nivoSlider({
+                    });
+                });
             </script>
             <div class="wrap">
                 <nav id="menu-principal">
@@ -127,7 +127,7 @@
                                 <li><a href="#" onclick="vistaHistoriaMuni();">Historia</a></li>
                                 <li><a href="<?php echo base_url(); ?>../pdf/reglamento/reglamento_interno.pdf" >Reglamento</a></li>
                                 <li><a href="#" onclick="vistaMSJealcalde();">Mensaje del Alcalde</a></li>
-                                <li><a href="#" onclick="vistaConsejoMunici();">Consejo Municipal</a></li>
+                                <li><a href="#" onclick="concejo();">Concejo Municipal</a></li>
                                 <li><a href="#" onclick="vistaOrgrama();">Estructura Organica</a></li>
                             </ul>
                         </li>
@@ -203,12 +203,12 @@
                     </div>
                     <!-- Normal -->
                     <div id="stream" class="stream" >
-
+                    </div>
+                    <div id="contenido" >
                     </div>
                     <!-- Fin Normal -->           
                     <!-- nel -->      
-                    <div id="contenido" >
-                    </div>
+
                     <!--                    <div class="buscar clearfix">
                                             <form action="">
                                                 <label for="query">Busca en las noticias</label>
@@ -357,11 +357,11 @@
 
                     <div class="banners">
                         <div class="banner banner-corto">
-                            <a  href="http://www.portaltransparencia.cl/PortalPdT/web/guest/directorio-de-organismos-regulados?p_p_id=pdtorganismos_WAR_pdtorganismosportlet&orgcode=8691dfce267db7cb63c54511ff105f64"><img src="<?php echo base_url(); ?>../trasparencia/TransInformacion_banner.PNG" style="height: 81px; width: 320px; border-bottom : #bbb groove; border-right : #bbb groove;"></a>
+                            <a  href="http://www.portaltransparencia.cl/PortalPdT/web/guest/directorio-de-organismos-regulados?p_p_id=pdtorganismos_WAR_pdtorganismosportlet&orgcode=8691dfce267db7cb63c54511ff105f64"><img src="<?php echo base_url(); ?>../img/solicitainformacion.png" alt="Banner 320x120"></a>
                         </div>
 
                         <div class="banner banner-corto">
-                            <a href="#"onclick="vistaMenuTransparenciaActiva();"><img src="<?php echo base_url(); ?>../trasparencia/transActiva_banner.PNG" style="height: 81px; width: 320px; border-bottom : #bbb groove; border-right : #bbb groove;"></a>
+                            <a href="#"onclick="vistaMenuTransparenciaActiva();"><img src="<?php echo base_url(); ?>../img/transparencia-activa.png" alt="Banner 320x120"></a>
                         </div>
                         <div class="banner banner-corto">
                             <a href="#"><img src="<?php echo base_url(); ?>../img/cuenta-publica.png" alt="Banner 320x120"></a>
@@ -515,7 +515,7 @@
 
                     <nav>
                         <ul>
-                            <li><a href="#">Grupo de desarrollo Dpt Informatica</a></li
+                            <li><a href="#">Equipo de desarrollo Dpt Informatica</a></li
 
                         </ul>
                     </nav>

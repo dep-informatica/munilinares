@@ -7,6 +7,7 @@ $(document).ready(function () {
 //    $("#areatecnico").tabs();
 //    verifaLogin();
     $("#dialog").dialog({width: 400, autoOpen: false});
+    $("#dialog").dialog({width: 400, autoOpen: false});
     $("#login").click(function () {
         $("#dialog").dialog("open");
     });
@@ -15,56 +16,9 @@ $(document).ready(function () {
     });
 
     verifaLogin();
-    var p1 = "";
-    var p2 = "";
-    var p3 = "";
-    var p4 = "";
-    var p5 = "";
-   
+
+
 });
-
-
-function opcionvideo() {
-
-    document.getElementById('archivos2').hidden = true;
-    document.getElementById('ivideo').hidden = false;
-    $("#oculto").val("video");
-}
-function opcionimagen() {
-    document.getElementById('archivos2').hidden = false;
-    document.getElementById('ivideo').hidden = true;
-    $("#oculto").val("imagen");
-}
-
-function zoommas() {
-    var fontSize = 1;
-    fontSize += 0.1;
-//    document.post.texto.p.fontSize = fontSize + "em";
-    document.getElementsByTagName("p").style.fontSize = fontSize + "em";
-}
-
-function verifaLogin() {
-    $.post(
-            base_url + "welcome/verifaLogin",
-            {},
-            function (datos) {
-
-                if (datos.valor == 0) {
-                    $("#stream").show();
-                    cargarnoticias();
-                    $("#contenido").hide();
-                } else {
-
-
-                    if (datos.permiso == 1) {
-                        $("#contenido").show();
-                        $("#stream").hide();
-                        cargacpanel();
-                    }
-                }
-            }, 'json'
-            );
-}
 
 function conectar() {
     var correo = $("#correo").val();
@@ -82,7 +36,7 @@ function conectar() {
                     if (datos.valor == 0) {
 
                         $("#stream").show();
-                        $("#contenido").hide();
+//                        $("#contenido").hide();
                         alertify.error("Acceso Denegado");
                     } else {
 
@@ -90,7 +44,12 @@ function conectar() {
 
                         if (datos.permiso == 1) {
                             $("#contenido").show();
-                            $("#stream").hide();
+                            cargacpanel();
+
+                        }
+                        if (datos.permiso == 2) {
+                            $("#contenido").show();
+                            cargacpanelconcejo();
 
                         }
                         verifaLogin();
@@ -101,17 +60,99 @@ function conectar() {
         alertify.error("Revise Usuario y Contraseña");
     }
 }
+function cerrarSesion() {
+    $.post(base_url + "welcome/cerrar",
+            {
+            }, function () {
+
+        verifaLogin();
+        alertify.success("Session Cerrada Correctamente");
+    });
+}
+
+function verifaLogin() {
+    $.post(
+            base_url + "welcome/verifaLogin",
+            {},
+            function (datos) {
+
+                if (datos.valor == 0) {
+
+                    $("#contenido").hide();
+                    cargarnoticias();
+
+                } else {
+
+
+                    if (datos.permiso == 1) {
+                        $("#contenido").show();
+                        cargacpanel();
+                    }
+                    if (datos.permiso == 2) {
+                        $("#contenido").show();
+                        cargacpanelconcejo();
+
+                    }
+                }
+            }, 'json'
+            );
+}
 
 function cargacpanel() {
     $.post(
             base_url + "welcome/cargacpanel",
             {},
             function (ruta, datos) {
+                $("#stream").hide();
                 $("#contenido").hide();
                 $("#contenido").html(ruta, datos);
                 $("#contenido").show('fast');
             });
 }
+function cargacpanelconcejo() {
+    $.post(
+            base_url + "welcome/cargacpanelconcejo",
+            {},
+            function (ruta) {
+                $("#stream").hide();
+                $("#contenido").hide();
+                $("#contenido").html(ruta);
+                $("#contenido").show('fast');
+            });
+}
+function cargarnoticias() {
+    $.post(
+            base_url + "welcome/cargarnoticias",
+            {},
+            function (ruta, datos) {
+                $("#stream").html(ruta, datos);
+                $("#stream").show();
+            });
+}
+function opcionvideo() {
+
+    document.getElementById('archivos2').hidden = true;
+    document.getElementById('ivideo').hidden = false;
+    $("#oculto").val("video");
+}
+function opcionimagen() {
+    document.getElementById('archivos2').hidden = false;
+    document.getElementById('ivideo').hidden = true;
+    $("#oculto").val("imagen");
+}
+
+
+function zoommas() {
+    var fontSize = 1;
+    fontSize += 0.1;
+//    document.post.texto.p.fontSize = fontSize + "em";
+    document.getElementsByTagName("p").style.fontSize = fontSize + "em";
+}
+
+
+
+
+
 
 function masnoticias() {
     $.post(
@@ -123,17 +164,6 @@ function masnoticias() {
                 $("#contenido").show('fast');
             });
 }
-
-function cerrarSesion() {
-    $.post(base_url + "welcome/cerrar",
-            {
-            }, function () {
-
-        verifaLogin();
-        alertify.success("Session Cerrada Correctamente");
-    });
-}
-
 function verifaLogin2no() {
     $.post(
             base_url + "welcome/verifaLogin",
@@ -168,14 +198,6 @@ function vernoticia(id) {
             });
 
 }
-function cargarnoticias() {
-    $.post(
-            base_url + "welcome/cargarnoticias",
-            {},
-            function (ruta, datos) {
-                $("#stream").html(ruta, datos);
-            });
-}
 function reportenoti() {
     $.post(
             base_url + "welcome/reportenoti",
@@ -184,7 +206,6 @@ function reportenoti() {
                 $("#reportenoticias").html(ruta, datos);
             });
 }
-
 function ingresarHM() {
     var fecha = $("#datepicker").val();
     var archivos = document.getElementById("archivopdf").files;//Creamos un objeto con el elemento que contiene los archivos: el campo input file, que tiene el id = 'archivos'
@@ -246,7 +267,6 @@ function ingresarHM() {
 
 
 }
-
 function ingresarnoticia() {
     var titulo = $("#txttituloo").val();
     var encabezado = $("#txtencabezado").val();
@@ -406,17 +426,10 @@ function ingresarnoticia() {
 
     }
 }
-
-
-
 function MensajeFinal(msg) {
     $('.mensage').html(msg);//A el div con la clase msg, le insertamos el mensaje en formato  thml
     $('.mensage').show('slow');//Mostramos el div.
 }
-
-
-
-
 function EVAL(id_solicitud) {
     alert(id_solicitud);
     var s5 = document.getElementById("puntaje" + id_solicitud).value;
@@ -465,7 +478,6 @@ function guardarcambios() {
                 }, 'json');
     }
 }
-
 function Terminar() {
 
     var codigo = $("#oculto").val();
@@ -518,8 +530,8 @@ function eliminarnoticia(id_noticia) {
             $.post(base_url + "welcome/eliminarnoticia", {
                 id_noticia: id_noticia
             }, function (valor) {
-                if(valor.valor==1){
-                     alertify.success("Noticia Eliminada con Exito");
+                if (valor.valor == 1) {
+                    alertify.success("Noticia Eliminada con Exito");
                 }
             }, 'json');
             $("#reportenoticias").val("");
@@ -650,25 +662,18 @@ function reportecliente() {
 
 }
 
-function reportetecnico() {
-    $.post(
-            base_url + "welcome/reportetecnico",
-            {},
-            function (ruta, datos) {
-                $("#reporte3").hide();
-                $("#reporte3").html(ruta, datos);
-                $("#reporte3").show('fast');
-            });
-}
+
 function contacto() {
     $.post(
             base_url + "welcome/contacto",
             {},
             function (ruta) {
-                $("#contenido").hide();
+                $("#sidebar").show();
                 $("#stream").hide();
-                $("#stream").html(ruta);
-                $("#stream").show('fast');
+                $("#contenido").hide();
+                $("#contenido").html(ruta);
+                $("#contenido").fadeIn(2000).delay(2000);
+
             });
 }
 
@@ -720,4 +725,47 @@ function enviar() {
             }
         }
     }
+}
+function reportetecnico() {
+    $.post(
+            base_url + "welcome/reportetecnico",
+            {},
+            function (ruta, datos) {
+                $("#reporte3").hide();
+                $("#reporte3").html(ruta, datos);
+                $("#reporte3").show('fast');
+            });
+}
+
+
+function concejo() {
+    $.post(
+            base_url + "Welcome/concejo",
+            {},
+            function (ruta, datos) {
+
+
+
+                $("#sidebar").show();
+                $("#stream").hide();
+                $("#contenido").hide();
+                $("#contenido").fadeIn(1000).delay(1000);
+                $("#contenido").html(ruta, datos);
+
+            });
+}
+function actividadconcejal(id) {
+
+
+    $.post(
+            base_url + "welcome/actividad",
+            {id: id},
+            function (ruta, datos) {
+                $("#activitiesconcejales").hide();
+                $("#activitiesconcejales").html(ruta, datos);
+                $("#activitiesconcejales").show();
+            });
+
+    $("#dialogconcejal").dialog("open");
+
 }

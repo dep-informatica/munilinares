@@ -61,9 +61,10 @@
 
             }
         });
+        
+        
         $("#archivos2").on("change", function () {
 //            $("#vistaa").html("");
-
             var archivos = document.getElementById('archivos2').files;
             var navegator = window.URL || window.webkitURL;
             var error = 1;
@@ -76,36 +77,25 @@
                         alertify.error("Cualquier Imagen No puede Superar 1MB de Memoria de Almacenamiento.");
                         $('input[type=file]').val('');
                         error = 0;
-
                     } else {
                         if (type !== 'image/jpeg' && type !== 'image/jpg' && type !== 'image/png' && type !== 'image/gif') {
                             alertify.error("El formato de las Imagenes no es permitido");
                             $('input[type=file]').val('');
-
                         } else {
                             var objeto_url = navegator.createObjectURL(archivos[i]);
                             $("#vistaa").after("<img src=" + objeto_url + " width='100' height='100'>");
                         }
                     }
                 }
-
             } else {
                 alertify.error("Maximo 5 imagenes para la Galeria");
                 $('input[type=file]').val('');
             }
             if (error === 0) {
-
                 $('input[type=file]').val('');
-
             }
         });
-
-
-
-
     });
-
-
 
 </script>
 

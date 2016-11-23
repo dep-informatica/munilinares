@@ -10,6 +10,12 @@ class modelo extends CI_Model {
         return $this->db->get('usuarios')->num_rows();
     }
 
+    function queconcejal($id_conectado) {
+        $this->db->select('nombre,fotoperfil,propuesta');
+        $this->db->where('id_usuario', $id_conectado);
+        return $this->db->get('usuarios');
+    }
+
     function permiso($correo) {
         $this->db->select('perfil');
         $this->db->select('nombre');
@@ -61,6 +67,16 @@ class modelo extends CI_Model {
         } else {
             return 0;
         }
+    }
+
+    function consejo() {
+        $query = "SELECT * FROM `usuarios` WHERE `perfil`='2'";
+        return $this->db->query($query);
+    }
+
+    function actividad($id) {
+        $query = "SELECT * FROM `actividad_concejales`  WHERE `fk_actividad_concejal`=$id";
+        return $this->db->query($query);
     }
 
     function ingresarusuario($nombre, $correo, $departamento, $clave, $peril) {
@@ -135,8 +151,8 @@ class modelo extends CI_Model {
     }
 
     function eliminarnoticia($id_noticia) {
-       
-       
+
+
         $this->db->where('id_noticia', $id_noticia);
         $this->db->delete('noticia');
         $a = mysql_affected_rows();
@@ -285,7 +301,6 @@ FROM solicitud INNER JOIN usuario ON solicitud.fk_usuario=usuario.id_usuario INN
             "estado_solicitud" => "DERIVADA",
             "progreso" => "25"
         );
-
         if ($this->db->insert("usuario_solicitud", $data) == 1) {
 
             $this->db->where('id_solicitud', $id_solicitud);
@@ -294,14 +309,10 @@ FROM solicitud INNER JOIN usuario ON solicitud.fk_usuario=usuario.id_usuario INN
         } else {
             return 1;
         }
-
-
         //actualizar la tabla solicitud cambiando el estado a derivado
     }
-    
-    
+
     //    ----alejandro--
-    
     function TBDiarioOficial() {
         $query = "select nombre,
             link,
@@ -398,20 +409,17 @@ FROM solicitud INNER JOIN usuario ON solicitud.fk_usuario=usuario.id_usuario INN
         return $this->db->query($query);
     }
 
-  function TBOrdenanzas() {
+    function TBOrdenanzas() {
 
         $query = "select * From transparencia_contenido where codigo='7_2' order by orden desc";
         return $this->db->query($query);
     }
-    
+
     function TBConvenios() {
 
         $query = "select id,nombre,link,formato,carpeta,subcarpeta,archivo,mes,periodo,area From transparencia_contenido where codigo='7_10' order by orden desc ";
         return $this->db->query($query);
     }
-    
-    
-    
 
 }
 

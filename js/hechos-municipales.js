@@ -21,7 +21,7 @@ function vistamebePDF() {
             {},
             function (pagina) {
 
-//                $("#contenido").hide();
+                $("#contenido").hide();
                 $("#verPDF").hide();
                 $("#verPDF").fadeIn(1000).delay(1000);
                 $("#verPDF").html(pagina);
@@ -37,9 +37,10 @@ function vistaquienessomos() {
             function (pagina) {
 
                 $("#sidebar").show();
-                $("#main").hide();
-                $("#main").fadeIn(1000).delay(1000);
-                $("#main").html(pagina);
+                $("#stream").hide();
+                $("#contenido").hide();
+                $("#contenido").fadeIn(1000).delay(1000);
+                $("#contenido").html(pagina);
 
             });
 }
@@ -53,9 +54,10 @@ function vistaHistoriaMuni() {
             function (pagina) {
 
                 $("#sidebar").show();
-                $("#main").hide();
-                $("#main").fadeIn(1000).delay(1000);
-                $("#main").html(pagina);
+                $("#stream").hide();
+                $("#contenido").hide();
+                $("#contenido").fadeIn(1000).delay(1000);
+                $("#contenido").html(pagina);
 
             });
 }
@@ -68,26 +70,26 @@ function vistaMSJealcalde() {
             function (pagina) {
 
                 $("#sidebar").show();
-                $("#main").hide();
-                $("#main").fadeIn(1000).delay(1000);
-                $("#main").html(pagina);
-
+                $("#stream").hide();
+                $("#contenido").hide();
+                $("#contenido").fadeIn(1000).delay(1000);
+                $("#contenido").html(pagina);
             });
 }
 
 //consejo municipal
-function vistaConsejoMunici() {
-    $.post(
-            base_url + "Welcome/vistaConsejoMunicipal",
-            {},
-            function (pagina) {
-                $("#sidebar").show();
-                $("#main").hide();
-                $("#main").fadeIn(1000).delay(1000);
-                $("#main").html(pagina);
-
-            });
-}
+//function vistaConsejoMunici() {
+//    $.post(
+//            base_url + "Welcome/vistaConsejoMunicipal",
+//            {},
+//            function (pagina) {
+//                $("#sidebar").show();
+//                $("#main").hide();
+//                $("#main").fadeIn(1000).delay(1000);
+//                $("#main").html(pagina);
+//
+//            });
+//}
 //estructura organica
 function vistaOrgrama() {
     $.post(
@@ -96,9 +98,10 @@ function vistaOrgrama() {
             function (pagina) {
 
                 $("#sidebar").hide();
-                $("#main").hide();
-                $("#main").fadeIn(1000).delay(1000);
-                $("#main").html(pagina);
+                $("#stream").hide();
+                $("#contenido").hide();
+                $("#contenido").fadeIn(1000).delay(1000);
+                $("#contenido").html(pagina);
 
             });
 }
@@ -126,10 +129,10 @@ function vistaSaludd() {
             function (pagina) {
 
                 $("#sidebar").show();
-                $("#main").hide();
-                $("#main").fadeIn(1000).delay(1000);
-                $("#main").html(pagina);
-
+                $("#stream").hide();
+                $("#contenido").hide();
+                $("#contenido").fadeIn(1000).delay(1000);
+                $("#contenido").html(pagina);
             });
 }
 
@@ -141,10 +144,10 @@ function vistaCartografia() {
             function (pagina) {
 
                 $("#sidebar").show();
-                $("#main").hide();
-                $("#main").fadeIn(1000).delay(1000);
-                $("#main").html(pagina);
-
+                $("#stream").hide();
+                $("#contenido").hide();
+                $("#contenido").fadeIn(1000).delay(1000);
+                $("#contenido").html(pagina);
             });
 }
 
@@ -156,9 +159,10 @@ function vistaDeportes() {
             function (pagina) {
 
                 $("#sidebar").show();
-                $("#main").hide();
-                $("#main").fadeIn(1000).delay(1000);
-                $("#main").html(pagina);
+                $("#stream").hide();
+                $("#contenido").hide();
+                $("#contenido").fadeIn(1000).delay(1000);
+                $("#contenido").html(pagina);
 
             });
 }
@@ -171,10 +175,10 @@ function vistaDirUnidad() {
             function (pagina) {
 
                 $("#sidebar").show();
-                $("#main").hide();
-                $("#main").fadeIn(1000).delay(1000);
-                $("#main").html(pagina);
-
+                $("#stream").hide();
+                $("#contenido").hide();
+                $("#contenido").fadeIn(1000).delay(1000);
+                $("#contenido").html(pagina);
             });
 }
 
@@ -187,9 +191,10 @@ function vistaJefeDepartamentos() {
             function (pagina) {
 
                 $("#sidebar").show();
-                $("#main").hide();
-                $("#main").fadeIn(1000).delay(1000);
-                $("#main").html(pagina);
+                $("#stream").hide();
+                $("#contenido").hide();
+                $("#contenido").fadeIn(1000).delay(1000);
+                $("#contenido").html(pagina);
 
             });
 }
@@ -197,10 +202,10 @@ function vistaJefeDepartamentos() {
 
 //bienestar
 function vistaPresentacionBienestar() {
-            
-                $("#sidebar").show();
-                $("#main").hide();
-                $("#main").fadeIn(1000).delay(1000);
-                $("#main").load( '../bienestar/presentacion_servicio_bienestar.pdf');
 
-         }
+    $("#sidebar").show();
+    $("#contenido").hide();
+    $("#contenido").fadeIn(1000).delay(1000);
+    $("#contenido").load('../bienestar/presentacion_servicio_bienestar.pdf');
+
+}

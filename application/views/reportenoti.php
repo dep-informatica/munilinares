@@ -19,7 +19,7 @@
                    <?php  }    ?>
                 >
                 <td><?= $fila->titulo; ?></td>
-                <td style="align-content: center"><img onclick="eliminarnoticia(<?= $fila->id_noticia ?>)" src=". /../img/borrar.png" width="30" height="30" title="ELIMINAR NOTICIA" /></td>
+                <td style="align-content: center"><img onclick="eliminarnoticia(<?= $fila->id_noticia ?>)" src="<?php echo base_url(); ?>../img/borrar.png" width="30" height="30" title="ELIMINAR NOTICIA" /></td>
             </tr >
 
             <? endforeach;?>

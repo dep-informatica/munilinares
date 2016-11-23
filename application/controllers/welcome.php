@@ -23,8 +23,8 @@ class Welcome extends CI_Controller {
 
     function eliminarnoticia() {
         $id_noticia = $this->input->post('id_noticia');
-        $valor=$this->modelo->eliminarnoticia($id_noticia);
-         echo json_encode(array("valor" => $valor));
+        $valor = $this->modelo->eliminarnoticia($id_noticia);
+        echo json_encode(array("valor" => $valor));
     }
 
     function leer() {
@@ -288,6 +288,13 @@ class Welcome extends CI_Controller {
         $this->load->view('cpanel');
     }
 
+    function cargacpanelconcejo() {
+        $id_conectado= $this->session->userdata('id_conectado');
+        $data = $this->modelo->queconcejal($id_conectado);
+        $datos['infoconcejal'] = $data->result();
+        $this->load->view('cpanelconcejo',$datos);
+    }
+
     function reportecliente() {
         $id_conectado = $this->session->userdata('id_conectado');
         $data = $this->modelo->reportecliente($id_conectado);
@@ -338,8 +345,6 @@ class Welcome extends CI_Controller {
         }
     }
 
-
-
     function contacto() {
         $this->load->view('contacto');
     }
@@ -362,10 +367,23 @@ class Welcome extends CI_Controller {
             echo json_encode(array("valor" => $valor));
         }
     }
-    
-    //    ----------------------alejandro----------
-    
-    
+
+    function concejo() {
+        $data = $this->modelo->consejo();
+        $datos['actividades'] = $data->result();
+        $datos['cantidad'] = $data->num_rows();
+        $this->load->view('concejo', $datos);
+    }
+
+    function actividad() {
+        $id = $this->input->post('id');
+        $data = $this->modelo->actividad($id);
+        $datos['cantidad'] = $data->num_rows();
+        $datos['actividades'] = $data->result();
+        $this->load->view('reporteactividadconcej', $datos);
+    }
+
+    //    -------------reporteactividadconcej---------alejandro----------
     //quienes somos
     function vistaquienSomos() {
         $this->load->view('quienSomos');
@@ -379,11 +397,6 @@ class Welcome extends CI_Controller {
     //msj alcalde
     function vistaMSJalcalde() {
         $this->load->view('mensajeAlcalde');
-    }
-
-    //consejo municipal
-    function vistaConsejoMunicipal() {
-        $this->load->view('consejoMunicipal');
     }
 
     //estructura organica
@@ -423,7 +436,7 @@ class Welcome extends CI_Controller {
 
     //echos municipales
     function vistaechosmunicipales() {
-        
+
         $this->load->view('hechos-municipales');
     }
 
@@ -528,7 +541,6 @@ class Welcome extends CI_Controller {
         $this->load->view('convenios', $data);
     }
 
-    
     function vistaMe3utm() {
         $this->load->view('CMe3UTM');
     }
@@ -608,7 +620,6 @@ class Welcome extends CI_Controller {
     function vistaAnteMernorTaman() {
         $this->load->view('AnteMernorTaman');
     }
-    
 
 }
 
