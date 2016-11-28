@@ -26,6 +26,11 @@ class Welcome extends CI_Controller {
         $valor = $this->modelo->eliminarnoticia($id_noticia);
         echo json_encode(array("valor" => $valor));
     }
+     function eliminaractividad() {
+        $id_actividad_concejal = $this->input->post('id_actividad_concejal');
+        $valor = $this->modelo->eliminaractividad($id_actividad_concejal);
+        echo json_encode(array("valor" => $valor));
+    }
 
     function leer() {
 
@@ -38,6 +43,54 @@ class Welcome extends CI_Controller {
             $comentario = $fila->comentario_tecnico;
         }
         echo json_encode(array("comentario" => $comentario, "fecha" => $fecha));
+    }
+
+    function propuesta() {
+        $valor = 0;
+        $id_conectado = $this->session->userdata('id_conectado');
+        $propuesta = $this->input->post('txtpropuesta');
+        if ($this->modelo->propuesta($propuesta, $id_conectado) == 1) {
+            $valor = 1;
+        }
+        echo json_encode(array("valor" => $valor));
+    }
+
+    function actualizarperfil2() {
+        $id_conectado = $this->session->userdata('id_conectado');
+        $propuesta = $this->input->post('txtpropuesta');
+        $p1 = $this->input->post('p1');
+        $p1 = date("Y-m-d-H") . $p1;
+
+        $valor = 1;
+        if ($this->modelo->actualizarperfil2($id_conectado, $propuesta, $p1) == 1) {
+            $valor = 0;
+        }
+        echo json_encode(array("valor" => $valor));
+    }
+
+    function ingreactividadconfoto() {
+        $id_conectado = $this->session->userdata('id_conectado');
+        $txttituloactividad = $this->input->post('txttituloactividad');
+        $txtparrafoactividad = $this->input->post('txtparrafoactividad');
+        $p1 = $this->input->post('p1');
+        $p1 = date("Y-m-d-H") . $p1;
+
+        $valor = 1;
+        if ($this->modelo->ingreactividadconfoto($id_conectado,$txttituloactividad, $txtparrafoactividad, $p1) == 1) {
+            $valor = 0;
+        }
+        echo json_encode(array("valor" => $valor));
+    }
+
+    function ingreactividad() {
+        $id_conectado = $this->session->userdata('id_conectado');
+        $txttituloactividad = $this->input->post('txttituloactividad');
+        $txtparrafoactividad = $this->input->post('txtparrafoactividad');
+        $valor = 0;
+        if ($this->modelo->ingreactividad($id_conectado, $txttituloactividad, $txtparrafoactividad) == 1) {
+            $valor = 1;
+        }
+        echo json_encode(array("valor" => $valor));
     }
 
     function ingresarnoticia() {
@@ -73,6 +126,54 @@ class Welcome extends CI_Controller {
     function ingresaralbun() {
 
         $ruta = './Files/'; //Decalaramos una variable con la ruta en donde almacenaremos los archivos
+        $mensage = ''; //Declaramos una variable mensaje quue almacenara el resultado de las operaciones.
+        $valor = "0";
+        foreach ($_FILES as $key) { //Iteramos el arreglo de archivos
+            if ($key['error'] == UPLOAD_ERR_OK) {//Si el archivo se paso correctamente Ccontinuamos 
+                $NombreOriginal = $key['name']; //Obtenemos el nombre original del archivo
+                $temporal = $key['tmp_name']; //Obtenemos la ruta Original del archivo
+                $Destino = $ruta . date("Y-m-d-H") . $NombreOriginal; //Creamos una ruta de destino con la variable ruta y el nombre original del archivo	
+                move_uploaded_file($temporal, $Destino); //Movemos el archivo temporal a la ruta especificada	
+            }
+            if ($key['error'] == '') { //Si no existio ningun error, retornamos un mensaje por cada archivo subido
+                $mensage .= '-> Archivo <b>' . $NombreOriginal . '</b> Subido correctamente. <br>';
+                $valor = "1";
+            }
+            if ($key['error'] != '') {//Si existio algún error retornamos un el error por cada archivo.
+                $mensage .= '-> No se pudo subir el archivo <b>' . $NombreOriginal . '</b> debido al siguiente Error: \n' . $key['error'];
+                $valor = "0";
+            }
+        }
+        echo ($valor); // Regresamos los mensajes generados al cliente
+    }
+
+    function actividadfoto() {
+
+        $ruta = './img/concejales/actividad/'; //Decalaramos una variable con la ruta en donde almacenaremos los archivos
+        $mensage = ''; //Declaramos una variable mensaje quue almacenara el resultado de las operaciones.
+        $valor = "0";
+        foreach ($_FILES as $key) { //Iteramos el arreglo de archivos
+            if ($key['error'] == UPLOAD_ERR_OK) {//Si el archivo se paso correctamente Ccontinuamos 
+                $NombreOriginal = $key['name']; //Obtenemos el nombre original del archivo
+                $temporal = $key['tmp_name']; //Obtenemos la ruta Original del archivo
+                $Destino = $ruta . date("Y-m-d-H") . $NombreOriginal; //Creamos una ruta de destino con la variable ruta y el nombre original del archivo	
+                move_uploaded_file($temporal, $Destino); //Movemos el archivo temporal a la ruta especificada	
+            }
+            if ($key['error'] == '') { //Si no existio ningun error, retornamos un mensaje por cada archivo subido
+                $mensage .= '-> Archivo <b>' . $NombreOriginal . '</b> Subido correctamente. <br>';
+                $valor = "1";
+            }
+            if ($key['error'] != '') {//Si existio algún error retornamos un el error por cada archivo.
+                $mensage .= '-> No se pudo subir el archivo <b>' . $NombreOriginal . '</b> debido al siguiente Error: \n' . $key['error'];
+                $valor = "0";
+            }
+        }
+        echo ($valor); // Regresamos los mensajes generados al cliente
+    }
+
+    function actualizarperfil() {
+
+        $ruta = './img/concejales/'; //Decalaramos una variable con la ruta en donde almacenaremos los archivos
         $mensage = ''; //Declaramos una variable mensaje quue almacenara el resultado de las operaciones.
         $valor = "0";
         foreach ($_FILES as $key) { //Iteramos el arreglo de archivos
@@ -204,7 +305,15 @@ class Welcome extends CI_Controller {
         $datos['noticias'] = $data->result();
         $this->load->view('reportenoti', $datos);
     }
+    
+ function verreporteacti() {
+     $id_conectado = $this->session->userdata('id_conectado');
 
+        $data = $this->modelo->verreporteacti($id_conectado);
+        $datos['cantidad'] = $data->num_rows();
+        $datos['noticias'] = $data->result();
+        $this->load->view('reporteactividad', $datos);
+    }
     function vernoticia() {
         $id = $this->input->post('id');
 
@@ -289,10 +398,10 @@ class Welcome extends CI_Controller {
     }
 
     function cargacpanelconcejo() {
-        $id_conectado= $this->session->userdata('id_conectado');
+        $id_conectado = $this->session->userdata('id_conectado');
         $data = $this->modelo->queconcejal($id_conectado);
         $datos['infoconcejal'] = $data->result();
-        $this->load->view('cpanelconcejo',$datos);
+        $this->load->view('cpanelconcejo', $datos);
     }
 
     function reportecliente() {

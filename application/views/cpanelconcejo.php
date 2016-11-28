@@ -16,11 +16,91 @@
     $("#actualizarperfil").button({icons: {primary: "ui-icon-disk"}}).click(function () {
         actualizarperfil();
     });
-    $("#boton_subir").button({icons: {primary: "ui-icon-disk"}}).click(function () {
-        ingresarHM();
+    $("#ingreactividad").button({icons: {primary: "ui-icon-disk"}}).click(function () {
+        ingreactividad();
     });
-    $("#reportenoti").button({icons: {primary: "ui-icon-círculo-triángulo-s"}}).click(function () {
-        reportenoti();
+    $("#verreporteacti").button({icons: {primary: "ui-icon-círculo-triángulo-s"}}).click(function () {
+      verreporteacti();
+    });
+    $(function () {
+        $("#fotonuevaconcejal").on("change", function () {
+            //sabiduriaaaa
+            $('#vistaa').remove();
+            document.getElementById("vis2").innerHTML = "<div id='vistaa'>:</div>";
+
+            var archivos = document.getElementById('fotonuevaconcejal').files;
+            var navegator = window.URL || window.webkitURL;
+            var error = 1;
+            if (archivos.length <= 1) {
+                for (var i = 0; i < archivos.length; i++) {
+                    var size = archivos[i].size;
+                    var type = archivos[i].type;
+                    var namee = archivos[i].name;
+                    if (size > 1024 * 1024) {
+                        alertify.error("Cualquier Imagen No puede Superar 1MB de Memoria de Almacenamiento.");
+                        $('input[type=file]').val('');
+                        error = 0;
+                    } else {
+                        if (type !== 'image/jpeg' && type !== 'image/jpg' && type !== 'image/png' && type !== 'image/gif') {
+                            alertify.error("El formato de las Imagene no es permitido");
+                            $('input[type=file]').val('');
+
+                        } else {
+                            var objeto_url = navegator.createObjectURL(archivos[i]);
+                            $("#vistaa").after("<img src=" + objeto_url + " width='200' height='200'>");
+                        }
+                    }
+                }
+            } else {
+                alertify.error("Maximo 1 imagenes para la Galeria");
+                $('input[type=file]').val('');
+            }
+            if (error === 0) {
+
+                $('input[type=file]').val('');
+
+            }
+        });
+    });
+        $(function () {
+        $("#fotoactividad").on("change", function () {
+            //sabiduriaaaa
+            $('#vistaa3').remove();
+            document.getElementById("vis3").innerHTML = "<div id='vistaa3'>:</div>";
+
+            var archivos = document.getElementById('fotoactividad').files;
+            var navegator = window.URL || window.webkitURL;
+            var error = 1;
+            if (archivos.length <= 1) {
+                for (var i = 0; i < archivos.length; i++) {
+                    var size = archivos[i].size;
+                    var type = archivos[i].type;
+                    var namee = archivos[i].name;
+                    if (size > 1024 * 1024) {
+                        alertify.error("Cualquier Imagen No puede Superar 1MB de Memoria de Almacenamiento.");
+                        $('input[type=file]').val('');
+                        error = 0;
+                    } else {
+                        if (type !== 'image/jpeg' && type !== 'image/jpg' && type !== 'image/png' && type !== 'image/gif') {
+                            alertify.error("El formato de las Imagene no es permitido");
+                            $('input[type=file]').val('');
+
+                        } else {
+                            var objeto_url = navegator.createObjectURL(archivos[i]);
+                            $("#vistaa3").after("<img src=" + objeto_url + " width='200' height='200'>");
+                        }
+                    }
+                }
+            } else {
+                alertify.error("Maximo 1 imagenes para la Galeria");
+                $('input[type=file]').val('');
+            }
+            if (error === 0) {
+
+                $('input[type=file]').val('');
+
+            }
+        });
     });
 </script>
 
@@ -43,16 +123,20 @@
                         <h3 style="align-content: center"><?= $fila->nombre; ?></h3>
                         <table >
                             <tr>
-                                <td ><b>Mi Foto de Presentacion: </b> </td>
-                                <td ><img src="<?php echo base_url(); ?>../img/concejales/<?= $fila->fotoperfil; ?>" style="width: 200px; height: 200px"></td>
-                                <td ><input type="file" name="newfotoperfil" value="" width="4" /></td>
+                                <td><b>Mi Foto de Presentacion: </b></td>
+                                <td><img src="<?php echo base_url(); ?>../img/concejales/<?= $fila->fotoperfil; ?>" style="width: 180px; height: 200px; box-shadow: 2px 2px 5px #999;"></td>
+                                <td><div id="vis2">
+                                        <div id="vistaa">:</div>
+                                    </div></td>
                             </tr>
                             <tr>
                                 <td><b>Seleccion:</b></td>
-                                <td>  <input  id="conserva"type="radio" name="multi3" checked="true" /> Conservar Imagen<tr></tr>
-                                    <inpu id="nueva"type="radio" name="multi3"  />Nueva Imagen <tr></tr>
-                                    <input type="hidden" id="oculto2" value="conserva"/> </td>
-                                <td></td>
+                                <td style="height: 50px">  
+                                    Conservar Imagen  <input onclick="chek1();" id="conserva" type="radio" name="multi3" checked="true" /> 
+                                    Nueva Imagen  <input onclick="chek2();"id="nueva" type="radio" name="multi3"  />
+                                    <input type ="hidden" id="oculto4" value="conserva">
+                                </td>
+                                <td><input  size="5"type="file" id="fotonuevaconcejal" hidden="true" name="fotonuevaconcejal" /></td>
                             </tr>
                         </table>
                         <table border="0">
@@ -72,46 +156,41 @@
                     <h3 style="align-content: center">Nueva actividad</h3>
                     <table border="0">
                         <tr>
-                            <td> Mes:</td>
-                            <td><input id="datepicker">
-                                <script>
-                                    $('#datepicker').datepicker({
-                                        dateFormat: 'mm-yy',
-                                        duration: "fast",
-                                        showAnim: "drop",
-                                        showOptions: {direction: "up"}
-                                    });
+                            <td> Titulo Actividad:</td>
+                            <td><input type="text" id="txttituloactividad" maxlength="100" size="31"/> </td>
+                        </tr>
+                        <tr>
+                            <td> Parrafo Actividad:</td>
+                            <td> <textarea maxlength="1000"id="txtparrafoactividad" rows="10" cols="30">
+                                </textarea></td>
+                        </tr>
 
-                                </script> 
+                        <tr>
+                            <td>Fotografia:</td>
+                            <td style="height: 50px">  
+                                si  <input onclick="chek3();" id="si" type="radio" name="multi5" /> 
+                                no  <input onclick="chek4();"id="no" type="radio" name="multi5" checked="true" />
+                                <input type ="hidden" id="oculto5" value="no">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="file" id="fotoactividad" hidden="true" size="10"name="fotoactividad"  /></td>
+                            <td><div id="vis3">
+                                        <div id="vistaa3"></div>
+                                    </div>
                             </td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Selecciones Archivo PDF:</td>
-                            <td><input type="file" name="archivopdf" id="archivopdf"/></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><div  id="carg2" class="cssload-wraper">
-                                    <div class="cssload-dots"></div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><div id="boton_subir">Ingresar Actividad</div></td>
+                            <td><div id="ingreactividad">Ingresar Actividad</div></td>
                         </tr>
                     </table>
 
                 </div>
                 <div id="tabs-3">
-                    <div id="reportenoti">Ver Reporte de mis Actividades </div>
+                    <div id="verreporteacti">Ver Reporte de mis Actividades </div>
                     <tr></tr>
-                    <div id="reportenoticias"></div>
-
+                    <div id="reporteacti"></div>
                 </div>
                 <div id="tabs-4">
                     <table>

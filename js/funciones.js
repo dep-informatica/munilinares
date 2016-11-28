@@ -14,16 +14,12 @@ $(document).ready(function () {
     $("#loginm").click(function () {
         $("#dialog").dialog("open");
     });
-
     verifaLogin();
-
-
+    var p1 = "";
 });
-
 function conectar() {
     var correo = $("#correo").val();
     var clave = $("#clave").val();
-
     if (correo !== "" && clave !== "") {
         $.post(
                 base_url + "welcome/conectar",
@@ -41,16 +37,13 @@ function conectar() {
                     } else {
 
                         $("#dialog").dialog("close");
-
                         if (datos.permiso == 1) {
                             $("#contenido").show();
                             cargacpanel();
-
                         }
                         if (datos.permiso == 2) {
                             $("#contenido").show();
                             cargacpanelconcejo();
-
                         }
                         verifaLogin();
                     }
@@ -80,7 +73,6 @@ function verifaLogin() {
 
                     $("#contenido").hide();
                     cargarnoticias();
-
                 } else {
 
 
@@ -91,7 +83,6 @@ function verifaLogin() {
                     if (datos.permiso == 2) {
                         $("#contenido").show();
                         cargacpanelconcejo();
-
                     }
                 }
             }, 'json'
@@ -130,7 +121,6 @@ function cargarnoticias() {
             });
 }
 function opcionvideo() {
-
     document.getElementById('archivos2').hidden = true;
     document.getElementById('ivideo').hidden = false;
     $("#oculto").val("video");
@@ -140,20 +130,108 @@ function opcionimagen() {
     document.getElementById('ivideo').hidden = true;
     $("#oculto").val("imagen");
 }
+function chek1() {
+    document.getElementById('fotonuevaconcejal').hidden = true;
+    $("#oculto4").val("conserva");
+}
+function chek2() {
+    document.getElementById('fotonuevaconcejal').hidden = false;
+    $("#oculto4").val("nueva");
+}
+function chek3() {
+    document.getElementById('fotoactividad').hidden = false;
+    $("#oculto5").val("si");
+}
+function chek4() {
+    document.getElementById('fotoactividad').hidden = true;
+    $("#oculto5").val("no");
+}
+function ingreactividad() {
+    var txttituloactividad = $("#txttituloactividad").val();
+    var txtparrafoactividad = $("#txtparrafoactividad").val();
+    var oculto5 = $("#oculto5").val();
+    if (txttituloactividad == '' || txtparrafoactividad == '') {
+        alertify.error("Revise los campos");
+    } else {
+        if (oculto5 === "no") {
+            $.post(
+                    base_url + "welcome/ingreactividad",
+                    {txttituloactividad: txttituloactividad,
+                        txtparrafoactividad: txtparrafoactividad
+                    },
+                    function (valor) {
+                        if (valor.valor == 1) {
+                            alertify.success("Actividad Ingresada Correctamente");
+                            $("#txttituloactividad").val("");
+                            $("#txtparrafoactividad").val("");
+                        } else {
+                            alertify.error("Datos Fallidos Verifique los Campos");
+                        }
+                    }, 'json');
+        }
+        if (oculto5 === "si") {
+            var archivos = document.getElementById("fotoactividad");
+            var a = $("#fotoactividad").val();
+            if (archivos === "" || archivos === null || archivos.length < 1 || a === "") {
+                alertify.error("Verifique la entrada de la fotografia");
+            } else {
+
+                var archivo = archivos.files; //Obtenemos los archivos seleccionados en el imput
+                //Creamos una instancia del Objeto FormDara.
+                var archivos = new FormData();
 
 
+                /* Como son multiples archivos creamos un ciclo for que recorra la el arreglo de los archivos seleccionados en el input
+                 Este y añadimos cada elemento al formulario FormData en forma de arreglo, utilizando la variable i (autoincremental) como 
+                 indice para cada archivo, si no hacemos esto, los valores del arreglo se sobre escriben*/
+                for (i = 0; i < archivo.length; i++) {
+                    archivos.append('archivo' + i, archivo[i]); //Añadimos cada archivo a el arreglo con un indice direfente
+                    if (i == 0) {
+                        var p1 = archivo[i].name;
+                    }
+                }
+                /*Ejecutamos la función ajax de jQuery*/
+                $.ajax({
+                    url: base_url + "welcome/actividadfoto", //Url a donde la enviaremos
+                    type: 'POST', //Metodo que usaremos
+                    contentType: false, //Debe estar en false para que pase el objeto sin procesar
+                    data: archivos, //Le pasamos el objeto que creamos con los archivos
+                    processData: false, //Debe estar en false para que JQuery no procese los datos a enviar
+                    cache: false //Para que el formulario no guarde cache
+                }).done(function (valor) {//Escuchamos la respuesta y capturamos el mensaje msg
+
+                    if (valor == "1") {
+                        alertify.success("Foto subidos correctamente");
+                    } else {
+                        alertify.error("Error en la subida de Fotografia VERIFIQUE");
+                    }
+                });
+                $.post(
+                        base_url + "welcome/ingreactividadconfoto",
+                        {
+                            txttituloactividad: txttituloactividad,
+                            txtparrafoactividad: txtparrafoactividad,
+                            p1: p1
+                        },
+                        function (valor) {
+                            if (valor.valor == 1) {
+                                alertify.error("Datos Fallidos Verifique!");
+                            } else {
+                                alertify.success("Datos guardados Correctamente");
+                                verifaLogin();
+                            }
+                        }, 'json');
+
+            }
+        }
+    }
+}
 function zoommas() {
     var fontSize = 1;
     fontSize += 0.1;
 //    document.post.texto.p.fontSize = fontSize + "em";
     document.getElementsByTagName("p").style.fontSize = fontSize + "em";
 }
-
-
-
-
-
-
 function masnoticias() {
     $.post(
             base_url + "welcome/masnoticias",
@@ -196,7 +274,15 @@ function vernoticia(id) {
                 $("#stream").html(ruta, datos);
                 $("#stream").show();
             });
+}
 
+function verreporteacti() {
+    $.post(
+            base_url + "welcome/verreporteacti",
+            {},
+            function (ruta, datos) {
+                $("#reporteacti").html(ruta, datos);
+            });
 }
 function reportenoti() {
     $.post(
@@ -208,7 +294,7 @@ function reportenoti() {
 }
 function ingresarHM() {
     var fecha = $("#datepicker").val();
-    var archivos = document.getElementById("archivopdf").files;//Creamos un objeto con el elemento que contiene los archivos: el campo input file, que tiene el id = 'archivos'
+    var archivos = document.getElementById("archivopdf").files; //Creamos un objeto con el elemento que contiene los archivos: el campo input file, que tiene el id = 'archivos'
 
     if (archivos.length !== 1) {
         alertify.error(" revise la entrada de su archivo PDF");
@@ -254,19 +340,96 @@ function ingresarHM() {
                             );
                     $("#datepicker").val(" ");
                     $("#archivopdf").val("");
-
                 } else {
                     alertify.error("Error en la subida de archivos VERIFIQUE");
                     $("#datepicker").val(" ");
                     $("#archivopdf").val("");
                 }
             });
-
         }
     }
 
 
 }
+
+function actualizarperfil() {
+
+    var txtpropuesta = $("#txtpropuesta").val();
+    var con = $("#oculto4").val();
+    if (txtpropuesta === "" || txtpropuesta === ' ' || txtpropuesta === null) {
+        alertify.error("Verifique Su Propuesta");
+    } else {
+        if (con === "conserva") {
+            $.post(
+                    base_url + "welcome/propuesta",
+                    {
+                        txtpropuesta: txtpropuesta
+                    },
+                    function (valor) {
+                        if (valor.valor == 1) {
+                            alertify.success("Datos Actualizados Correctamente");
+                        } else {
+                            alertify.error("Datos Fallidos Verifique!");
+                        }
+                    }, 'json');
+        }
+        if (con === "nueva") {
+            var archivos = document.getElementById("fotonuevaconcejal");
+            var a = $('input[type=file]').val();
+            if (archivos === "" || archivos === null || archivos.length < 1 || a === "") {
+                alertify.error("Verifique la entrada de la fotografia");
+            } else {
+
+                var archivo = archivos.files; //Obtenemos los archivos seleccionados en el imput
+                //Creamos una instancia del Objeto FormDara.
+                var archivos = new FormData();
+
+
+                /* Como son multiples archivos creamos un ciclo for que recorra la el arreglo de los archivos seleccionados en el input
+                 Este y añadimos cada elemento al formulario FormData en forma de arreglo, utilizando la variable i (autoincremental) como 
+                 indice para cada archivo, si no hacemos esto, los valores del arreglo se sobre escriben*/
+                for (i = 0; i < archivo.length; i++) {
+                    archivos.append('archivo' + i, archivo[i]); //Añadimos cada archivo a el arreglo con un indice direfente
+                    if (i == 0) {
+                        var p1 = archivo[i].name;
+                    }
+                }
+                /*Ejecutamos la función ajax de jQuery*/
+                $.ajax({
+                    url: base_url + "welcome/actualizarperfil", //Url a donde la enviaremos
+                    type: 'POST', //Metodo que usaremos
+                    contentType: false, //Debe estar en false para que pase el objeto sin procesar
+                    data: archivos, //Le pasamos el objeto que creamos con los archivos
+                    processData: false, //Debe estar en false para que JQuery no procese los datos a enviar
+                    cache: false //Para que el formulario no guarde cache
+                }).done(function (valor) {//Escuchamos la respuesta y capturamos el mensaje msg
+
+                    if (valor == "1") {
+                        alertify.success("Foto subidos correctamente");
+                    } else {
+                        alertify.error("Error en la subida de Fotografia VERIFIQUE");
+                    }
+                });
+                $.post(
+                        base_url + "welcome/actualizarperfil2",
+                        {
+                            txtpropuesta: txtpropuesta,
+                            p1: p1
+                        },
+                        function (valor) {
+                            if (valor.valor == 1) {
+                                alertify.error("Datos Fallidos Verifique!");
+                            } else {
+                                alertify.success("Datos guardados Correctamente");
+                                verifaLogin();
+                            }
+                        }, 'json');
+
+            }
+        }
+    }
+}
+
 function ingresarnoticia() {
     var titulo = $("#txttituloo").val();
     var encabezado = $("#txtencabezado").val();
@@ -276,12 +439,11 @@ function ingresarnoticia() {
     var linkofoto = $("#oculto").val();
     var ruta = $("#ivideo").val();
     var fotoportada = "";
-
     if (titulo == '' || encabezado == '' || texto == '' || bibliografia == '' || autor == '') {
         alertify.error("Revise los campos! Minimo 3 caracteres");
     } else {
         $("#carg").show();
-        var archivos = document.getElementById("archivos");//Creamos un objeto con el elemento que contiene los archivos: el campo input file, que tiene el id = 'archivos'
+        var archivos = document.getElementById("archivos"); //Creamos un objeto con el elemento que contiene los archivos: el campo input file, que tiene el id = 'archivos'
         var archivo = archivos.files; //Obtenemos los archivos seleccionados en el imput
         //Creamos una instancia del Objeto FormDara.
         var archivos = new FormData();
@@ -357,10 +519,9 @@ function ingresarnoticia() {
                             $("#vis2").html("<div id='vistaa'>:</div>");
                         }
                     }, 'json');
-
         }
         if (linkofoto == "imagen") {
-            var archivos2 = document.getElementById("archivos2");//Creamos un objeto con el elemento que contiene los archivos: el campo input file, que tiene el id = 'archivos'
+            var archivos2 = document.getElementById("archivos2"); //Creamos un objeto con el elemento que contiene los archivos: el campo input file, que tiene el id = 'archivos'
             var archivo = archivos2.files; //Obtenemos los archivos seleccionados en el imput
             //Creamos una instancia del Objeto FormDara.
             var archivos2 = new FormData();
@@ -370,8 +531,6 @@ function ingresarnoticia() {
             for (i = 0; i < archivo.length; i++) {
                 archivos2.append('archivo' + i, archivo[i]); //Añadimos cada archivo a el arreglo con un indice direfente
                 var fotoportada = archivo[i].name;
-
-
             }
             $.ajax({
                 url: base_url + "welcome/ingresportada", //Url a donde la enviaremos
@@ -414,7 +573,6 @@ function ingresarnoticia() {
                             $("#txtbibliografia").val("");
                             $("#txtautor").val("");
                             $("#archivos").val("");
-
                             $('input[type=file]').val('');
                             $("#vis2").html("");
                             $("#vis2").html("<div id='vistaa'>:</div>");
@@ -422,19 +580,15 @@ function ingresarnoticia() {
                     }, 'json');
         }
         $("#carg").hide();
-
-
     }
 }
 function MensajeFinal(msg) {
-    $('.mensage').html(msg);//A el div con la clase msg, le insertamos el mensaje en formato  thml
-    $('.mensage').show('slow');//Mostramos el div.
+    $('.mensage').html(msg); //A el div con la clase msg, le insertamos el mensaje en formato  thml
+    $('.mensage').show('slow'); //Mostramos el div.
 }
 function EVAL(id_solicitud) {
     alert(id_solicitud);
     var s5 = document.getElementById("puntaje" + id_solicitud).value;
-
-
     $.post(
             base_url + "welcome/evaluar",
             {
@@ -456,7 +610,6 @@ function guardarcambios() {
     var codig = $("#oculto").val();
     var comentariotecnico = $("#ComentarioTecnico").val();
     var fecha = $("#datepicker").val();
-
     if (comentariotecnico.length < 5 || comentariotecnico == '') {
         alertify.error("Ingrese comentario!");
     } else {
@@ -500,13 +653,11 @@ function Terminar() {
         });
     }
     return false;
-
 }
 function derivar(id_solicitud) {
 
     var s4 = document.getElementById("selectee" + id_solicitud).value;
     var s4 = document.getElementById("selectee" + id_solicitud).value;
-
     $.post(
             base_url + "welcome/derivar",
             {
@@ -516,7 +667,6 @@ function derivar(id_solicitud) {
             function (valor) {
                 if (valor.valor == 1) {
                     alertify.error("Solicitud no puede ser Derivada!");
-
                 } else {
                     alertify.success("Solicitud derivada Exitosamente");
                     reporte();
@@ -541,14 +691,27 @@ function eliminarnoticia(id_noticia) {
         }
     });
 }
+function eliminaractividad(id_actividad_concejal) {
+    alertify.confirm("<p>Seguro que desea Eliminar  la Actividad .<br><br><b>ENTER</b> o <b>ACEPTAR</b> Si <br>  <b>ESC</b> o <b>CANCELAR</b> No</p>", function (e) {
+        if (e) {
+            $.post(base_url + "welcome/eliminaractividad", {
+                id_actividad_concejal: id_actividad_concejal
+            }, function (valor) {
+                if (valor.valor == 1) {
+                    alertify.success("Actividad Eliminada con Exito");
+                }
+            }, 'json');
+           verreporteacti();
+        } else {
+            alertify.error("Eliminacion cancelada " + " Actividad Aun  Visible" + "");
+        }
+    });
+}
 function ingresosolicitud() {
     var categoria = $("#categorias").val();
     var comentario = $("#comentarios").val();
-
-
     if (comentario.length < 5 || comentario == "") {
         alertify.error("Revise los campos!");
-
     } else {
         $.post(
                 base_url + "welcome/ingresosolicitud",
@@ -559,7 +722,6 @@ function ingresosolicitud() {
                 function (valor) {
                     if (valor.valor == 1) {
                         alertify.error("Datos fallidos ¡verifique!");
-
                     } else {
                         alertify.success("Datos Ingresados correctamente");
                         $("#comentarios").val("");
@@ -573,7 +735,6 @@ function ingresosolicitud() {
 function ingresarcategoria() {
     var newcategoria = $("#newcategoria").val();
     var categorianueva = newcategoria.toUpperCase();
-
     if (categorianueva.length < 3 || categorianueva == "") {
 
         alertify.error("Revise el campos, minimo 3 caracteres");
@@ -599,7 +760,6 @@ function modificarcategoria() {
     var newcategoria = $("#newcategoria").val();
     var categorianueva = newcategoria.toUpperCase();
     var actual = document.getElementById('reportecategorias').value;
-
     alertify.confirm("<p>¿Seguro que deseas modificar la categoria?.<br>\n\
 Tenga en cuenta que se modificaran todas las categorias asociadas a la actual<br><br><b>ENTER</b> o <b>ACEPTAR</b> Si <br>  <b>ESC</b> o <b>CANCELAR</b> No</p>", function (e) {
         if (e) {
@@ -630,8 +790,6 @@ Tenga en cuenta que se modificaran todas las categorias asociadas a la actual<br
             $("#newcategoria").val("");
         }
     });
-
-
 }
 function cargarCategorias() {
     $.post(
@@ -658,8 +816,6 @@ function reportecliente() {
                 $("#CargaSolicitudesCliente").html(ruta, datos);
                 $("#CargaSolicitudesCliente").show('fast');
             });
-
-
 }
 
 
@@ -673,7 +829,6 @@ function contacto() {
                 $("#contenido").hide();
                 $("#contenido").html(ruta);
                 $("#contenido").fadeIn(2000).delay(2000);
-
             });
 }
 
@@ -686,7 +841,6 @@ function enviar() {
     var txtCaptcha = $("#txtCaptcha").val();
     var txtInput = $("#txtInput").val();
     var depart = $("#depart").val();
-
     if (nombre == '' || mail == '' || asunto == '' || mensaje == '' || txtInput == '') {
         alertify.error("Revise los campos");
     } else {
@@ -751,7 +905,6 @@ function concejo() {
                 $("#contenido").hide();
                 $("#contenido").fadeIn(1000).delay(1000);
                 $("#contenido").html(ruta, datos);
-
             });
 }
 function actividadconcejal(id) {
@@ -765,7 +918,5 @@ function actividadconcejal(id) {
                 $("#activitiesconcejales").html(ruta, datos);
                 $("#activitiesconcejales").show();
             });
-
     $("#dialogconcejal").dialog("open");
-
 }

@@ -150,11 +150,75 @@ class modelo extends CI_Model {
         $this->db->update('solicitud', $data);
     }
 
+    function propuesta($propuesta, $id_conectado) {
+        $data = array(
+            "propuesta" => $propuesta
+        );
+        $this->db->where('id_usuario', $id_conectado);
+        $this->db->update('usuarios', $data);
+        $a = mysql_affected_rows();
+        if ($a == 0) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+    function actualizarperfil2($id_conectado, $propuesta, $p1) {
+        $data = array(
+            "fotoperfil" => $p1,
+            "propuesta" => $propuesta
+        );
+        $this->db->where('id_usuario', $id_conectado);
+        $this->db->update('usuarios', $data);
+        $a = mysql_affected_rows();
+        if ($a == 0) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+    function ingreactividad($id_conectado, $txttituloactividad, $txtparrafoactividad) {
+        $data = array("fk_actividad_concejal" => $id_conectado,
+            "titulo" => $txttituloactividad,
+            "texto" => $txtparrafoactividad);
+        if ($this->db->insert('actividad_concejales', $data)) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    function ingreactividadconfoto($id_conectado, $txttituloactividad, $txtparrafoactividad, $p1) {
+        $data = array("fk_actividad_concejal" => $id_conectado,
+            "titulo" => $txttituloactividad,
+            "texto" => $txtparrafoactividad,
+            "foto"=>$p1);
+        if ($this->db->insert('actividad_concejales', $data)) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
     function eliminarnoticia($id_noticia) {
 
 
         $this->db->where('id_noticia', $id_noticia);
         $this->db->delete('noticia');
+        $a = mysql_affected_rows();
+        if ($a == 0) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+    function eliminaractividad($id_actividad_concejal) {
+
+
+        $this->db->where('id_actividad_concejal', $id_actividad_concejal);
+        $this->db->delete('actividad_concejales');
         $a = mysql_affected_rows();
         if ($a == 0) {
             return 0;
@@ -168,6 +232,10 @@ class modelo extends CI_Model {
         return $this->db->query($consulta);
     }
 
+    function verreporteacti($id_conectado) {
+        $consulta = "SELECT `id_actividad_concejal`, `titulo` FROM `actividad_concejales` where `fk_actividad_concejal`='" . $id_conectado . "'";
+        return $this->db->query($consulta);
+    }
     function reportenoti() {
         $consulta = "SELECT `id_noticia`, `titulo` FROM `noticia`";
         return $this->db->query($consulta);
