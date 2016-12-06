@@ -82,7 +82,7 @@
                         <li><a href="#">Tramites En Linea</a>
                             <ul class="sub-menu">
                                 <li><a href="#">Permiso De Circulacion</a></li>
-                                <li><a href="#">Item Sub-menú 2</a></li>
+                                <li><a href="https://www.sem.gob.cl/pago/validacion/">Portal de servicios Municipales</a></li>
                             </ul>
                         </li>
                         <li><a href="#">Contacto</a>
@@ -98,7 +98,7 @@
                 <div id="slider" class="nivoSlider">
                     <img src="<?php echo base_url(); ?>../img/slider/bg2.png"  />
                     <img src="<?php echo base_url(); ?>../img/slider/proyeccion2.png" />
-                    <img src="<?php echo base_url(); ?>../img/slider/bg2.png" />
+                    <img src="<?php echo base_url(); ?>../img/slider/linares.png" />
                     <img src="<?php echo base_url(); ?>../img/slider/proyeccion2.png" />
                 </div>
                 <!--                <div id="caption1" style="display: none;">
@@ -125,7 +125,7 @@
                             <ul class="sub-menu">
                                 <li><a href="#" onclick="vistaquienessomos();">Quienes somos</a></li>
                                 <li><a href="#" onclick="vistaHistoriaMuni();">Historia</a></li>
-                                <li><a href="<?php echo base_url(); ?>../pdf/reglamento/reglamento_interno.pdf" >Reglamento</a></li>
+                                <li><a href="<?php echo base_url(); ?>../pdf/reglamento/reglamento_interno.pdf" target="_blank" >Reglamento</a></li>
                                 <li><a href="#" onclick="vistaMSJealcalde();">Mensaje del Alcalde</a></li>
                                 <li><a href="#" onclick="concejo();">Concejo Municipal</a></li>
                                 <li><a href="#" onclick="vistaOrgrama();">Estructura Organica</a></li>
@@ -135,13 +135,13 @@
                         <li>
                             <a href="#">Departamentos</a>
                             <ul class="sub-menu">
-                                <li><a href="#" onclick="vistaDirUnidad();">Direccion Unidades</a></li>
-                                <li><a href="#" onclick="vistaJefeDepartamentos();">Jefes de Departamentos</a></li>
+                                <li><a href="#" onclick="vistaDirUnidad();">Direccion Unidades</a></li> 
+                               <li><a href="#" onclick="vistaJefeDepartamentos();">Jefes de Departamentos</a></li>
                                 <li><a href="#" onclick="vistaSaludd();">Salud</a></li>
                                 <li><a href="http://www.daemlinares.cl" target="_blank">Educacion</a></li>
                                 <li><a href="#" onclick="vistaCartografia();">Cartografia</a></li>
                                 <li><a href="#" onclick="vistaDeportes();">Deporte</a></li>
-                                <li><a href="#">Transito</a></li>                           
+<!--                                <li><a href="#">Transito</a></li>                           -->
                             </ul>
                         </li>                         
                         <li>                           
@@ -158,7 +158,7 @@
                         <li><a href="#">Tramites En Linea</a>
                             <ul class="sub-menu">
                                 <li><a href="https://www.sem.gob.cl/pcirc/index.php?inst_id=69130300&pago_id=22">Permiso De Circulacion</a></li>
-                                <li><a href="#">Item Sub-menú 2</a></li>
+                                <li><a href="https://www.sem.gob.cl/pago/validacion/">Portal de Servivios Municipales</a></li>
                             </ul>
                         </li>
                         <li><a href="#" onclick="contacto();">Contacto</a>
@@ -237,7 +237,7 @@
                 <!--INICIO COLUMNA DERECHA-->
                 <div id="sidebar">
 
-                    <div class="redes-lista">
+                    <div  style="display: none"class="redes-lista">
                         <h5 class="titulo-seccion">Síguenos</h5>
                         <ul>
                             <li id="facebook">
@@ -361,18 +361,24 @@
                         </div>
 
                         <div class="banner banner-corto">
-                            <a href="#"onclick="vistaMenuTransparenciaActiva();"><img src="<?php echo base_url(); ?>../img/transparencia-activa.png" alt="Banner 320x120"></a>
+                            <a href="#"onclick="menuTA();" id="ok"><img src="<?php echo base_url(); ?>../img/transparencia-activa.png" alt="Banner 320x120"></a>
                         </div>
                         <div class="banner banner-corto">
-                            <a href="#"><img src="<?php echo base_url(); ?>../img/cuenta-publica.png" alt="Banner 320x120"></a>
+                            <a href="https://www.leylobby.gob.cl/instituciones/MU140"><img src="<?php echo base_url(); ?>../img/lobby2.png" alt="Banner 320x120"></a>
+                        </div>
+                        <div class="banner banner-corto">
+                            <a href="#" onclick="cuentaspublicas()"><img src="<?php echo base_url(); ?>../img/cuenta-publica.png" alt="Banner 320x120"></a>
                         </div>
 
                         <div class="banner banner-corto">
-                            <a href="#" onclick="vistahechosmunicipal();"><img src="<?php echo base_url(); ?>../img/hechos-municipal.PNG" alt="Banner 320x120"></a>
+                            <a href="#" onclick="vistahechosmunicipales();"><img src="<?php echo base_url(); ?>../img/hechos-municipal.PNG" alt="Banner 320x120"></a>
                         </div>
 
                         <div class="banner banner-corto">
                             <a href="#"><img src="<?php echo base_url(); ?>../img/decretos.png" alt="Banner 320x120"></a>
+                        </div> 
+                        <div class="banner banner-corto">
+                            <a href="http://www.munilinares.cl/webmail/src/login.php"><img src="<?php echo base_url(); ?>../img/webmail.png" alt="Banner 320x120"></a>
                         </div>
 
                     </div>
@@ -427,7 +433,7 @@
                     </div>
 
                     <div class="banner banner-corto">
-                        <a href="#"><img src="http://placehold.it/320x100" alt="Banner 320x120"></a>
+                        <a href="#"><img src="<?php echo base_url(); ?>../img/proteccioncivil.png" alt="Banner 320x120"></a>
                     </div>
 
                     <div class="banner banner-corto">
@@ -461,7 +467,7 @@
                     <div class="listas">
 
                         <div class="lista">
-                            <h5>Trasnparencia</h5>
+                            <h5>Trasnparencia</h5>  º
                             <ul>
                                 <li><a href="http://www.portaltransparencia.cl/PortalPdT/web/guest/directorio-de-organismos-regulados?p_p_id=pdtorganismos_WAR_pdtorganismosportlet&orgcode=8691dfce267db7cb63c54511ff105f64"">Transparencia</a></li>
                                 <li><a href="http://www.bcn.cl/leyfacil/recurso/transparencia---acceso-a-la-informacion-publica">Que es la Transparencia</a></li>
@@ -487,7 +493,7 @@
                         </div>
 
                         <div class="lista">
-                            <h5>Enlaces 3</h5>
+                            <h5>Otros Enlaces </h5>
                             <ul>
                                 <li><a href="#">Item 1</a></li>
                                 <li><a href="#">Item 2</a></li>

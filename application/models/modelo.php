@@ -15,6 +15,11 @@ class modelo extends CI_Model {
         $this->db->where('id_usuario', $id_conectado);
         return $this->db->get('usuarios');
     }
+      function cuentaspublicas() {
+        $this->db->select('*');
+        $this->db->order_by("id", "desc");
+        return $this->db->get('cuentaspublicas');
+    }
 
     function permiso($correo) {
         $this->db->select('perfil');
@@ -59,18 +64,24 @@ class modelo extends CI_Model {
         }
     }
 
-    function ingresarHMf($fe, $p1) {
-        $data = array("fecha" => $fe,
-            "rutapdf" => $p1);
-        if ($this->db->insert('hechosmunicipal', $data)) {
-            return 1;
-        } else {
+    function ingresarHMf($mencion,$fe, $p1,$p2) {
+        $data = array("mencion" => $mencion,
+            "ruta_img"=> $p2,
+            "ruta_pdf" => $p1,
+            "fecha_publicacion"=>$fe);
+        if ($this->db->insert('hechosmunicipal', $data)==0) {
             return 0;
+        } else {
+            return 1;
         }
     }
 
     function consejo() {
         $query = "SELECT * FROM `usuarios` WHERE `perfil`='2'";
+        return $this->db->query($query);
+    }
+      function vistahechosmunicipales() {
+        $query = "SELECT * FROM `hechosmunicipal` ORDER BY `fecha_publicacion` DESC";
         return $this->db->query($query);
     }
 
@@ -380,112 +391,142 @@ FROM solicitud INNER JOIN usuario ON solicitud.fk_usuario=usuario.id_usuario INN
         //actualizar la tabla solicitud cambiando el estado a derivado
     }
 
-    //    ----alejandro--
-    function TBDiarioOficial() {
-        $query = "select nombre,
-            link,
-            formato,
-            carpeta,
-            subcarpeta,
-            archivo,
-            mes,
-            periodo
-            From transparencia_contenido 
-            where codigo= 17 order by orden";
+  function TBDiarioOficial() {
+        $query = "select * From diariooficial order by  FechaPublicacion";
+
+        return $this->db->query($query);
+    }
+
+    function TBMarcoNormativo() {
+        $query = "SELECT * FROM marconormativo ORDER BY F_Publicacion";
 
         return $this->db->query($query);
     }
 
     function TBPotestades() {
-        $query = "select id,
-                nombre,
-                formato,
-                carpeta,
-                subcarpeta 
-                From transparencia_contenido 
-                where codigo= 2 order by orden";
+        $query = "SELECT * FROM potestades order by FuenteLegal";
 
         return $this->db->query($query);
     }
 
-    function TBMarcoNarrativo() {
-        $query = "select id,
-                nombre,
-                formato,
-                carpeta,
-                subcarpeta,
-                archivo,
-                mes,
-                area,
-                calidad 
-                From transparencia_contenido 
-                where codigo= 3 order by orden";
+    function TBotrasTransferencias1() {
+        $query = "SELECT *  FROM transpjuridicas  order by nombre desc";
+        return $this->db->query($query);
+    }
+
+    function TBotrasTransferencias2() {
+        $query = "SELECT *  FROM transfevoluntariado  order by nombre desc";
 
         return $this->db->query($query);
     }
 
     function TBEmprendedores1() {
-        $query = "SELECT id,
-                codigo,
-                nombre,
-                link,
-                formato  
-                FROM transparencia_contenido 
-                where  codigo='7_8_1'  order by orden";
+        $query = "SELECT * FROM emprendedoresru";
         return $this->db->query($query);
     }
 
     function TBEmprendedores2() {
-        $query = "SELECT id,
-                codigo,
-                nombre,
-                link,
-                formato  
-                FROM transparencia_contenido 
-                where  codigo='7_8_2'  order by orden";
+        $query = "SELECT * FROM emprendedorestur";
 
         return $this->db->query($query);
     }
 
     function TBPostulacionFondeve() {
 
-        $query = "SELECT id,
-                codigo,
-                nombre,
-                link,
-                formato  
-                FROM transparencia_contenido 
-                where  codigo='7_7'  order by orden ";
+        $query = "SELECT *  FROM fondeve";
         return $this->db->query($query);
     }
 
     function TBConcursoPublicos() {
 
-        $query = "SELECT id,codigo,nombre,link,formato  FROM transparencia_contenido where  codigo='7_6'  order by orden";
+        $query = "SELECT * from concursopublicos order by fecha desc";
         return $this->db->query($query);
     }
 
     function TBPatenteComerc() {
 
-        $query = "SELECT id,codigo,nombre,link,formato  FROM transparencia_contenido where  codigo='7_4'  order by orden desc";
+        $query = "SELECT * from patentecomerc order by fecha desc";
         return $this->db->query($query);
     }
 
     function TBPermisoEdif() {
 
-        $query = "SELECT id,codigo,nombre,link,formato  FROM transparencia_contenido where  codigo='7_5'  order by orden desc";
+        $query = "SELECT * from PermisoEdif order by fecha desc";
+        return $this->db->query($query);
+    }
+
+    function TBDecretos($codigo, $anios) {
+
+        $query = "SELECT * FROM decretosmunicipales WHERE codigo='$codigo' and Anios = '$anios'";
+
         return $this->db->query($query);
     }
 
     function TBOrdenanzas() {
 
-        $query = "select * From transparencia_contenido where codigo='7_2' order by orden desc";
+        $query = "select * From ordenanzas order by anio desc";
+        return $this->db->query($query);
+    }
+
+    function TBSumarios($anio) {
+        $query = "SELECT * FROM sumarios where anios = '$anio' ";
         return $this->db->query($query);
     }
 
     function TBConvenios() {
 
-        $query = "select id,nombre,link,formato,carpeta,subcarpeta,archivo,mes,periodo,area From transparencia_contenido where codigo='7_10' order by orden desc ";
+        $query = "select * from convenios";
+        return $this->db->query($query);
+    }
+
+    function TBMparticipacionCiudadana() {
+        $query = "select * From mparticipacionciudadana ";
+
+        return $this->db->query($query);
+    }
+
+    function TBConsejeros() {
+        $query = "select * from consejeros ";
+
+        return $this->db->query($query);
+    }
+
+    function TBActaConsejo() {
+        $query = "select * From actaconsejo ";
+
+        return $this->db->query($query);
+    }
+
+    function TBCuentasPublicas() {
+        $query = "SELECT * from cuentaspublicas";
+
+        return $this->db->query($query);
+    }
+
+    function TBPrepAreaMuni() {
+        $query = "select * From prepareamuni order by nombre ";
+        return $this->db->query($query);
+    }
+
+    function TBFComunMun() {
+        $query = "SELECT *  FROM fcomunmun ";
+        return $this->db->query($query);
+    }
+
+    function TBresAuditorias() {
+        $query = "select * from resumenauditoria order by fechaPublicacion";
+
+        return $this->db->query($query);
+    }
+
+        function TBinfoTrimestrales() {
+        $query = "select * From infotrimestrales";
+        return $this->db->query($query);
+    }
+    
+        function TBVinculosEntidades() {
+        $query = "select * From vinculosentidades";
+
         return $this->db->query($query);
     }
 

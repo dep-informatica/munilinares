@@ -17,6 +17,37 @@ $(document).ready(function () {
     verifaLogin();
     var p1 = "";
 });
+
+function vistahechosmunicipales() {
+
+    $.post(
+            base_url + "Welcome/vistahechosmunicipales",
+            {},
+            function (ruta,datos) {
+
+                $("#sidebar").show();
+                $("#stream").hide();
+                $("#contenido").hide();
+                $("#contenido").fadeIn(1000).delay(1000);
+                $("#contenido").html(ruta,datos);
+
+            });
+}
+function vistamebePDF() {
+
+    $.post(
+            base_url + "Welcome/vistaembepdf",
+            {},
+            function (pagina) {
+
+                $("#sidebar").hide();
+                $("#stream").hide();
+                $("#verPDF").hide();
+                $("#verPDF").fadeIn(1000).delay(1000);
+                $("#verPDF").html(pagina);
+
+            });
+}
 function conectar() {
     var correo = $("#correo").val();
     var clave = $("#clave").val();
@@ -62,7 +93,6 @@ function cerrarSesion() {
         alertify.success("Session Cerrada Correctamente");
     });
 }
-
 function verifaLogin() {
     $.post(
             base_url + "welcome/verifaLogin",
@@ -88,7 +118,6 @@ function verifaLogin() {
             }, 'json'
             );
 }
-
 function cargacpanel() {
     $.post(
             base_url + "welcome/cargacpanel",
@@ -275,7 +304,6 @@ function vernoticia(id) {
                 $("#stream").show();
             });
 }
-
 function verreporteacti() {
     $.post(
             base_url + "welcome/verreporteacti",
@@ -293,16 +321,41 @@ function reportenoti() {
             });
 }
 function ingresarHM() {
+    var txtmencion = $("#txtmencion").val();
     var fecha = $("#datepicker").val();
+    var archivospor = document.getElementById("archFotoHM").files; //Creamos de la portada
     var archivos = document.getElementById("archivopdf").files; //Creamos un objeto con el elemento que contiene los archivos: el campo input file, que tiene el id = 'archivos'
 
-    if (archivos.length !== 1) {
-        alertify.error(" revise la entrada de su archivo PDF");
+    if (archivos.length !== 1 || archivospor.length !== 1) {
+        alertify.error(" revise las entrada de sus archivos");
     } else {
-        if (fecha == '' || fecha == null) {
+        if (fecha == '' || fecha == null || txtmencion == '') {
             alertify.error("Revise los Campos");
         } else {
             $("#carg2").show();
+            var archivos2 = document.getElementById("archFotoHM");
+            var archivo2 = archivos2.files;
+            var archivos2 = new FormData();
+            var p2 = "";
+            for (i = 0; i < archivo2.length; i++) {
+                archivos2.append('archFotoHM' + i, archivo2[i]); //Añadimos cada archivo a el arreglo con un indice direfente
+                p2 = archivo2[i].name;
+            }
+
+            $.ajax({
+                url: base_url + "welcome/ingresarHMp", //Url a donde la enviaremos
+                type: 'POST', //Metodo que usaremos
+                contentType: false, //Debe estar en false para que pase el objeto sin procesar
+                data: archivos2, //Le pasamos el objeto que creamos con los archivos
+                processData: false, //Debe estar en false para que JQuery no procese los datos a enviar
+                cache: false //Para que el formulario no guarde cache
+            }).done(function (valor) {//Escuchamos la respuesta y capturamos el mensaje msg
+                if (valor == "0") {
+                    alertify.success(" Portada subida correctamente");
+
+                }
+            });
+
             var archivos = document.getElementById("archivopdf");
             var archivo = archivos.files;
             var archivos = new FormData();
@@ -326,8 +379,10 @@ function ingresarHM() {
                     $.post(
                             base_url + "welcome/ingresarHMf",
                             {
+                                txtmencion: txtmencion,
                                 fecha: fecha,
-                                p1: p1
+                                p1: p1,
+                                p2: p2
                             },
                             function (datos) {
 
@@ -338,12 +393,18 @@ function ingresarHM() {
                                 }
                             }, 'json'
                             );
-                    $("#datepicker").val(" ");
+                    $("#datepicker").val("");
                     $("#archivopdf").val("");
+                    $("#archFotoHM").val("");
+                    $("#txtmencion").val("");
+                    $("#vis22").html("");
+                    $("#vis22").html("<div id='vistaa2'>:</div>");
                 } else {
                     alertify.error("Error en la subida de archivos VERIFIQUE");
                     $("#datepicker").val(" ");
                     $("#archivopdf").val("");
+                    $("#archFotoHM").val("");
+                    $("#txtmencion").val("");
                 }
             });
         }
@@ -351,7 +412,6 @@ function ingresarHM() {
 
 
 }
-
 function actualizarperfil() {
 
     var txtpropuesta = $("#txtpropuesta").val();
@@ -429,7 +489,6 @@ function actualizarperfil() {
         }
     }
 }
-
 function ingresarnoticia() {
     var titulo = $("#txttituloo").val();
     var encabezado = $("#txtencabezado").val();
@@ -701,7 +760,7 @@ function eliminaractividad(id_actividad_concejal) {
                     alertify.success("Actividad Eliminada con Exito");
                 }
             }, 'json');
-           verreporteacti();
+            verreporteacti();
         } else {
             alertify.error("Eliminacion cancelada " + " Actividad Aun  Visible" + "");
         }
@@ -817,8 +876,6 @@ function reportecliente() {
                 $("#CargaSolicitudesCliente").show('fast');
             });
 }
-
-
 function contacto() {
     $.post(
             base_url + "welcome/contacto",
@@ -831,7 +888,6 @@ function contacto() {
                 $("#contenido").fadeIn(2000).delay(2000);
             });
 }
-
 function enviar() {
 
     var nombre = $("#txtnombre").val();
@@ -890,8 +946,6 @@ function reportetecnico() {
                 $("#reporte3").show('fast');
             });
 }
-
-
 function concejo() {
     $.post(
             base_url + "Welcome/concejo",
@@ -907,8 +961,22 @@ function concejo() {
                 $("#contenido").html(ruta, datos);
             });
 }
-function actividadconcejal(id) {
+function cuentaspublicas() {
+    $.post(
+            base_url + "Welcome/cuentaspublicas",
+            {},
+            function (ruta, datos) {
 
+
+
+                $("#sidebar").show();
+                $("#stream").hide();
+                $("#contenido").hide();
+                $("#contenido").fadeIn(1000).delay(1000);
+                $("#contenido").html(ruta, datos);
+            });
+}
+function actividadconcejal(id) {
 
     $.post(
             base_url + "welcome/actividad",

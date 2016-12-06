@@ -22,15 +22,44 @@
                 </li>
             </ul>
         </div>
+        <style>
+            @media screen and (max-width: 700px) {
+                #letrass{
+                    padding-left: 20px;
+                
+                }
+            }
+        </style>
 
-        <div class="fontsize">
+        <div id="letrass" style="padding-left: 500px;">
+          
             <ul>
-                <li class="small"><a  data-size="10">-</a></li> 
+                 
+                <li ><a onclick="myFunctionmenos();" ><img  alt="Disminuir Tamaño de Letra" style="width: 30px; height: 30px" src="<?php echo base_url(); ?>../img/menos.png" > </a></li>
             </ul>
             <ul>
-                <li class="medium current"><a   data-size="20">+</a></li>
+                <li ><a  onclick="myFunctionmas();" ><img alt="Aumentar Tamaño de Letra" style="width: 30px; height: 30px" src="<?php echo base_url(); ?>../img/mas.png" > </a></li>
 
             </ul>
+
+            <script>
+                function myFunctionmenos() {
+                    var medida = document.getElementById("mitext").style.fontSize;
+                    var valor = medida.split("px");
+                    var total = parseInt(valor[0]);
+                    var total2 = total - parseInt(3);
+                    var final = total2 + "px";
+                    document.getElementById("mitext").style.fontSize = final;
+                }
+                function myFunctionmas() {
+                    var medida = document.getElementById("mitext").style.fontSize;
+                    var valor = medida.split("px");
+                    var total = parseInt(valor[0]);
+                    var total2 = total + parseInt(3);
+                    var final = total2 + "px";
+                    document.getElementById("mitext").style.fontSize = final;
+                }
+            </script>
         </div>
 
         <div class="clearfix"></div>
@@ -41,10 +70,7 @@
             <div class="contenido">
 
                 <h4><?php echo $fila->encabezado; ?></h4>
-               <!--Tamaño de letra: <a href="javascript:void(0);" onclick="javascript:body.style.fontSize=&apos;10px&apos;"><span>10</span></a> <a href="javascript:void(0);" onclick="javascript:body.style.fontSize=&apos;12px&apos;"><span>12</span></a> <a href="javascript:void(0);" onclick="javascript:body.style.fontSize=&apos;14px&apos;"><span>14</span></a> <a href="javascript:void(0);" onclick="javascript:body.style.fontSize=&apos;16px&apos;"><span>16</span></a> <a href="javascript:void(0);" onclick="javascript:body.style.p.fontSize=&apos;18px&apos;"><span>18</span></a>-->
-                <p> <?php echo $fila->texto; ?></p>
-                <a href="javascript:decreaseFontSize();">-</a>
-                <a href="javascript:increaseFontSize();">+</a>
+                <p id="mitext" style="font-size: 14px"> <?php echo $fila->texto; ?></p>
 
             </div>
 

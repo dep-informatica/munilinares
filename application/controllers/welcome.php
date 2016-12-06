@@ -26,10 +26,19 @@ class Welcome extends CI_Controller {
         $valor = $this->modelo->eliminarnoticia($id_noticia);
         echo json_encode(array("valor" => $valor));
     }
-     function eliminaractividad() {
+
+    function eliminaractividad() {
         $id_actividad_concejal = $this->input->post('id_actividad_concejal');
         $valor = $this->modelo->eliminaractividad($id_actividad_concejal);
         echo json_encode(array("valor" => $valor));
+    }
+
+    function vistahechosmunicipales() {
+
+        $data = $this->modelo->vistahechosmunicipales();
+        $datos['cantidad'] = $data->num_rows();
+        $datos['reporte'] = $data->result();
+        $this->load->view('vistahechosmunicipales.php', $datos);
     }
 
     function leer() {
@@ -76,7 +85,7 @@ class Welcome extends CI_Controller {
         $p1 = date("Y-m-d-H") . $p1;
 
         $valor = 1;
-        if ($this->modelo->ingreactividadconfoto($id_conectado,$txttituloactividad, $txtparrafoactividad, $p1) == 1) {
+        if ($this->modelo->ingreactividadconfoto($id_conectado, $txttituloactividad, $txtparrafoactividad, $p1) == 1) {
             $valor = 0;
         }
         echo json_encode(array("valor" => $valor));
@@ -221,7 +230,31 @@ class Welcome extends CI_Controller {
 
     function ingresarHM() {
 
-        $ruta = './hechosmunicipales/'; //Decalaramos una variable con la ruta en donde almacenaremos los archivos
+        $ruta = './hechosmunicipales/pdf/'; //Decalaramos una variable con la ruta en donde almacenaremos los archivos
+        $mensage = ''; //Declaramos una variable mensaje quue almacenara el resultado de las operaciones.
+        $valor = "0";
+        foreach ($_FILES as $key) { //Iteramos el arreglo de archivos
+            if ($key['error'] == UPLOAD_ERR_OK) {//Si el archivo se paso correctamente Ccontinuamos 
+                $NombreOriginal = $key['name']; //Obtenemos el nombre original del archivo
+                $temporal = $key['tmp_name']; //Obtenemos la ruta Original del archivo
+                $Destino = $ruta . date("Y-m-d-H") . $NombreOriginal; //Creamos una ruta de destino con la variable ruta y el nombre original del archivo	
+                move_uploaded_file($temporal, $Destino); //Movemos el archivo temporal a la ruta especificada	
+            }
+            if ($key['error'] == '') { //Si no existio ningun error, retornamos un mensaje por cada archivo subido
+                $mensage .= '-> Archivo <b>' . $NombreOriginal . '</b> Subido correctamente. <br>';
+                $valor = "0";
+            }
+            if ($key['error'] != '') {//Si existio algún error retornamos un el error por cada archivo.
+                $mensage .= '-> No se pudo subir el archivo <b>' . $NombreOriginal . '</b> debido al siguiente Error: \n' . $key['error'];
+                $valor = "1";
+            }
+        }
+        echo ($valor); // Regresamos los mensajes generados al cliente
+    }
+
+    function ingresarHMp() {
+
+        $ruta = './hechosmunicipales/portadas/'; //Decalaramos una variable con la ruta en donde almacenaremos los archivos
         $mensage = ''; //Declaramos una variable mensaje quue almacenara el resultado de las operaciones.
         $valor = "0";
         foreach ($_FILES as $key) { //Iteramos el arreglo de archivos
@@ -244,11 +277,14 @@ class Welcome extends CI_Controller {
     }
 
     function ingresarHMf() {
+        $mencion = $this->input->post('txtmencion');
         $fe = $this->input->post('fecha');
         $p1 = $this->input->post('p1');
+        $p2 = $this->input->post('p2');
         $p1 = date("Y-m-d-H") . $p1;
+        $p2 = date("Y-m-d-H") . $p2;
         $valor = 1;
-        if ($this->modelo->ingresarHMf($fe, $p1) == 0) {
+        if ($this->modelo->ingresarHMf($mencion, $fe, $p1, $p2) == 0) {
             $valor = 0;
         }
         echo json_encode(array("valor" => $valor));
@@ -305,15 +341,16 @@ class Welcome extends CI_Controller {
         $datos['noticias'] = $data->result();
         $this->load->view('reportenoti', $datos);
     }
-    
- function verreporteacti() {
-     $id_conectado = $this->session->userdata('id_conectado');
+
+    function verreporteacti() {
+        $id_conectado = $this->session->userdata('id_conectado');
 
         $data = $this->modelo->verreporteacti($id_conectado);
         $datos['cantidad'] = $data->num_rows();
         $datos['noticias'] = $data->result();
         $this->load->view('reporteactividad', $datos);
     }
+
     function vernoticia() {
         $id = $this->input->post('id');
 
@@ -484,6 +521,13 @@ class Welcome extends CI_Controller {
         $this->load->view('concejo', $datos);
     }
 
+    function cuentaspublicas() {
+        $data = $this->modelo->cuentaspublicas();
+        $datos['cuentaspublicas'] = $data->result();
+        $datos['cantidad'] = $data->num_rows();
+        $this->load->view('cuentaspublicas', $datos);
+    }
+
     function actividad() {
         $id = $this->input->post('id');
         $data = $this->modelo->actividad($id);
@@ -492,77 +536,97 @@ class Welcome extends CI_Controller {
         $this->load->view('reporteactividadconcej', $datos);
     }
 
+    function vistaembepdf() {
+        $this->load->view('menu/mebePDF');
+    }
+
+    
+    
+    
     //    -------------reporteactividadconcej---------alejandro----------
+    function vistaPersonalRemun() {
+        $this->load->view('personalRemun');
+    }
+
+    //    ----------------------alejandro----------
     //quienes somos
     function vistaquienSomos() {
-        $this->load->view('quienSomos');
+        $this->load->view('menu/quienSomos');
     }
 
     //historia
     function vistaHistoria() {
-        $this->load->view('historia');
+        $this->load->view('menu/historia');
     }
 
     //msj alcalde
     function vistaMSJalcalde() {
-        $this->load->view('mensajeAlcalde');
+        $this->load->view('menu/mensajeAlcalde');
+    }
+
+    //consejo municipal
+    function vistaConsejoMunicipal() {
+        $this->load->view('menu/consejoMunicipal');
     }
 
     //estructura organica
     function vistaOrganigrama() {
-        $this->load->view('organigrama');
+        $this->load->view('menu/organigrama');
     }
 
     function vistaOrganigramaDepto() {
-        $this->load->view('organigramasDepartamentos');
+        $this->load->view('menu/organigramasDepartamentos');
     }
 
-//salud
+    //salud
 
     function vistaSalud() {
-        $this->load->view('deptoSalud');
+        $this->load->view('menu/deptoSalud');
     }
 
     //cartografia
     function vistaDeCartografia() {
-        $this->load->view('cartografia');
+        $this->load->view('menu/cartografia');
     }
 
     //deporte
     function vistaDeporte() {
-        $this->load->view('deporte');
+        $this->load->view('menu/deporte');
     }
 
     //direcion unidades
     function vistaDireccionUnidad() {
-        $this->load->view('directorUnidad');
+        $this->load->view('menu/directorUnidad');
     }
 
     //jefe depto
     function vistajefeDepto() {
-        $this->load->view('jefeDepartamento');
+        $this->load->view('menu/jefeDepartamento');
     }
 
-    //echos municipales
-    function vistaechosmunicipales() {
+//   ----------------trasparecia Activa--------------
 
-        $this->load->view('hechos-municipales');
+    function menuTA() {
+        $this->load->view('menuTA');
     }
 
-    function vistaembepdf() {
-        $this->load->view('mebePDF');
-    }
-
-    function vistaMenuTransActiva() {
-        $this->load->view('menuTransActiva');
-    }
-
+//    function vistaMenuTransActiva() {
+//        $this->load->view('menuTransActiva');
+//    }
 // diario oficial
     function vistaDiarioOficial() {
         $datos = $this->modelo->TBDiarioOficial();
         $data['cantidad'] = $datos->num_rows();
         $data['resultado'] = $datos->result();
-        $this->load->view('diarioOficial', $data);
+        $this->load->view('Trasparencia/diarioOficial', $data);
+    }
+
+    //marco narrativo
+    function vistaMarcoNormativo() {
+        $datos = $this->modelo->TBMarcoNormativo();
+        $data['cantidad'] = $datos->num_rows();
+        $data['resultado'] = $datos->result();
+        $this->load->view('Trasparencia/MarcoNormativo', $data);
     }
 
     // potestad
@@ -570,20 +634,20 @@ class Welcome extends CI_Controller {
         $datos = $this->modelo->TBPotestades();
         $data['cantidad'] = $datos->num_rows();
         $data['resultado'] = $datos->result();
-        $this->load->view('potestades', $data);
+        $this->load->view('Trasparencia/potestades', $data);
     }
 
-    //marco narrativo
+    function vistaotrasTransferencias() {
 
-    function vistaMarcoNarrat() {
-        $datos = $this->modelo->TBMarcoNarrativo();
-        $data['cantidad'] = $datos->num_rows();
-        $data['resultado'] = $datos->result();
-        $this->load->view('marcoNarrativo', $data);
-    }
+        $datos1 = $this->modelo->TBotrasTransferencias1();
+        $data['cantidad1'] = $datos1->num_rows();
+        $data['resultado1'] = $datos1->result();
 
-    function vistaPersonalRemun() {
-        $this->load->view('personalRemun');
+        $datos2 = $this->modelo->TBotrasTransferencias2();
+        $data['cantidad2'] = $datos2->num_rows();
+        $data['resultado2'] = $datos2->result();
+
+        $this->load->view('Trasparencia/otrasTransferencias', $data);
     }
 
     function vistaEmprendedores() {
@@ -596,7 +660,7 @@ class Welcome extends CI_Controller {
         $data['cantidad2'] = $datos2->num_rows();
         $data['resultado2'] = $datos2->result();
 
-        $this->load->view('emprendedores', $data);
+        $this->load->view('Trasparencia/emprendedores', $data);
     }
 
     function vistaPostulacionFondeve() {
@@ -605,33 +669,58 @@ class Welcome extends CI_Controller {
         $data['resultado'] = $datos->result();
 
 
-        $this->load->view('PostulacionFondeve', $data);
+        $this->load->view('Trasparencia/PostulacionFondeve', $data);
     }
 
     function vistaConcursoPublicos() {
         $datos = $this->modelo->TBConcursoPublicos();
         $data['cantidad'] = $datos->num_rows();
         $data['resultado'] = $datos->result();
-        $this->load->view('concursopublicos', $data);
+        $this->load->view('Trasparencia/concursopublicos', $data);
     }
 
     function vistaPatenteComerc() {
         $datos = $this->modelo->TBPatenteComerc();
         $data['cantidad'] = $datos->num_rows();
         $data['resultado'] = $datos->result();
-        $this->load->view('patenteComerc', $data);
+        $this->load->view('Trasparencia/patenteComerc', $data);
     }
 
     function vistaPermisoEdif() {
         $datos = $this->modelo->TBPermisoEdif();
         $data['cantidad'] = $datos->num_rows();
         $data['resultado'] = $datos->result();
-        $this->load->view('PermisoEdif', $data);
+        $this->load->view('Trasparencia/PermisoEdif', $data);
     }
 
     function vistaDecretoMunicipales() {
 
-        $this->load->view('DecretoMunicipales');
+        $this->load->view('Trasparencia/DecretoMunicipales');
+    }
+
+    function vistaDecretoTransito() {
+
+        $this->load->view('Trasparencia/DecretoTransito');
+    }
+
+    function vistaDecretoObras() {
+
+        $this->load->view('Trasparencia/DecretoObras');
+    }
+
+    function vistaDecretoRentas() {
+
+        $this->load->view('Trasparencia/DecretoRentas');
+    }
+
+    function vistaTablaDecreto() {
+        $codigo = $this->input->post('codigo');
+        $anio = $this->input->post('anios');
+
+        $datos = $this->modelo->TBDecretos($codigo, $anio);
+        $data['cantidad'] = $datos->num_rows();
+        $data['resultado'] = $datos->result();
+        $this->load->view('Trasparencia/TablaDecretos', $data);
     }
 
     function vistaOrdenanzas() {
@@ -639,7 +728,22 @@ class Welcome extends CI_Controller {
         $datos = $this->modelo->TBOrdenanzas();
         $data['cantidad'] = $datos->num_rows();
         $data['resultado'] = $datos->result();
-        $this->load->view('ordenanzas', $data);
+        $this->load->view('Trasparencia/ordenanzas', $data);
+    }
+
+    function vistaSumarios() {
+
+        $this->load->view('Trasparencia/sumarios');
+    }
+
+    function vistaTablaSumarios() {
+        $anio = $this->input->post('anios');
+
+
+        $datos = $this->modelo->TBSumarios($anio);
+        $data['cantidad'] = $datos->num_rows();
+        $data['resultado'] = $datos->result();
+        $this->load->view('Trasparencia/TablaSumarios', $data);
     }
 
     function vistaConvenios() {
@@ -647,87 +751,88 @@ class Welcome extends CI_Controller {
         $datos = $this->modelo->TBConvenios();
         $data['cantidad'] = $datos->num_rows();
         $data['resultado'] = $datos->result();
-        $this->load->view('convenios', $data);
-    }
-
-    function vistaMe3utm() {
-        $this->load->view('CMe3UTM');
-    }
-
-    function vistaMa3utm() {
-        $this->load->view('CMa3UTM');
+        $this->load->view('Trasparencia/convenios', $data);
     }
 
     function vistaMpartCiudadana() {
-        $this->load->view('MparticipacionCiudadana');
+
+        $datos = $this->modelo->TBMparticipacionCiudadana();
+        $data['cantidad'] = $datos->num_rows();
+        $data['resultado'] = $datos->result();
+        $this->load->view('Trasparencia/MparticipacionCiudadana', $data);
+    }
+
+    function vistaConsejeros() {
+        $datos = $this->modelo->TBConsejeros();
+        $data['cantidad'] = $datos->num_rows();
+        $data['resultado'] = $datos->result();
+        $this->load->view('Trasparencia/consejeros', $data);
     }
 
     function vistaActasConsejos() {
-        $this->load->view('actasConsejo');
+        $datos = $this->modelo->TBActaConsejo();
+        $data['cantidad'] = $datos->num_rows();
+        $data['resultado'] = $datos->result();
+        $this->load->view('Trasparencia/actasConsejo', $data);
     }
 
     function vistaCpublicas() {
-        $this->load->view('cuentasPublicas');
-    }
 
-    function vistaEntiMunicipales() {
-        $this->load->view('VinculosEntidades');
-    }
-
-    function vistaDocReservados() {
-        $this->load->view('DocReservados');
-    }
-
-    function vistaAntePreparatorios() {
-        $this->load->view('antePreparatorios');
-    }
-
-    function vistaDificultades() {
-        $this->load->view('DifTecnicas');
-    }
-
-    function vistaResAuditorias() {
-        $this->load->view('resAuditorias');
-    }
-
-    function vistaInfoTrimestral() {
-        $this->load->view('infoTrimestrales');
-    }
-
-    function vistaVideoSenias() {
-        $this->load->view('VideoSenias');
-    }
-
-    function vistaFComunMuni() {
-        $this->load->view('FComunMun');
-    }
-
-    function vistaInfoPTrimestral() {
-        $this->load->view('infPTrimestral');
-    }
-
-    function vistaModPresupuestaria() {
-        $this->load->view('modPresupuestaria');
-    }
-
-    function vistaBPreAreasPresup() {
-        $this->load->view('BPreAreasPresup');
+        $datos = $this->modelo->TBCuentasPublicas();
+        $data['cantidad'] = $datos->num_rows();
+        $data['resultado'] = $datos->result();
+        $this->load->view('Trasparencia/cuentasPublicas', $data);
     }
 
     function vistaPrepAreaMuni() {
-        $this->load->view('PrepAreaMuni');
+        $datos = $this->modelo->TBPrepAreaMuni();
+        $data['cantidad'] = $datos->num_rows();
+        $data['resultado'] = $datos->result();
+        $this->load->view('PrepAreaMuni', $data);
     }
 
-    function vistaEstadosFinan() {
-        $this->load->view('estadosFinan');
+    function vistaFComunMuni() {
+        $datos = $this->modelo->TBFComunMun();
+        $data['cantidad'] = $datos->num_rows();
+        $data['resultado'] = $datos->result();
+        $this->load->view('Trasparencia/FComunMun', $data);
     }
 
-    function vistaCostosReproduccion() {
-        $this->load->view('CostosReproduccion');
+    function vistaResAuditorias() {
+        $datos = $this->modelo->TBresAuditorias();
+        $data['cantidad'] = $datos->num_rows();
+        $data['resultado'] = $datos->result();
+        $this->load->view('Trasparencia/resAuditorias', $data);
+    }
+
+    function vistaInfoTrimestral() {
+        $datos = $this->modelo->TBinfoTrimestrales();
+        $data['cantidad'] = $datos->num_rows();
+        $data['resultado'] = $datos->result();
+        $this->load->view('Trasparencia/infoTrimestrales', $data);
+    }
+
+    function vistaEntiMunicipales() {
+        $datos = $this->modelo->TBVinculosEntidades();
+        $data['cantidad'] = $datos->num_rows();
+        $data['resultado'] = $datos->result();
+        $this->load->view('Trasparencia/VinculosEntidades', $data);
     }
 
     function vistaAnteMernorTaman() {
-        $this->load->view('AnteMernorTaman');
+        $this->load->view('Trasparencia/AnteMernorTaman');
+    }
+
+    function vistaDocReservados() {
+        $this->load->view('Trasparencia/DocReservados');
+    }
+
+    function vistaCostosReproduccion() {
+        $this->load->view('Trasparencia/CostosReproduccion');
+    }
+
+    function vistaDificultades() {
+        $this->load->view('Trasparencia/DifTecnicas');
     }
 
 }
