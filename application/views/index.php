@@ -136,12 +136,12 @@
                             <a href="#">Departamentos</a>
                             <ul class="sub-menu">
                                 <li><a href="#" onclick="vistaDirUnidad();">Direccion Unidades</a></li> 
-                               <li><a href="#" onclick="vistaJefeDepartamentos();">Jefes de Departamentos</a></li>
+                                <li><a href="#" onclick="vistaJefeDepartamentos();">Jefes de Departamentos</a></li>
                                 <li><a href="#" onclick="vistaSaludd();">Salud</a></li>
                                 <li><a href="http://www.daemlinares.cl" target="_blank">Educacion</a></li>
                                 <li><a href="#" onclick="vistaCartografia();">Cartografia</a></li>
                                 <li><a href="#" onclick="vistaDeportes();">Deporte</a></li>
-<!--                                <li><a href="#">Transito</a></li>                           -->
+                                <!--                                <li><a href="#">Transito</a></li>                           -->
                             </ul>
                         </li>                         
                         <li>                           
@@ -344,14 +344,14 @@
                             <div class="clearfix"></div>
                         </ul>
                     </div>
-
+                    <h5 class="titulo-seccion">Cartelera de Eventos</h5>
                     <div class="fotodeldia">
 
                         <a href="#" class="foto">
                             <img src="http://placehold.it/320x210" alt="Foto Destacada">
                             <div class="clearfix"></div>
-                            <h5>Foto Destacada</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam volutpat dui vel tellus ultricies, id sollicitudin lorem </p>
+                            <h5>CINE </h5>
+                            <p> Xmen En Teatro de Linares </p>
                         </a>
                     </div>
 

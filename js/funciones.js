@@ -14,37 +14,36 @@ $(document).ready(function () {
     $("#loginm").click(function () {
         $("#dialog").dialog("open");
     });
+
     verifaLogin();
     var p1 = "";
 });
+function vistamebePDF(id_hm) {
 
+    $.post(
+            base_url + "Welcome/vistaembepdf",
+            {id_hm},
+            function (pagina) {
+
+                $("#dialog555").dialog("open");
+                $("#stream").hide();
+                $("#verPDF").hide();
+                $("#verPDF").fadeIn(1000).delay(1000);
+                $("#verPDF").html(pagina);
+            });
+}
 function vistahechosmunicipales() {
 
     $.post(
             base_url + "Welcome/vistahechosmunicipales",
             {},
-            function (ruta,datos) {
+            function (ruta, datos) {
 
                 $("#sidebar").show();
                 $("#stream").hide();
                 $("#contenido").hide();
                 $("#contenido").fadeIn(1000).delay(1000);
-                $("#contenido").html(ruta,datos);
-
-            });
-}
-function vistamebePDF() {
-
-    $.post(
-            base_url + "Welcome/vistaembepdf",
-            {},
-            function (pagina) {
-
-                $("#sidebar").hide();
-                $("#stream").hide();
-                $("#verPDF").hide();
-                $("#verPDF").fadeIn(1000).delay(1000);
-                $("#verPDF").html(pagina);
+                $("#contenido").html(ruta, datos);
 
             });
 }
@@ -323,90 +322,100 @@ function reportenoti() {
 function ingresarHM() {
     var txtmencion = $("#txtmencion").val();
     var fecha = $("#datepicker").val();
+    var cantidadhojas = $("#cantidadhojas").val();
+
     var archivospor = document.getElementById("archFotoHM").files; //Creamos de la portada
     var archivos = document.getElementById("archivopdf").files; //Creamos un objeto con el elemento que contiene los archivos: el campo input file, que tiene el id = 'archivos'
 
     if (archivos.length !== 1 || archivospor.length !== 1) {
         alertify.error(" revise las entrada de sus archivos");
     } else {
-        if (fecha == '' || fecha == null || txtmencion == '') {
+        if (fecha == '' || fecha == null || txtmencion == '' || cantidadhojas == '') {
             alertify.error("Revise los Campos");
         } else {
-            $("#carg2").show();
-            var archivos2 = document.getElementById("archFotoHM");
-            var archivo2 = archivos2.files;
-            var archivos2 = new FormData();
-            var p2 = "";
-            for (i = 0; i < archivo2.length; i++) {
-                archivos2.append('archFotoHM' + i, archivo2[i]); //Añadimos cada archivo a el arreglo con un indice direfente
-                p2 = archivo2[i].name;
-            }
-
-            $.ajax({
-                url: base_url + "welcome/ingresarHMp", //Url a donde la enviaremos
-                type: 'POST', //Metodo que usaremos
-                contentType: false, //Debe estar en false para que pase el objeto sin procesar
-                data: archivos2, //Le pasamos el objeto que creamos con los archivos
-                processData: false, //Debe estar en false para que JQuery no procese los datos a enviar
-                cache: false //Para que el formulario no guarde cache
-            }).done(function (valor) {//Escuchamos la respuesta y capturamos el mensaje msg
-                if (valor == "0") {
-                    alertify.success(" Portada subida correctamente");
-
+            if (cantidadhojas < 2) {
+                alertify.error("revise la Cantidad");
+            } else {
+                $("#carg2").show();
+                var archivos2 = document.getElementById("archFotoHM");
+                var archivo2 = archivos2.files;
+                var archivos2 = new FormData();
+                var p2 = "";
+                for (i = 0; i < archivo2.length; i++) {
+                    archivos2.append('archFotoHM' + i, archivo2[i]); //Añadimos cada archivo a el arreglo con un indice direfente
+                    p2 = archivo2[i].name;
                 }
-            });
 
-            var archivos = document.getElementById("archivopdf");
-            var archivo = archivos.files;
-            var archivos = new FormData();
-            var p1 = "";
-            for (i = 0; i < archivo.length; i++) {
-                archivos.append('archivo' + i, archivo[i]); //Añadimos cada archivo a el arreglo con un indice direfente
-                p1 = archivo[i].name;
-            }
+                $.ajax({
+                    url: base_url + "welcome/ingresarHMp", //Url a donde la enviaremos
+                    type: 'POST', //Metodo que usaremos
+                    contentType: false, //Debe estar en false para que pase el objeto sin procesar
+                    data: archivos2, //Le pasamos el objeto que creamos con los archivos
+                    processData: false, //Debe estar en false para que JQuery no procese los datos a enviar
+                    cache: false //Para que el formulario no guarde cache
+                }).done(function (valor) {//Escuchamos la respuesta y capturamos el mensaje msg
+                    if (valor == "0") {
+                        alertify.success(" Portada subida correctamente");
 
-            $.ajax({
-                url: base_url + "welcome/ingresarHM", //Url a donde la enviaremos
-                type: 'POST', //Metodo que usaremos
-                contentType: false, //Debe estar en false para que pase el objeto sin procesar
-                data: archivos, //Le pasamos el objeto que creamos con los archivos
-                processData: false, //Debe estar en false para que JQuery no procese los datos a enviar
-                cache: false //Para que el formulario no guarde cache
-            }).done(function (valor) {//Escuchamos la respuesta y capturamos el mensaje msg
-                if (valor == "0") {
-                    alertify.success("PDF subidos correctamente");
-                    $("#carg2").hide();
-                    $.post(
-                            base_url + "welcome/ingresarHMf",
-                            {
-                                txtmencion: txtmencion,
-                                fecha: fecha,
-                                p1: p1,
-                                p2: p2
-                            },
-                            function (datos) {
+                    }
+                });
 
-                                if (datos.valor == 1) {
-                                    alertify.success("Guardado Correctamente");
-                                } else {
-                                    alertify.error("Verifique la Fecha y vuelva a Subir");
-                                }
-                            }, 'json'
-                            );
-                    $("#datepicker").val("");
-                    $("#archivopdf").val("");
-                    $("#archFotoHM").val("");
-                    $("#txtmencion").val("");
-                    $("#vis22").html("");
-                    $("#vis22").html("<div id='vistaa2'>:</div>");
-                } else {
-                    alertify.error("Error en la subida de archivos VERIFIQUE");
-                    $("#datepicker").val(" ");
-                    $("#archivopdf").val("");
-                    $("#archFotoHM").val("");
-                    $("#txtmencion").val("");
+                var archivos = document.getElementById("archivopdf");
+                var archivo = archivos.files;
+                var archivos = new FormData();
+                var p1 = "";
+                for (i = 0; i < archivo.length; i++) {
+                    archivos.append('archivo' + i, archivo[i]); //Añadimos cada archivo a el arreglo con un indice direfente
+                    p1 = archivo[i].name;
                 }
-            });
+
+                $.ajax({
+                    url: base_url + "welcome/ingresarHM", //Url a donde la enviaremos
+                    type: 'POST', //Metodo que usaremos
+                    contentType: false, //Debe estar en false para que pase el objeto sin procesar
+                    data: archivos, //Le pasamos el objeto que creamos con los archivos
+                    processData: false, //Debe estar en false para que JQuery no procese los datos a enviar
+                    cache: false //Para que el formulario no guarde cache
+                }).done(function (valor) {//Escuchamos la respuesta y capturamos el mensaje msg
+                    if (valor == "0") {
+                        alertify.success("PDF subidos correctamente");
+                        $("#carg2").hide();
+                        $.post(
+                                base_url + "welcome/ingresarHMf",
+                                {
+                                    txtmencion: txtmencion,
+                                    fecha: fecha,
+                                    p1: p1,
+                                    p2: p2,
+                                    cantidadhojas: cantidadhojas
+
+                                },
+                                function (datos) {
+
+                                    if (datos.valor == 1) {
+                                        alertify.success("Guardado Correctamente");
+                                    } else {
+                                        alertify.error("Verifique la Fecha y vuelva a Subir");
+                                    }
+                                }, 'json'
+                                );
+                        $("#datepicker").val("");
+                        $("#archivopdf").val("");
+                        $("#archFotoHM").val("");
+                        $("#txtmencion").val("");
+                        $("#cantidadhojas").val("");
+                        $("#vis22").html("");
+                        $("#vis22").html("<div id='vistaa2'>:</div>");
+                    } else {
+                        alertify.error("Error en la subida de archivos VERIFIQUE");
+                        $("#datepicker").val(" ");
+                        $("#archivopdf").val("");
+                        $("#archFotoHM").val("");
+                        $("#txtmencion").val("");
+                        $("#cantidadhojas").val("");
+                    }
+                });
+            }
         }
     }
 

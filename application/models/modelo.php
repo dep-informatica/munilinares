@@ -15,7 +15,8 @@ class modelo extends CI_Model {
         $this->db->where('id_usuario', $id_conectado);
         return $this->db->get('usuarios');
     }
-      function cuentaspublicas() {
+
+    function cuentaspublicas() {
         $this->db->select('*');
         $this->db->order_by("id", "desc");
         return $this->db->get('cuentaspublicas');
@@ -27,6 +28,11 @@ class modelo extends CI_Model {
         $this->db->select('id_usuario');
         $this->db->where('correo', $correo);
         return $this->db->get('usuarios');
+    }
+      function vistapdf($id_hm){
+        $this->db->select('*');
+        $this->db->where('id_hm', $id_hm);
+        return $this->db->get('hechosmunicipal');
     }
 
     function existe($correo) {
@@ -64,12 +70,13 @@ class modelo extends CI_Model {
         }
     }
 
-    function ingresarHMf($mencion,$fe, $p1,$p2) {
+    function ingresarHMf($mencion, $fe, $p1, $p2, $cantidadhojas) {
         $data = array("mencion" => $mencion,
-            "ruta_img"=> $p2,
+            "ruta_img" => $p2,
             "ruta_pdf" => $p1,
-            "fecha_publicacion"=>$fe);
-        if ($this->db->insert('hechosmunicipal', $data)==0) {
+            "cantidad_hojas" => $cantidadhojas,
+            "fecha_publicacion" => $fe);
+        if ($this->db->insert('hechosmunicipal', $data) == 0) {
             return 0;
         } else {
             return 1;
@@ -80,7 +87,8 @@ class modelo extends CI_Model {
         $query = "SELECT * FROM `usuarios` WHERE `perfil`='2'";
         return $this->db->query($query);
     }
-      function vistahechosmunicipales() {
+
+    function vistahechosmunicipales() {
         $query = "SELECT * FROM `hechosmunicipal` ORDER BY `fecha_publicacion` DESC";
         return $this->db->query($query);
     }
@@ -205,7 +213,7 @@ class modelo extends CI_Model {
         $data = array("fk_actividad_concejal" => $id_conectado,
             "titulo" => $txttituloactividad,
             "texto" => $txtparrafoactividad,
-            "foto"=>$p1);
+            "foto" => $p1);
         if ($this->db->insert('actividad_concejales', $data)) {
             return 1;
         } else {
@@ -225,6 +233,7 @@ class modelo extends CI_Model {
             return 1;
         }
     }
+
     function eliminaractividad($id_actividad_concejal) {
 
 
@@ -247,6 +256,7 @@ class modelo extends CI_Model {
         $consulta = "SELECT `id_actividad_concejal`, `titulo` FROM `actividad_concejales` where `fk_actividad_concejal`='" . $id_conectado . "'";
         return $this->db->query($consulta);
     }
+
     function reportenoti() {
         $consulta = "SELECT `id_noticia`, `titulo` FROM `noticia`";
         return $this->db->query($consulta);
@@ -391,7 +401,7 @@ FROM solicitud INNER JOIN usuario ON solicitud.fk_usuario=usuario.id_usuario INN
         //actualizar la tabla solicitud cambiando el estado a derivado
     }
 
-  function TBDiarioOficial() {
+    function TBDiarioOficial() {
         $query = "select * From diariooficial order by  FechaPublicacion";
 
         return $this->db->query($query);
@@ -519,12 +529,12 @@ FROM solicitud INNER JOIN usuario ON solicitud.fk_usuario=usuario.id_usuario INN
         return $this->db->query($query);
     }
 
-        function TBinfoTrimestrales() {
+    function TBinfoTrimestrales() {
         $query = "select * From infotrimestrales";
         return $this->db->query($query);
     }
-    
-        function TBVinculosEntidades() {
+
+    function TBVinculosEntidades() {
         $query = "select * From vinculosentidades";
 
         return $this->db->query($query);

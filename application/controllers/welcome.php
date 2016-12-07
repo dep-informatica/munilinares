@@ -27,12 +27,20 @@ class Welcome extends CI_Controller {
         echo json_encode(array("valor" => $valor));
     }
 
+    
+    function vistaembepdf() {
+        $id_hm = $this->input->post('id_hm');
+        $data = $this->modelo->vistapdf($id_hm);
+        $datos['reporte'] = $data->result();
+        $this->load->view('menu/mebePDF',$datos);
+    }
+    
+    
     function eliminaractividad() {
         $id_actividad_concejal = $this->input->post('id_actividad_concejal');
         $valor = $this->modelo->eliminaractividad($id_actividad_concejal);
         echo json_encode(array("valor" => $valor));
     }
-
     function vistahechosmunicipales() {
 
         $data = $this->modelo->vistahechosmunicipales();
@@ -40,7 +48,6 @@ class Welcome extends CI_Controller {
         $datos['reporte'] = $data->result();
         $this->load->view('vistahechosmunicipales.php', $datos);
     }
-
     function leer() {
 
         $codigo = $this->input->post('codigo');
@@ -53,7 +60,6 @@ class Welcome extends CI_Controller {
         }
         echo json_encode(array("comentario" => $comentario, "fecha" => $fecha));
     }
-
     function propuesta() {
         $valor = 0;
         $id_conectado = $this->session->userdata('id_conectado');
@@ -63,7 +69,6 @@ class Welcome extends CI_Controller {
         }
         echo json_encode(array("valor" => $valor));
     }
-
     function actualizarperfil2() {
         $id_conectado = $this->session->userdata('id_conectado');
         $propuesta = $this->input->post('txtpropuesta');
@@ -76,7 +81,6 @@ class Welcome extends CI_Controller {
         }
         echo json_encode(array("valor" => $valor));
     }
-
     function ingreactividadconfoto() {
         $id_conectado = $this->session->userdata('id_conectado');
         $txttituloactividad = $this->input->post('txttituloactividad');
@@ -90,7 +94,6 @@ class Welcome extends CI_Controller {
         }
         echo json_encode(array("valor" => $valor));
     }
-
     function ingreactividad() {
         $id_conectado = $this->session->userdata('id_conectado');
         $txttituloactividad = $this->input->post('txttituloactividad');
@@ -101,7 +104,6 @@ class Welcome extends CI_Controller {
         }
         echo json_encode(array("valor" => $valor));
     }
-
     function ingresarnoticia() {
 
         $titulo = $this->input->post('titulo');
@@ -131,7 +133,6 @@ class Welcome extends CI_Controller {
         }
         echo json_encode(array("valor" => $valor));
     }
-
     function ingresaralbun() {
 
         $ruta = './Files/'; //Decalaramos una variable con la ruta en donde almacenaremos los archivos
@@ -155,7 +156,6 @@ class Welcome extends CI_Controller {
         }
         echo ($valor); // Regresamos los mensajes generados al cliente
     }
-
     function actividadfoto() {
 
         $ruta = './img/concejales/actividad/'; //Decalaramos una variable con la ruta en donde almacenaremos los archivos
@@ -179,7 +179,6 @@ class Welcome extends CI_Controller {
         }
         echo ($valor); // Regresamos los mensajes generados al cliente
     }
-
     function actualizarperfil() {
 
         $ruta = './img/concejales/'; //Decalaramos una variable con la ruta en donde almacenaremos los archivos
@@ -203,7 +202,6 @@ class Welcome extends CI_Controller {
         }
         echo ($valor); // Regresamos los mensajes generados al cliente
     }
-
     function ingresportada() {
 
         $ruta = './Files/'; //Decalaramos una variable con la ruta en donde almacenaremos los archivos
@@ -227,7 +225,6 @@ class Welcome extends CI_Controller {
         }
         echo ($valor); // Regresamos los mensajes generados al cliente
     }
-
     function ingresarHM() {
 
         $ruta = './hechosmunicipales/pdf/'; //Decalaramos una variable con la ruta en donde almacenaremos los archivos
@@ -251,7 +248,6 @@ class Welcome extends CI_Controller {
         }
         echo ($valor); // Regresamos los mensajes generados al cliente
     }
-
     function ingresarHMp() {
 
         $ruta = './hechosmunicipales/portadas/'; //Decalaramos una variable con la ruta en donde almacenaremos los archivos
@@ -275,21 +271,20 @@ class Welcome extends CI_Controller {
         }
         echo ($valor); // Regresamos los mensajes generados al cliente
     }
-
     function ingresarHMf() {
         $mencion = $this->input->post('txtmencion');
         $fe = $this->input->post('fecha');
         $p1 = $this->input->post('p1');
         $p2 = $this->input->post('p2');
+        $cantidadhojas = $this->input->post('cantidadhojas');
         $p1 = date("Y-m-d-H") . $p1;
         $p2 = date("Y-m-d-H") . $p2;
         $valor = 1;
-        if ($this->modelo->ingresarHMf($mencion, $fe, $p1, $p2) == 0) {
+        if ($this->modelo->ingresarHMf($mencion, $fe, $p1, $p2, $cantidadhojas) == 0) {
             $valor = 0;
         }
         echo json_encode(array("valor" => $valor));
     }
-
     function conectar() {
 
         $correo = $this->input->post('correo');
@@ -313,11 +308,9 @@ class Welcome extends CI_Controller {
         $this->session->set_userdata($cookie);
         echo json_encode(array("valor" => $valor, "correo" => $correo, "permiso" => $permiso, "nombre2" => $nombre2));
     }
-
     function cerrar() {
         $this->session->sess_destroy();
     }
-
     function verifaLogin() {
         $valor = 0;
         $correo = '';
@@ -328,20 +321,17 @@ class Welcome extends CI_Controller {
         $permiso = $this->session->userdata('permiso');
         echo json_encode(array("valor" => $valor, "correo" => $correo, "permiso" => $permiso));
     }
-
     function cargarnoticias() {
 
         $datos['noticia'] = $this->modelo->cargarnoticias()->result();
         $this->load->view('inicio', $datos);
     }
-
     function reportenoti() {
         $data = $this->modelo->reportenoti();
         $datos['cantidad'] = $data->num_rows();
         $datos['noticias'] = $data->result();
         $this->load->view('reportenoti', $datos);
     }
-
     function verreporteacti() {
         $id_conectado = $this->session->userdata('id_conectado');
 
@@ -350,19 +340,16 @@ class Welcome extends CI_Controller {
         $datos['noticias'] = $data->result();
         $this->load->view('reporteactividad', $datos);
     }
-
     function vernoticia() {
         $id = $this->input->post('id');
 
         $datos['noticia'] = $this->modelo->vernoticia($id)->result();
         $this->load->view('noticia', $datos);
     }
-
     function cargarCategorias2() {
         $datos['categorias'] = $this->modelo->vernoticia()->result();
         $this->load->view('categorias2', $datos);
     }
-
     function ingresarcategoria() {
         $categorianueva = $this->input->post('categorianueva');
 
@@ -372,7 +359,6 @@ class Welcome extends CI_Controller {
         }
         echo json_encode(array("valor" => $valor));
     }
-
     function modificarcategoria() {
         $categorianueva = $this->input->post('categorianueva');
         $actual = $this->input->post('actual');
@@ -382,7 +368,6 @@ class Welcome extends CI_Controller {
         }
         echo json_encode(array("valor" => $valor));
     }
-
     function evaluar() {
 
         $id = $this->input->post('id');
@@ -394,7 +379,6 @@ class Welcome extends CI_Controller {
         }
         echo json_encode(array("valor" => $valor));
     }
-
     function guardarcambios() {
 
         $id = $this->input->post('id_solicitud');
@@ -407,7 +391,6 @@ class Welcome extends CI_Controller {
         }
         echo json_encode(array("valor" => $valor));
     }
-
     function ingresosolicitud() {
         $comentario = $this->input->post('comentario');
         $categoria = $this->input->post('categoria');
@@ -423,24 +406,20 @@ class Welcome extends CI_Controller {
         }
         echo json_encode(array("valor" => $valor));
     }
-
     function cargarsolicitudes() {
         $correo = $this->session->userdata('correo');
         $datos['solicitudes'] = $this->modelo->cargarsolicitudes($correo)->result();
         $this->load->view('ReporteSolicitudes', $datos);
     }
-
     function cargacpanel() {
         $this->load->view('cpanel');
     }
-
     function cargacpanelconcejo() {
         $id_conectado = $this->session->userdata('id_conectado');
         $data = $this->modelo->queconcejal($id_conectado);
         $datos['infoconcejal'] = $data->result();
         $this->load->view('cpanelconcejo', $datos);
     }
-
     function reportecliente() {
         $id_conectado = $this->session->userdata('id_conectado');
         $data = $this->modelo->reportecliente($id_conectado);
@@ -448,7 +427,6 @@ class Welcome extends CI_Controller {
         $datos['solicitudes'] = $data->result();
         $this->load->view('CARGASOLICITUDESCLIENTE', $datos);
     }
-
     function reportetecnico() {
         $correo = $this->session->userdata('correo');
         $data = $this->modelo->reportetecnico($correo);
@@ -456,7 +434,6 @@ class Welcome extends CI_Controller {
         $datos['solicitudes'] = $data->result();
         $this->load->view('reportesolicitudesTecnico', $datos);
     }
-
     function derivar() {
 
         $id_solicitud = $this->input->post('id_solicitud');
@@ -536,13 +513,7 @@ class Welcome extends CI_Controller {
         $this->load->view('reporteactividadconcej', $datos);
     }
 
-    function vistaembepdf() {
-        $this->load->view('menu/mebePDF');
-    }
 
-    
-    
-    
     //    -------------reporteactividadconcej---------alejandro----------
     function vistaPersonalRemun() {
         $this->load->view('personalRemun');

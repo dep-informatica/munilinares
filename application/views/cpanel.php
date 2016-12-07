@@ -268,7 +268,7 @@
                         <tr>
                         <tr>
                             <td>Mencion:</td>
-                            <td><input size="30" id="txtmencion" type="text" placeholder="extracto correspondiente al perio de.."></td>
+                            <td><input size="30" id="txtmencion" type="text" placeholder="extracto correspondiente al periodo ..."></td>
 
                         </tr>
                         <tr style="background-color: #f2f2f2">
@@ -293,6 +293,10 @@
                             <td>Selecciones Archivo PDF:</td>
                             <td><input type="file" placeholder=" archivo PDF"name="archivopdf" id="archivopdf"/></td>
                         </tr>
+                        <tr>
+                            <td>Cantidad De Paginas PDF</td>
+                            <td><input type="number" id="cantidadhojas" name="cantidadhojas" placeholder="20"></td>
+                        </tr>
                         <tr style="background: #efefef">
                             <td> VISTA PREVIA </td>
                             <td><div id="vis22">
@@ -312,7 +316,6 @@
                             <td><div id="boton_subir">Ingresar Boletin</div></td>
                         </tr>
                     </table>
-
                 </div>
                 <div id="tabs-3">
                     <div id="reportenoti">Ver Reporte de Noticias </div>
