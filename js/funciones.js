@@ -19,7 +19,6 @@ $(document).ready(function () {
     var p1 = "";
 });
 function vistamebePDF(id_hm) {
-
     $.post(
             base_url + "Welcome/vistaembepdf",
             {id_hm},
@@ -32,6 +31,7 @@ function vistamebePDF(id_hm) {
                 $("#verPDF").html(pagina);
             });
 }
+
 function vistahechosmunicipales() {
 
     $.post(
@@ -47,6 +47,7 @@ function vistahechosmunicipales() {
 
             });
 }
+
 function conectar() {
     var correo = $("#correo").val();
     var clave = $("#clave").val();
@@ -75,6 +76,11 @@ function conectar() {
                             $("#contenido").show();
                             cargacpanelconcejo();
                         }
+                        if (datos.permiso == 3) {
+                            $("#contenido").show();
+                            cpaneleventos();
+                        }
+
                         verifaLogin();
                     }
                 }, 'json'
@@ -113,9 +119,24 @@ function verifaLogin() {
                         $("#contenido").show();
                         cargacpanelconcejo();
                     }
+                    if (datos.permiso == 3) {
+                        $("#contenido").show();
+                        cpaneleventos();
+                    }
                 }
             }, 'json'
             );
+}
+function cpaneleventos() {
+    $.post(
+            base_url + "welcome/cpaneleventos",
+            {},
+            function (ruta, datos) {
+                $("#stream").hide();
+                $("#contenido").hide();
+                $("#contenido").html(ruta, datos);
+                $("#contenido").show('fast');
+            });
 }
 function cargacpanel() {
     $.post(
@@ -319,6 +340,69 @@ function reportenoti() {
                 $("#reportenoticias").html(ruta, datos);
             });
 }
+function ingresaevento() {
+    var tituloevento = $("#tituloevento").val();
+    var detalleevento = $("#detalleevento").val();
+    var direccionevento = $("#cdireccionevento").val();
+    var fechaevento = $("#fechaevento").val();
+    var fechadesde = $("#fechadesde").val();
+    var fechahasta = $("#fechahasta").val();
+    var p2 = "";
+    var archivos2 = document.getElementById("fotoevento");
+    if (tituloevento || detalleevento || direccionevento || fechaevento || fechadesde || fechahasta == '') {
+        alertify.error("Revise Los Campos")
+    } else {
+        if (archivos2.length !== 1) {
+            alertify.error("Seleccione una imagen para su evento");
+        } else {
+
+            var archivo2 = archivos2.files;
+            var archivos2 = new FormData();
+            for (i = 0; i < archivo2.length; i++) {
+                archivos2.append('fotoevento' + i, archivo2[i]); //Añadimos cada archivo a el arreglo con un indice direfente
+                p2 = archivo2[i].name;
+            }
+
+            $.ajax({
+                url: base_url + "welcome/ingresarevento", //Url a donde la enviaremos
+                type: 'POST', //Metodo que usaremos
+                contentType: false, //Debe estar en false para que pase el objeto sin procesar
+                data: archivos2, //Le pasamos el objeto que creamos con los archivos
+                processData: false, //Debe estar en false para que JQuery no procese los datos a enviar
+                cache: false //Para que el formulario no guarde cache
+            }).done(function (valor) {//Escuchamos la respuesta y capturamos el mensaje msg
+                if (valor == "0") {
+                    alertify.success("Imagen subida correctamente");
+
+                }
+            });
+            $.post(
+                    base_url + "welcome/ingresareventod",
+                    {
+                        tituloevento: tituloevento,
+                        detalleevento: detalleevento,
+                        direccionevento: direccionevento,
+                        fechaevento: fechaevento,
+                        fechadesde: fechadesde,
+                        fechahasta: fechahasta,
+                        p2:p2
+                    },
+                    function (datos) {
+                        if (datos.valor == 1) {
+                            alertify.success("Evento guardado Correctamente");
+                        } else {
+                            alertify.error("Verifique los datos");
+                        }
+                    }, 'json'
+                    );
+        }
+
+    }
+
+
+
+}
+
 function ingresarHM() {
     var txtmencion = $("#txtmencion").val();
     var fecha = $("#datepicker").val();
@@ -388,7 +472,6 @@ function ingresarHM() {
                                     p1: p1,
                                     p2: p2,
                                     cantidadhojas: cantidadhojas
-
                                 },
                                 function (datos) {
 

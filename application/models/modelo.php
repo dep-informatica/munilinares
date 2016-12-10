@@ -29,7 +29,8 @@ class modelo extends CI_Model {
         $this->db->where('correo', $correo);
         return $this->db->get('usuarios');
     }
-      function vistapdf($id_hm){
+
+    function vistapdf($id_hm) {
         $this->db->select('*');
         $this->db->where('id_hm', $id_hm);
         return $this->db->get('hechosmunicipal');
@@ -67,6 +68,21 @@ class modelo extends CI_Model {
             return 1;
         } else {
             return 0;
+        }
+    }
+
+    function ingresareventod($tituloevento, $detalleevento, $direccionevento, $fechaevento, $fechadesde, $fechahasta, $p2) {
+        $data = array("titulo" => $tituloevento,
+            "texto" => $detalleevento,
+            "direccion" => $direccionevento,
+            "fecha_evento" => $fechaevento,
+            "fecha_inicio" => $fechadesde,
+            "fecha_fin" => $fechahasta, 
+            "ruta_img" => $p2);
+        if ($this->db->insert('eventos', $data) == 0) {
+            return 0;
+        } else {
+            return 1;
         }
     }
 
